@@ -1,9 +1,7 @@
-import { createApp } from 'vue';
-import App from '@/App.vue';
+import App from '@/App.tsx';
 import plugins from '@/plugins';
-import directives from '@/directives';
-import '@/styles/index.scss';
-import 'font-awesome/css/font-awesome.min.css';
+// import directives from '@/directives';
+import '@/styles/global.scss';
 
 const bootstrap = (): void => {
   // 创建 vue 实例对象
@@ -11,7 +9,7 @@ const bootstrap = (): void => {
   // 挂载插件
   plugins(app);
   // 挂载指令
-  directives(app);
+  // directives(app);
   // 挂载到 app 中
   app.mount('#app');
 };

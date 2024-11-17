@@ -1,17 +1,20 @@
 import { RouteRecordRaw } from 'vue-router';
+
 export default {
   path: '/auth',
-  component: () => import('@/layouts/auth/index.vue'),
+  component: () => import('@/pages/auth/route'),
+  meta: { guest: true },
   children: [
     {
       path: 'login',
-      name: 'login',
-      component: () => import('@/views/auth/login.vue'),
+      name: RouteName.LOGIN,
+      meta: { loginView: true },
+      component: () => import('@/pages/auth/login'),
     },
     {
       path: 'register',
-      name: 'register',
-      component: () => import('@/views/auth/register.vue'),
+      name: RouteName.REGISTER,
+      component: () => import('@/pages/auth/register'),
     },
   ],
 } as RouteRecordRaw;

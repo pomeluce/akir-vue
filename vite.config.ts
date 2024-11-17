@@ -1,68 +1,58 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import path from 'path';
-import autoImport from './core/auto-import';
+import UnoCSS from 'unocss/vite';
+import { resolve } from 'path';
+import { autoImport, mock } from './core/plugins';
 import { parseEnv } from './core/utils';
-import mock from './core/mock';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  // 获取当前环境模式
   const isBuild = command === 'build';
-  // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
   const env = parseEnv(loadEnv(mode, process.cwd()));
+
   return {
-    // 加载插件
-    plugins: [...autoImport, vue(), vueJsx(), mock(isBuild, env)],
-    // 配置路径别名
+    plugins: [...autoImport, vue(), vueJsx(), UnoCSS(), mock(isBuild, env)],
     resolve: {
-      // 导入组件忽略文件后缀
       extensions: ['.vue', '.js', '.jsx', '.ts', '.tsx'],
-      // 配置路径别名
       alias: {
-        '@': path.resolve(__dirname, 'src'),
-        '#': path.resolve(__dirname, 'types'),
+        '@': resolve(__dirname, 'src'),
+        '#': resolve(__dirname, 'types'),
       },
     },
     css: {
-      // 开启 css 模块化
       modules: {
+        generateScopedName: '[local]-[hash:8]',
+        hashPrefix: 'flx',
         localsConvention: 'camelCaseOnly',
       },
-      // 允许组件在 scoped 下访问全局 scss 变量
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "@/styles/mixin.scss";`,
-        },
-      },
+      preprocessorOptions: { scss: { api: 'modern-compiler' } },
     },
     base: isBuild ? '/' : '/',
-    // 本地开发服务器配置
     server: {
-      // 监听本地所有 ip
       host: true,
-      // 代理
-      proxy: env.VITE_MOCK_ENABLE
-        ? {}
-        : {
-            [env.VITE_BASE_PREFIX]: {
-              target: env.VITE_API_URL,
-              // changeOrigin: true,
-              rewrite: path => path,
-            },
-          },
+      proxy: env.VITE_MOCK_ENABLE ? {} : { [env.VITE_BASE_PREFIX]: { target: env.VITE_API_URL, rewrite: path => path } },
     },
     build: {
-      // 编译是清空输出目录
       emptyOutDir: true,
-      // 代码拆包
       rollupOptions: {
         output: {
           manualChunks(id: string) {
             if (id.includes('node_modules')) {
               return id.split('/node_modules/').pop()?.split('/')[0];
             }
+          },
+          entryFileNames: 'js/[name]-[hash].js', // 主入口文件
+          chunkFileNames: 'js/[name]-[hash].js', // 异步块文件
+          assetFileNames(assetInfo) {
+            const extType = assetInfo.names?.[0].split('.').pop() ?? '';
+            // css 文件
+            if ('css' === extType) return 'css/[name]-[hash].[ext]';
+            // 图片文件
+            else if (['avif', 'apng', 'bmp', 'gif', 'ico', 'jfif', 'jpg', 'jpeg', 'pjp', 'pjpeg', 'png', 'webp', 'svg'].includes(extType)) return 'images/[name]-[hash].[ext]';
+            // 字体文件
+            else if (['ttf', 'woff', 'woff2', 'eot', 'otf', 'wof2'].includes(extType)) return 'fonts/[name]-[hash].[ext]';
+            else return 'assets/[name]-[hash].[ext]';
           },
         },
       },

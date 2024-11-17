@@ -1,14 +1,67 @@
-@import './variable.scss';
+:root {
+  /* primary */
+  --hue-primary-1: 232, 243, 255; // 浅色
+  --hue-primary-2: 190, 218, 255; // 文字禁用
+  --hue-primary-3: 148, 191, 255; // 一般禁用
+  --hue-primary-4: 106, 161, 255; // 特殊场景
+  --hue-primary-5: 64, 128, 255; // 悬浮
+  --hue-primary-6: 22, 93, 255; // 常规
+  --hue-primary-7: 14, 66, 210; // 点击
 
-$themes: (
-  light: (
-    login-card-bgColor: $rify-login-card-bgColor,
-    login-card-img-bgColor: $rify-login-card-img-bgColor,
-    login-card-title-color: $rify-login-card-title-color,
-  ),
-  dark: (
-    login-card-bgColor: $rify-login-card-dark-bgColor,
-    login-card-img-bgColor: $rify-login-card-img-dark-bgColor,
-    login-card-title-color: $rify-login-card-title-dark-color,
-  ),
-);
+  /* link */
+  --hue-link-1: 79, 70, 229;
+  --hue-link-2: 5, 119, 72;
+
+  /* background */
+  --hue-bg-1: 245, 244, 248; // 整体背景色
+  --hue-bg-2: 255, 255, 255; // 一级容器背景
+  --hue-bg-3: 248, 250, 252; // 二级容器背景
+  --hue-bg-4: 229, 231, 235; // 三级容器背景
+  --hue-bg-white: 255, 255, 255;
+
+  /* font, border */
+  --hue-grey-1: 247, 248, 250; // 填充(浅)
+  --hue-grey-2: 242, 243, 245; // 边框(浅), 填充(常规)
+  --hue-grey-3: 229, 230, 235; // 边框(一般), 填充(深)
+  --hue-grey-4: 201, 205, 212; // 边框(深), 填充(重), 文字(置灰信息)
+  --hue-grey-5: 169, 174, 184;
+  --hue-grey-6: 134, 144, 156; // 边框(重), 文字(次要信息)
+  --hue-grey-7: 107, 119, 133;
+  --hue-grey-8: 78, 89, 105; // 文字(次强调/正文标题)
+  --hue-grey-9: 39, 46, 59;
+  --hue-grey-10: 29, 33, 41; // 文字(强调/正文标题)
+}
+
+html[data-theme='dark'] {
+  /* primary */
+  --hue-primary-1: 234, 244, 255;
+  --hue-primary-2: 190, 218, 255;
+  --hue-primary-3: 147, 190, 255;
+  --hue-primary-4: 104, 159, 255;
+  --hue-primary-5: 60, 126, 255;
+  --hue-primary-6: 48, 111, 255;
+  --hue-primary-7: 29, 77, 210;
+
+  /* link */
+  --hue-link-1: 124, 126, 244;
+  --hue-link-2: 16, 185, 129;
+
+  /* background */
+  --hue-bg-1: 23, 23, 26; // 整体背景色
+  --hue-bg-2: 35, 35, 36; // 一级容器背景
+  --hue-bg-3: 42, 42, 43; // 二级容器背景
+  --hue-bg-4: 49, 49, 50; // 三级容器背景
+  --hue-bg-white: 246, 246, 246;
+
+  /* font, border */
+  --hue-grey-1: 23, 23, 26; // 填充(浅)
+  --hue-grey-2: 46, 46, 48; // 边框(浅), 填充(常规)
+  --hue-grey-3: 72, 72, 73; // 边框(一般), 填充(深)
+  --hue-grey-4: 95, 95, 96; // 边框(深), 填充(重), 文字(置灰信息)
+  --hue-grey-5: 120, 120, 122;
+  --hue-grey-6: 146, 146, 147; // 边框(重), 文字(次要信息)
+  --hue-grey-7: 107, 119, 133;
+  --hue-grey-8: 197, 197, 197; // 文字(次强调/正文标题)
+  --hue-grey-9: 223, 223, 223;
+  --hue-grey-10: 246, 246, 246; // 文字(强调/正文标题)
+}

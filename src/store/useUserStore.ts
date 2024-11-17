@@ -1,27 +1,24 @@
-const { currentUser } = useUser();
-export default defineStore('user', {
-  state: () => {
-    return {
-      user: undefined as UserModel | undefined,
-      role: undefined,
-    };
-  },
-  getters: {
-    isAdministrator: state => state.role === 'admin',
-  },
-  actions: {
-    setUser(data: any) {
-      this.user = data;
-    },
-    async getCurrentUser() {
-      if (useAuth().isLogin()) {
-        const {
-          data,
-          body: { role },
-        } = await currentUser();
-        this.user = data;
-        this.role = role;
-      }
-    },
-  },
+import { current } from '@/request/user';
+
+const { isAuthenticated } = useAuth();
+
+export default defineStore('user', () => {
+  const user = ref<UserModel>({} as UserModel);
+  const role = ref<string>('');
+
+  const isAdministrator = computed(() => role.value === 'admin');
+
+  function setUser(data: UserModel) {
+    user.value = data;
+  }
+
+  async function getCurrentUser() {
+    if (isAuthenticated()) {
+      const { data, body } = await current();
+      user.value = data;
+      role.value = body.role;
+    }
+  }
+
+  return { user, role, isAdministrator, setUser, getCurrentUser };
 });

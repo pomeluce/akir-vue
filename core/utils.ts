@@ -1,17 +1,17 @@
-import _ from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 export const parseEnv = (env: Record<string, any>): ImportMetaEnv => {
-  const envs: any = _.cloneDeep(env);
+  const _env: any = cloneDeep(env);
   /* env 参数转换 */
   Object.entries(env).forEach(([key, value]) => {
     // 转换 boolean 值
-    if (value == 'true' || value == 'false') envs[key] = value === 'true';
+    if (value == 'true' || value == 'false') _env[key] = value === 'true';
     // 转换 number 值
-    else if (/^\d+$/.test(value)) envs[key] = Number(value);
+    else if (/^\d+$/.test(value)) _env[key] = Number(value);
     // 转换 null 值
-    else if (value == 'null' || value == '') envs[key] = null;
+    else if (value == 'null' || value == '') _env[key] = null;
     // 转换 undefined 值
-    else if (value == 'undefined') envs[key] = undefined;
+    else if (value == 'undefined') _env[key] = undefined;
   });
-  return envs;
+  return _env;
 };

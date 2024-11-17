@@ -1,23 +1,20 @@
-body {
-  @apply bg-[#f5f4f8] text-gray-700 font-sans text-base;
-
-  a {
-    &:hover {
-      @apply text-rify-link duration-300;
-    }
-  }
-}
-
 /* 修改浏览器默认滚动条样式 */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  --uno: w-2 h-2;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-3xl bg-gray-500 bg-clip-padding border-transparent border-dashed;
-  border-width: 2px;
+  --uno: rounded-3xl bg-gray-500 bg-clip-padding border-transparent border-dashed border-2;
+
   &:hover {
-    background: #374151;
+    --uno: bg-#374151;
+  }
+}
+
+body {
+  --uno: bg-backdrop1 text-word1 font-sans text-base;
+
+  & a:hover {
+    --uno: duration-300 text-link2;
   }
 }

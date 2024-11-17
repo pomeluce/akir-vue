@@ -1,33 +1,28 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import router from '@/plugins/router';
-import { IAxios } from '@/config/config.ts';
-
-interface Options {
-  loading?: boolean;
-  message?: boolean;
-  clearValidateError?: boolean;
-}
+import { FlxSpinInstance } from '@/hooks/useSpin';
+import router from '../router';
 
 // 获取 storage 对象
 const storage = useStorage();
+
 export default class Axios {
   // axios 实例
   private instance: AxiosInstance;
   // loading 对象
-  private loading: any;
+  private flxSpin: FlxSpinInstance | undefined = undefined;
   // 参数对象
-  private options: Options = { loading: true, message: true, clearValidateError: true };
+  private options: AxiosOptions = { spin: true, message: true };
   // axios 参数配置
-  private axiosConf: IAxios;
+  private config: AxiosRequestConfig & AxiosConfig;
 
   /**
    * 构造函数, 初始化 axios 实例
-   * @param config axios 配置
-   * @param axiosConf axios 参数配置
+   *
+   * @param defaults axios 配置
    */
-  constructor(config: AxiosRequestConfig, axiosConf: IAxios) {
-    this.instance = axios.create(config);
-    this.axiosConf = axiosConf;
+  constructor(defaults: AxiosRequestConfig & AxiosConfig) {
+    this.instance = axios.create(defaults);
+    this.config = defaults;
     this.initInterceptors();
   }
 
@@ -41,11 +36,11 @@ export default class Axios {
 
   /**
    * 请求发送方法
+   *
    * @param config 请求参数
    * @param options 加载及消息配置
-   * @return {Promise<T>} 返回请求结果
    */
-  public request = async <T,>(config: AxiosRequestConfig, options?: Options): Promise<T> => {
+  public request = async <T,>(config: AxiosRequestConfig, options?: AxiosOptions): Promise<T> => {
     // 合并配置
     this.options = Object.assign(this.options, options ?? {});
     // 发送请求
@@ -66,17 +61,17 @@ export default class Axios {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         // 如果 loading 对象不存在且开启了 loading, 则创建一个 loading 对象
-        if (!this.loading && this.options.loading) {
-          this.loading = RifyLoading({ bgColor: 'rgba(255,255,255,0.65)' });
+        if (!this.flxSpin && this.options.spin) {
+          this.flxSpin = useSpin();
         }
         // 获取 token
         const token = storage.get(CacheKey.TOKEN_NAME);
         // 开启 token 认证;
-        this.axiosConf.useTokenAuthorization && token && (config.headers.Authorization = token);
+        this.config.useTokenAuthorization && token && (config.headers.Authorization = token);
         // 设置 accept
         config.headers.Accept = 'application/json';
         // 添加自定义头部
-        config.headers['rapidify-header'] = this.axiosConf.rifyHeader;
+        config.headers['rify-header'] = this.config.customHeader;
         return config;
       },
       (error: any) => Promise.reject(error),
@@ -90,25 +85,24 @@ export default class Axios {
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
         // 如果 loading 对象存在, 则关闭 loading 对象
-        if (this.loading) {
-          this.loading.close();
-          this.loading = undefined;
+        if (this.flxSpin) {
+          this.flxSpin.close();
+          this.flxSpin = undefined;
         }
         // 判断 response 是否携带有 refresh_token
         if (!!response.headers['refresh-token']) storage.set(CacheKey.TOKEN_NAME, response.headers['refresh-token']);
         // 判断是否展示提示消息
-        if (response.data?.msg && this.options.message) {
-          RifyMessage({
-            type: response.data.code === 200 ? 'success' : 'error',
-            content: response.data.msg,
-            duration: 2000,
-          });
+        if (response.data?.message && this.options.message) {
+          window.$message[response.data.code === 200 ? 'success' : 'error'](response.data.message);
         }
         return response;
       },
       async (error: AxiosError) => {
-        if (this.loading) this.loading.close() && (this.loading = undefined);
-        this.options = { loading: true, message: true, clearValidateError: true };
+        if (this.flxSpin) {
+          this.flxSpin.close();
+          this.flxSpin = undefined;
+        }
+        this.options = { spin: true, message: true };
         const { response: { status, data, headers } = {} as AxiosResponse } = error;
         const { message } = data;
 
@@ -118,24 +112,23 @@ export default class Axios {
         switch (status) {
           case HttpStatus.UNAUTHORIZED:
             storage.remove(CacheKey.TOKEN_NAME);
-            await router.push({ name: RouteName.LOGIN });
+            router.push({ name: RouteName.LOGIN });
             break;
           case HttpStatus.UNPROCESSABLE_ENTITY:
             // useErrorStore().setErrors(error.response.data.errors);
             break;
           case HttpStatus.FORBIDDEN:
-            RifyMessage({ type: 'error', content: message ?? '没有操作权限' });
+            window.$message.error(message ?? '没有操作权限');
             break;
           case HttpStatus.NOT_FOUND:
-            RifyMessage({ type: 'error', content: message ?? '请求资源不存在' });
-            await router.push({ name: RouteName.NOT_FOUND });
+            window.$message.error(message ?? '请求资源不存在');
             break;
           case HttpStatus.TOO_MANY_REQUESTS:
-            RifyMessage({ type: 'error', content: message ?? '请求过于频繁，请稍候再试' });
+            window.$message.error(message ?? '请求过于频繁，请稍候再试');
             break;
           default:
             if (message) {
-              RifyMessage({ type: 'error', content: message ?? '服务器错误' });
+              window.$message.error(message ?? '服务器错误');
             }
         }
         return Promise.reject(error);

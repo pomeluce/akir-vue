@@ -1,28 +1,27 @@
 import { RouteRecordRaw } from 'vue-router';
-import { Error } from '@icon-park/vue-next';
 
 export default {
   path: '/error',
-  component: () => import('@/layouts/error/index.vue'),
-  meta: { auth: false, menu: { label: '异常页面', icon: Error, order: 4 } },
+  component: () => import('@/pages/error/route'),
+  meta: { auth: false, menu: { label: '异常页面', order: 4 } },
   children: [
     {
       path: '403',
-      name: 'error.403',
+      name: RouteName.ERROR_403,
       meta: { menu: { label: '403页面', blank: '_blank' } },
-      component: () => import('@/views/errors/403.vue'),
+      component: () => import('@/pages/error/403'),
     },
     {
       path: '404',
-      name: 'error.404',
+      name: RouteName.ERROR_404,
       meta: { menu: { label: '404页面', blank: '_blank' } },
-      component: () => import('@/views/errors/404.vue'),
+      component: () => import('@/pages/error/404'),
     },
     {
       path: '500',
-      name: 'error.500',
+      name: RouteName.ERROR_500,
       meta: { menu: { label: '500页面', blank: '_blank' } },
-      component: () => import('@/views/errors/500.vue'),
+      component: () => import('@/pages/error/500'),
     },
   ],
 } as RouteRecordRaw;
