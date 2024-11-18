@@ -48,4 +48,25 @@ export default [
       };
     },
   },
+  {
+    url: '/api/' + RequestURL.MENU_LIST,
+    method: 'get',
+    response: () => {
+      return {
+        code: 200,
+        message: '获取菜单列表成功',
+        data: {
+          front: [],
+          backend: [
+            {
+              key: 'admin',
+              label: 'Dashboard',
+              order: 1,
+              children: [],
+            },
+          ],
+        },
+      };
+    },
+  },
 ] as MockMethod[];

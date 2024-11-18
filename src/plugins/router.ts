@@ -23,7 +23,7 @@ router.beforeEach(async (to: RouteLocationNormalized) => {
   if (!initial) {
     try {
       initial = true;
-      await Promise.all([useUserStore().getCurrentUser()]);
+      await Promise.all([useUserStore().getCurrentUser(), useUserStore().getMenuList()]);
     } catch (e) {
       handleAxiosError(e as AxiosError);
     }

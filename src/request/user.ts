@@ -7,3 +7,8 @@ import { http } from '@/plugins';
 export const current = (): Promise<ResponseModel<UserModel, { role: string }>> => {
   return http.request<ResponseModel<UserModel, { role: string }>>({ url: RequestURL.CURRENT_USER }, { message: false });
 };
+
+/* 获取当前用户菜单信息 */
+export const menuList = () => {
+  return http.request<ResponseModel<Array<MenuModel>>>({ url: RequestURL.MENU_LIST }, { message: false });
+};

@@ -1,10 +1,11 @@
-import { current } from '@/request/user';
+import { current, menuList } from '@/request/user';
 
 const { isAuthenticated } = useAuth();
 
 export default defineStore('user', () => {
   const user = ref<UserModel>({} as UserModel);
   const role = ref<string>('');
+  const menus = ref<MenuModel[]>([]);
 
   const isAdministrator = computed(() => role.value === 'admin');
 
@@ -20,5 +21,12 @@ export default defineStore('user', () => {
     }
   }
 
-  return { user, role, isAdministrator, setUser, getCurrentUser };
+  async function getMenuList() {
+    if (isAuthenticated()) {
+      const { data } = await menuList();
+      menus.value = data;
+    }
+  }
+
+  return { user, role, isAdministrator, setUser, getCurrentUser, getMenuList };
 });
