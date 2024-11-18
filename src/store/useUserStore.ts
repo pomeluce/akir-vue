@@ -28,5 +28,5 @@ export default defineStore('user', () => {
     }
   }
 
-  return { user, role, isAdministrator, setUser, getCurrentUser, getMenuList };
+  return { user, role, menus, isAdministrator, setUser, getCurrentUser, getMenuList };
 });

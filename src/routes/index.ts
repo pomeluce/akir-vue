@@ -4,11 +4,15 @@ import auth from './auth';
 import error from './error';
 import front from './front';
 
-/* 匹配未定义的路由 */
-const notFound: RouteRecordRaw = {
-  path: '/:pathMatch(.*)*',
-  name: RouteName.UNKNOWN,
-  component: () => import('@/pages/error/404'),
-};
-
-export default [front, auth, ...admin, error, notFound];
+export default [
+  front,
+  auth,
+  error,
+  ...admin,
+  /* 匹配未定义的路由 */
+  {
+    path: '/:pathMatch(.*)*',
+    name: RouteName.UNKNOWN,
+    component: () => import('@/pages/error/404'),
+  },
+] as RouteRecordRaw[];

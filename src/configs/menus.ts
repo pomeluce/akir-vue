@@ -1,4 +1,4 @@
-import { RiLogoutCircleRLine, RiSettingsLine, RiUser3Line } from '@remixicon/vue';
+import { RiDashboard3Line, RiListSettingsLine, RiLogoutCircleRLine, RiSettingsLine, RiUser3Line } from '@remixicon/vue';
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -28,3 +28,10 @@ export const avatarMenus = [
     onClick: () => {},
   },
 ];
+
+export const menuIcons = {
+  dashboard: RiDashboard3Line,
+  system: RiListSettingsLine,
+};
+
+export type MenuIconKeyType = keyof typeof menuIcons;

@@ -26,7 +26,7 @@ export default defineComponent({
 
     return () => (
       <form class="min-w-xs max-w-2/3 md:max-w-none flex-1 flex justify-center" onSubmit={handleSubmit(submissionHandle)}>
-        <div class="md:w-[720px] md:grid grid-cols-2 rounded-xl shadow-md overflow-hidden bg-backdrop2 p-5">
+        <div class="md:w-[720px] md:grid grid-cols-2 rounded-xl shadow-lg overflow-hidden bg-backdrop2 p-5">
           <div class="hidden md:block py-5">
             <main class="h-full flex justify-center items-center border-r border-rim2">
               <Illustration src={LoginBg} />
@@ -64,7 +64,7 @@ export default defineComponent({
                   </NTag>
                 )}
 
-                <NInputGroup>
+                <NInputGroup class="gap-3">
                   <NInput type="text" placeholder="请输入验证码" v-model={[model.captcha.value, 'value']}>
                     {{
                       prefix: () => <NIcon component={<RiPassValidLine />} />,

@@ -9,7 +9,11 @@ export enum RouteName {
 
   /* admin */
   ADMIN = 'admin',
-  WORKBENCH = 'workbench',
+
+  /* dashboard*/
+  DASHBOARD_CONSOLE = 'dashboard.console',
+  DASHBOARD_WORKBENCH = 'dashboard.workbench',
+  DASHBOARD_MONITOR = 'dashboard.monitor',
 
   /* system */
   SYSTEM_USER = 'system.user',

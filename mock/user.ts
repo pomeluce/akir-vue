@@ -1,6 +1,7 @@
 import { MockMethod } from 'vite-plugin-mock';
 import { faker } from '@faker-js/faker/locale/zh_CN';
 import { RequestURL } from '../src/constants/RequestURL';
+import { RouteName } from '../src/constants/RouteName';
 
 export default [
   {
@@ -55,17 +56,48 @@ export default [
       return {
         code: 200,
         message: '获取菜单列表成功',
-        data: {
-          front: [],
-          backend: [
-            {
-              key: 'admin',
-              label: 'Dashboard',
-              order: 1,
-              children: [],
-            },
-          ],
-        },
+        data: [
+          {
+            key: 'dashboard',
+            label: 'Dashboard',
+            children: [
+              {
+                key: RouteName.DASHBOARD_CONSOLE,
+                label: '控制台',
+              },
+              {
+                key: RouteName.DASHBOARD_WORKBENCH,
+                label: '工作台',
+              },
+              {
+                key: RouteName.DASHBOARD_MONITOR,
+                label: '监控页',
+              },
+            ],
+          },
+          {
+            key: 'system',
+            label: '系统管理',
+            children: [
+              {
+                key: RouteName.SYSTEM_USER,
+                label: '用户管理',
+              },
+              {
+                key: RouteName.SYSTEM_ROLE,
+                label: '角色管理',
+              },
+              {
+                key: RouteName.SYSTEM_PERMISSION,
+                label: '权限管理',
+              },
+              {
+                key: RouteName.SYSTEM_MENU,
+                label: '菜单管理',
+              },
+            ],
+          },
+        ],
       };
     },
   },

@@ -11,7 +11,7 @@ export default defineComponent({
     };
 
     return () => (
-      <NCard class="bg-backdrop2 h-[1000px]" title={() => <header class="flex pb-2 border-b border-rim2">我是标题</header>}>
+      <NCard class="h-[1000px]" title={() => <header class="flex pb-2 border-b border-rim2">我是标题</header>}>
         <NButton type="info" onClick={load}>
           加载
         </NButton>

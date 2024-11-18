@@ -3,20 +3,20 @@ import { NAvatar, NButton, NDivider, NPopover } from 'naive-ui';
 
 export default defineComponent({
   setup() {
-    const { user } = useUserStore();
+    const store = useUserStore();
     const { isAuthenticated } = useAuth();
     const router = useRouter();
 
     return () => (
       <>
         {isAuthenticated() ? (
-          <NPopover showArrow={false} trigger="hover">
+          <NPopover showArrow={false} placement="bottom" trigger="hover">
             {{
               trigger: () => (
                 <div class="flex justify-center items-center cursor-pointer">
-                  <NAvatar size="small" round src={user.avatar} />
+                  <NAvatar size="small" round src={store.user.avatar} />
                   <NDivider vertical />
-                  <span class="text-lg">{user.name}</span>
+                  <span class="text-lg font-semibold">{store.user.name}</span>
                 </div>
               ),
               default: () => (

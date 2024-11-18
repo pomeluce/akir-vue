@@ -1,5 +1,7 @@
 import { GlobalThemeOverrides } from 'naive-ui';
 
+const baseBgColor = { light: '#ffffff', dark: '#232324' };
+
 export const themeOverrides: { light: GlobalThemeOverrides; dark: GlobalThemeOverrides } = {
   light: {
     common: {
@@ -11,6 +13,12 @@ export const themeOverrides: { light: GlobalThemeOverrides; dark: GlobalThemeOve
       infoColorHover: '#44586c',
       infoColorPressed: '#263747',
       infoColorSuppl: '#44586c',
+      cardColor: baseBgColor.light,
+    },
+    Layout: {
+      color: baseBgColor.light + '00',
+      siderColor: baseBgColor.light,
+      headerColor: baseBgColor.light,
     },
   },
   dark: {
@@ -23,6 +31,12 @@ export const themeOverrides: { light: GlobalThemeOverrides; dark: GlobalThemeOve
       infoColorHover: '#6b7785',
       infoColorPressed: '#a9aeb8',
       infoColorSuppl: '#6b7785',
+      cardColor: baseBgColor.dark,
+    },
+    Layout: {
+      color: baseBgColor.dark + '00',
+      siderColor: baseBgColor.dark,
+      headerColor: baseBgColor.dark,
     },
   },
 };
