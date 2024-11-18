@@ -27,7 +27,7 @@ export default [
     },
   },
   {
-    url: '/api/' + RequestURL.QUERY_USER_LIST + '/:number',
+    url: '/api/' + RequestURL.USER_LIST + '/:number',
     method: 'get',
     response: ({ query: { number } }) => {
       return {
@@ -49,7 +49,7 @@ export default [
     },
   },
   {
-    url: '/api/' + RequestURL.MENU_LIST,
+    url: '/api/' + RequestURL.USER_MENUS,
     method: 'get',
     response: () => {
       return {

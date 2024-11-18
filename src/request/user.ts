@@ -10,5 +10,5 @@ export const current = (): Promise<ResponseModel<UserModel, { role: string }>> =
 
 /* 获取当前用户菜单信息 */
 export const menuList = () => {
-  return http.request<ResponseModel<Array<MenuModel>>>({ url: RequestURL.MENU_LIST }, { message: false });
+  return http.request<ResponseModel<Array<MenuModel>>>({ url: RequestURL.USER_MENUS }, { message: false });
 };
