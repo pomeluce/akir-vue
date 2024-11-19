@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 export default {
   path: '/admin/system',
   component: () => import('@/pages/admin/route'),
-  meta: { auth: true, menu: { label: '系统管理' } },
+  meta: { auth: true, label: '系统管理' },
   children: [
     {
       path: 'user',

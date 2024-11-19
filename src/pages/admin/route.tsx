@@ -2,6 +2,7 @@ import Logo from '/pomeluce.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { NCollapseTransition, NLayout, NLayoutSider, NMenu } from 'naive-ui';
+import { RiCloseLine } from '@remixicon/vue';
 import { Avatar, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 
@@ -12,13 +13,32 @@ export default defineComponent({
     const tabStore = useTabStore();
     const route = useRoute();
     const router = useRouter();
+    const message = useMessage();
 
     const handleClick = (key: string, label: string) => {
-      tabStore.setActiveTab({ key, label });
+      const tab = { key, label };
+      tabStore.setActiveTab(tab);
+      tabStore.addTab(tab);
       router.push({ name: key });
     };
 
-    onMounted(() => tabStore.setActiveTab({ key: route.name as string, label: route.meta.label! }));
+    const handleClose = (tab: TabState) => {
+      if (tabStore.tabs.length === 1) {
+        message.warning('当前为最后一页了, 无法再关闭了');
+      } else {
+        tabStore.removeTab(tab);
+        if (tab.key === tabStore.activeTab?.key) {
+          tabStore.setActiveTab(tabStore.tabs.at(-1));
+          router.push({ name: tabStore.activeTab?.key });
+        }
+      }
+    };
+
+    onMounted(() => {
+      const tab = { key: route.name as string, label: route.meta.label! };
+      tabStore.setActiveTab(tab);
+      tabStore.addTab(tab);
+    });
 
     return () => (
       <NLayout class="w-screen h-screen" hasSider>
@@ -51,11 +71,11 @@ export default defineComponent({
                 const icon = menuIcons[item.key as MenuIconKeyType];
                 return icon ? { ...item, icon: () => h(icon, { size: '18' }) } : item;
               })}
-              onUpdateValue={(key, item) => handleClick(key, item.label as string)}
+              onUpdateValue={(key, { label }) => handleClick(key, label as string)}
             />
           </nav>
         </NLayoutSider>
-        <main class="flex flex-col flex-1">
+        <main class="flex flex-col gap-2 flex-1">
           <header class="flex justify-end h-[60px] items-center py-3 px-10 bg-backdrop2 relative border-b border-rim2 z-40">
             <section class="flex items-center gap-3">
               <Screen />
@@ -63,10 +83,27 @@ export default defineComponent({
               <Avatar />
             </section>
           </header>
-          <main class="flex-1 p-5">
+          <nav class="px-3 flex justify-start items-center gap-2">
+            {tabStore.tabs.map(item => (
+              <div
+                class={[
+                  'flex justify-center items-center gap-2 px-3 py-2 bg-backdrop2 text-sm shadow-sm cursor-pointer select-none',
+                  item.key === tabStore.activeTab?.key && 'text-primary6',
+                ]}
+              >
+                <span onClick={() => handleClick(item.key, item.label)}>{item.label}</span>
+                <span onClick={() => handleClose(item)}>
+                  <RiCloseLine size="16" />
+                </span>
+              </div>
+            ))}
+          </nav>
+          <main class="px-3 pb-3 flex-1">
             <RouterView>
               {{
-                default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => <KeepAlive>{h(Component, { key: route.fullPath })}</KeepAlive>,
+                default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
+                  <KeepAlive exclude={tabStore.excludes}>{h(Component, { key: route.fullPath })}</KeepAlive>
+                ),
               }}
             </RouterView>
           </main>

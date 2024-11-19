@@ -71,7 +71,7 @@ export default class Axios {
         // 设置 accept
         config.headers.Accept = 'application/json';
         // 添加自定义头部
-        config.headers['rify-header'] = this.config.customHeader;
+        config.headers['flx-header'] = this.config.customHeader;
         return config;
       },
       (error: any) => Promise.reject(error),

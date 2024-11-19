@@ -1,24 +1,22 @@
-interface ITab {
-  key: string;
-  label: string;
-}
-
 export default defineStore('tab', () => {
-  const activeTab = ref<ITab>();
-  const tabs = ref<ITab[]>([]);
+  const activeTab = ref<TabState>();
+  const tabs = ref<TabState[]>([]);
+  const excludes = ref<string[]>([]);
 
-  function setActiveTab(tab: ITab) {
+  function setActiveTab(tab: TabState | undefined) {
     activeTab.value = tab;
   }
 
-  function addTab(tab: ITab) {
+  function addTab(tab: TabState) {
     const filterTab = tabs.value.find(item => item.key === tab.key);
-    !filterTab && tabs.value.push(tab);
+    if (!filterTab) tabs.value.push(tab);
+    excludes.value = excludes.value.filter(key => key !== tab.key);
   }
 
-  function removeTab(tab: ITab) {
+  function removeTab(tab: TabState) {
     tabs.value = tabs.value.filter(item => item.key !== tab.key);
+    excludes.value.push(tab.key);
   }
 
-  return { activeTab, tabs, setActiveTab, addTab, removeTab };
+  return { activeTab, tabs, excludes, setActiveTab, addTab, removeTab };
 });

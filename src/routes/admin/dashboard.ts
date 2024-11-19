@@ -3,13 +3,13 @@ import { RouteRecordRaw } from 'vue-router';
 export default {
   path: '/admin/dashboard',
   component: () => import('@/pages/admin/route'),
-  meta: { auth: true, menu: { label: 'Dashboard' } },
+  meta: { auth: true, label: 'Dashboard' },
   children: [
     {
       path: 'console',
       name: RouteName.DASHBOARD_CONSOLE,
       meta: { label: '主控台' },
-      component: () => import('@/pages/admin/dashboard/dashboard'),
+      component: () => import('@/pages/admin/dashboard/console'),
     },
     {
       path: 'workbench',
