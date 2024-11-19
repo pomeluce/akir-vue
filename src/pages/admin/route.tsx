@@ -3,7 +3,7 @@ import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { NCollapseTransition, NLayout, NLayoutSider, NMenu } from 'naive-ui';
 import { RiCloseLine } from '@remixicon/vue';
-import { Avatar, Screen, ThemePopup } from '@/components';
+import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 
 export default defineComponent({
@@ -76,7 +76,10 @@ export default defineComponent({
           </nav>
         </NLayoutSider>
         <main class="flex flex-col gap-2 flex-1">
-          <header class="flex justify-end h-[60px] items-center py-3 px-10 bg-backdrop2 relative border-b border-rim2 z-40">
+          <header class="flex justify-between h-[60px] items-center py-3 px-10 bg-backdrop2 relative border-b border-rim2 z-40">
+            <section>
+              <Breadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
+            </section>
             <section class="flex items-center gap-3">
               <Screen />
               <ThemePopup />
