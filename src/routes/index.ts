@@ -3,16 +3,6 @@ import admin from './admin';
 import auth from './auth';
 import error from './error';
 import front from './front';
+import unknown from './unknown';
 
-export default [
-  front,
-  auth,
-  error,
-  ...admin,
-  /* 匹配未定义的路由 */
-  {
-    path: '/:pathMatch(.*)*',
-    name: RouteName.UNKNOWN,
-    component: () => import('@/pages/error/404'),
-  },
-] as RouteRecordRaw[];
+export default [front, auth, error, ...admin, unknown] as RouteRecordRaw[];

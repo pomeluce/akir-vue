@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 export default {
   path: '/error',
   component: () => import('@/pages/error/route'),
-  meta: { auth: false, menu: { label: '异常页面' } },
+  meta: { auth: false, label: '异常页面' },
   children: [
     {
       path: '403',
