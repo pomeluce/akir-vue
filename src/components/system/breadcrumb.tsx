@@ -1,5 +1,6 @@
 import { PropType } from 'vue';
-import { NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui';
+import { NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon } from 'naive-ui';
+import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 
 export default defineComponent({
   props: {
@@ -23,11 +24,14 @@ export default defineComponent({
     };
 
     return () => (
-      <NBreadcrumb>
+      <NBreadcrumb class="flex justify-center items-center">
         {findMenuPath(props.options, props.activeKey).map(item => (
           <NBreadcrumbItem>
             <NDropdown options={item.children?.map(option => ({ key: option.key, label: option.label }))} onSelect={(key, { label }) => props.onClick?.(key, label as string)}>
-              {item.label}
+              <span>
+                {menuIcons[item.key as MenuIconKeyType] && <NIcon component={h(menuIcons[item.key as MenuIconKeyType], { size: '18' })} />}
+                {item.label}
+              </span>
             </NDropdown>
           </NBreadcrumbItem>
         ))}

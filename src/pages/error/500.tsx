@@ -2,11 +2,12 @@ import { NButton } from 'naive-ui';
 import { I500 } from '@/components';
 
 export default defineComponent({
+  name: RouteName.ERROR_500,
   setup() {
     const router = useRouter();
 
     return () => (
-      <main class="h-screen flex justify-center items-center">
+      <main class="w-full h-screen flex justify-center items-center">
         <main class="flex flex-col justify-center items-center gap-7 pb-20">
           <span>
             <I500 class="w-56" />

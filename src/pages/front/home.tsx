@@ -11,11 +11,13 @@ export default defineComponent({
     };
 
     return () => (
-      <NCard class="h-[1000px]" title={() => <header class="flex pb-2 border-b border-rim2">我是标题</header>}>
-        <NButton type="info" onClick={load}>
-          加载
-        </NButton>
-      </NCard>
+      <main>
+        <NCard class="h-[1000px]" segmented={{ content: true }} title="首页">
+          <NButton type="info" onClick={load}>
+            加载
+          </NButton>
+        </NCard>
+      </main>
     );
   },
 });

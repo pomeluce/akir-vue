@@ -7,6 +7,6 @@ declare module 'vue-router' {
     guest?: boolean;
     loginView?: boolean;
     label?: string;
-    blank?: string;
+    target?: string;
   }
 }

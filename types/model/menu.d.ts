@@ -7,4 +7,5 @@ interface MenuModel {
   children?: MenuModel[];
   type?: 'group' | 'divider';
   props?: HTMLAttributes;
+  target?: string;
 }

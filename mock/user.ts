@@ -97,6 +97,27 @@ export default [
               },
             ],
           },
+          {
+            key: 'error',
+            label: '异常页面',
+            children: [
+              {
+                key: RouteName.ERROR_403,
+                label: '403',
+                target: '_blank',
+              },
+              {
+                key: RouteName.ERROR_404,
+                label: '404',
+                target: '_blank',
+              },
+              {
+                key: RouteName.ERROR_500,
+                label: '500',
+                target: '_blank',
+              },
+            ],
+          },
         ],
       };
     },
