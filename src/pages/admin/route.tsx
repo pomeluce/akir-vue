@@ -15,11 +15,15 @@ export default defineComponent({
     const router = useRouter();
     const message = useMessage();
 
-    const handleClick = (key: string, label: string) => {
+    const handleClick = (key: string, label: string, target?: string) => {
       const tab = { key, label };
-      tabStore.setActiveTab(tab);
-      tabStore.addTab(tab);
-      router.push({ name: key });
+      if (target === '_blank') {
+        window.open(router.resolve({ name: key }).fullPath, target);
+      } else {
+        tabStore.setActiveTab(tab);
+        tabStore.addTab(tab);
+        router.push({ name: key });
+      }
     };
 
     const handleClose = (tab: TabState) => {
@@ -71,16 +75,16 @@ export default defineComponent({
                 const icon = menuIcons[item.key as MenuIconKeyType];
                 return icon ? { ...item, icon: () => h(icon, { size: '18' }) } : item;
               })}
-              onUpdateValue={(key, { label }) => handleClick(key, label as string)}
+              onUpdateValue={(key, { label, target }) => handleClick(key, label as string, target as string)}
             />
           </nav>
         </NLayoutSider>
         <main class="flex flex-col gap-2 flex-1">
-          <header class="flex justify-between h-[60px] items-center py-3 px-10 bg-backdrop2 relative border-b border-rim2 z-40">
+          <header class="flex justify-between h-[60px] items-center py-3 px-3 bg-backdrop2 relative border-b border-rim2 z-40">
             <section>
               <Breadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
             </section>
-            <section class="flex items-center gap-3">
+            <section class="flex items-center gap-3 px-2">
               <Screen />
               <ThemePopup />
               <Avatar />

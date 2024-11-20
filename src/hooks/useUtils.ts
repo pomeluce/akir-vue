@@ -20,15 +20,19 @@ export default () => {
     return value !== null && typeof value === 'object' && typeof value.then === 'function';
   };
 
-  /**
-   * 路由跳转函数
-   *
-   * @param route - 路由对象
-   * @param target - 跳转方式, 默认为 _self
-   */
-  const open = (to: string, target: string = '_self') => {
-    target === '_blank' ? window.open(to) : (location.href = to);
+  const findDeep = <T,>(arrays: T[], condition: Partial<Record<keyof T, any>>, deepKey: keyof T): T | undefined => {
+    for (const item of arrays) {
+      const result = Object.entries(condition).every(([key, value]) => item[key as keyof T] === value);
+      if (result) return item;
+      const deepArray = item[deepKey];
+      if (Array.isArray(deepArray)) {
+        const result = findDeep(deepArray, condition, deepKey);
+        if (result) return result;
+      }
+    }
+
+    return undefined;
   };
 
-  return { handleAxiosError, isPromise, open };
+  return { handleAxiosError, isPromise, findDeep };
 };
