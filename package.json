@@ -29,6 +29,7 @@
     "@vee-validate/yup": "^4.15.0",
     "@vueuse/core": "^12.5.0",
     "axios": "^1.7.9",
+    "bpmn-js": "^18.1.2",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
     "pinia": "^2.3.1",

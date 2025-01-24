@@ -13,7 +13,7 @@ export default [
         message: 'success',
         data: {
           id: 1001,
-          name: 'meagle',
+          name: 'Meagle',
           email: 'meagle@gmail.com',
           gender: 1,
           avatar: '/src/assets/images/avatar.png',

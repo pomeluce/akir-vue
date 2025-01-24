@@ -1,4 +1,4 @@
-import { RiLeafFill, RiMoonClearFill, RiSunFill } from '@remixicon/vue';
+import { RiCompass2Line, RiMoonClearLine, RiSunLine } from '@remixicon/vue';
 import { NDropdown } from 'naive-ui';
 
 export default defineComponent({
@@ -13,22 +13,25 @@ export default defineComponent({
           {
             key: 'system',
             label: '跟随系统',
-            icon: () => <RiLeafFill size={dropSize} />,
+            icon: () => <RiCompass2Line size={dropSize} />,
+            props: { class: 'px-1.5 py-1 !h-auto' },
           },
           {
             key: 'light',
             label: '亮色主题',
-            icon: () => <RiSunFill size={dropSize} />,
+            icon: () => <RiSunLine size={dropSize} />,
+            props: { class: 'px-1.5 py-1 !h-auto' },
           },
           {
             key: 'dark',
             label: '深色主题',
-            icon: () => <RiMoonClearFill size={dropSize} />,
+            icon: () => <RiMoonClearLine size={dropSize} />,
+            props: { class: 'px-1.5 py-1 !h-auto' },
           },
         ]}
         onSelect={setTheme}
       >
-        <div>{theme.value === 'system' ? <RiLeafFill size={size} /> : theme.value === 'light' ? <RiSunFill size={size} /> : <RiMoonClearFill size={size} />}</div>
+        <div>{theme.value === 'system' ? <RiCompass2Line size={size} /> : theme.value === 'light' ? <RiSunLine size={size} /> : <RiMoonClearLine size={size} />}</div>
       </NDropdown>
     );
   },
