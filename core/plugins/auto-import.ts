@@ -9,7 +9,7 @@ export default [
     // 自定义函数导入
     dirs: ['src/store/**/*', 'src/constants/**/*', 'src/hooks/**/*'],
     // 声明生成的位置
-    dts: 'types/flx/auto-imports.d.ts',
+    dts: 'types/meagle/auto-imports.d.ts',
     // 根据文件名称自动设置默认导出的变量名
     defaultExportByFilename: true,
   }),

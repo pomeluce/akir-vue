@@ -15,5 +15,5 @@ export default new Axios({
   // 开启 token 认证
   useTokenAuthorization: true,
   // 自定义请求头
-  customHeader: 'flx-vue',
+  customHeader: 'meagle-vue',
 });

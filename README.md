@@ -1,6 +1,6 @@
 ## 简介
 
-[flx-vue](https://github.com/pomeluce/flx-vue) 是一个开源的, 基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的前后台快速开发脚手架，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制、流程管理等功能, 它可以帮助你快速搭建前台后台项目。
+[meagle-vue](https://github.com/pomeluce/meagle-vue) 是一个开源的, 基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的前后台快速开发脚手架，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制、流程管理等功能, 它可以帮助你快速搭建前台后台项目。
 
 ## 特性
 
@@ -35,13 +35,13 @@
 - 安装 cli 工具
 
 ```bash
-npm i flx-cli -g
+npm i meagle-cli -g
 ```
 
 - 通过全局命令创建项目
 
 ```bash
-flx-cli create
+meagle-cli create
 ```
 
 - 进入项目文件夹, 启动项目
@@ -61,13 +61,13 @@ pnpm build
 - 获取项目代码
 
 ```bash
-git clone https://github.com/pomeluce/flx-vue.git
+git clone https://github.com/pomeluce/meagle-vue.git
 ```
 
 - 安装依赖
 
 ```bash
-cd flx-vue
+cd meagle-vue
 
 pnpm install
 ```
@@ -86,7 +86,7 @@ pnpm build
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/pomeluce/flx-vue/issues) 或者提交一个 Pull Request。
+非常欢迎你的加入！[提一个 Issue](https://github.com/pomeluce/meagle-vue/issues) 或者提交一个 Pull Request。
 
 **Pull Request:**
 

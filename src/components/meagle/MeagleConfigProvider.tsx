@@ -1,6 +1,6 @@
 import { PropType, SlotsType } from 'vue';
 
-export const FlxConfigProvider = defineComponent({
+export const MeagleConfigProvider = defineComponent({
   props: {
     defaultTheme: String as PropType<ThemeType>,
     onToggleTheme: Function as PropType<(theme: ThemeType) => void>,

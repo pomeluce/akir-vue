@@ -32,7 +32,7 @@ export default defineComponent({
               onSelect={(key, { label, target }) => props.onClick?.(key, label as string, target as string)}
             >
               <span>
-                {menuIcons[item.key as MenuIconKeyType] && <NIcon component={h(menuIcons[item.key as MenuIconKeyType], { size: '18' })} />}
+                {menuIcons[item.key as MenuIconKeyType] && <NIcon class="mr-1" component={h(menuIcons[item.key as MenuIconKeyType], { size: '18' })} />}
                 {item.label}
               </span>
             </NDropdown>

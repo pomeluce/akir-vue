@@ -1,4 +1,4 @@
-import { FlxConfigProvider } from '@/components';
+import { MeagleConfigProvider } from '@/components';
 import Root from '@/pages/root';
 
 export default defineComponent({
@@ -10,9 +10,9 @@ export default defineComponent({
     };
 
     return () => (
-      <FlxConfigProvider defaultTheme={themeMode} onToggleTheme={handleToggleTheme}>
+      <MeagleConfigProvider defaultTheme={themeMode} onToggleTheme={handleToggleTheme}>
         <Root />
-      </FlxConfigProvider>
+      </MeagleConfigProvider>
     );
   },
 });

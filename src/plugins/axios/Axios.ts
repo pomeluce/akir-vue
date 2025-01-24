@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { FlxSpinInstance } from '@/hooks/useSpin';
+import { MeagleSpinInstance } from '@/hooks/useSpin';
 import router from '../router';
 
 // 获取 storage 对象
@@ -9,7 +9,7 @@ export default class Axios {
   // axios 实例
   private instance: AxiosInstance;
   // loading 对象
-  private flxSpin: FlxSpinInstance | undefined = undefined;
+  private meagleSpin: MeagleSpinInstance | undefined = undefined;
   // 参数对象
   private options: AxiosOptions = { spin: true, message: true };
   // axios 参数配置
@@ -61,8 +61,8 @@ export default class Axios {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         // 如果 loading 对象不存在且开启了 loading, 则创建一个 loading 对象
-        if (!this.flxSpin && this.options.spin) {
-          this.flxSpin = useSpin();
+        if (!this.meagleSpin && this.options.spin) {
+          this.meagleSpin = useSpin();
         }
         // 获取 token
         const token = storage.get(CacheKey.TOKEN_NAME);
@@ -71,7 +71,7 @@ export default class Axios {
         // 设置 accept
         config.headers.Accept = 'application/json';
         // 添加自定义头部
-        config.headers['flx-header'] = this.config.customHeader;
+        config.headers['meagle-header'] = this.config.customHeader;
         return config;
       },
       (error: any) => Promise.reject(error),
@@ -85,9 +85,9 @@ export default class Axios {
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
         // 如果 loading 对象存在, 则关闭 loading 对象
-        if (this.flxSpin) {
-          this.flxSpin.close();
-          this.flxSpin = undefined;
+        if (this.meagleSpin) {
+          this.meagleSpin.close();
+          this.meagleSpin = undefined;
         }
         // 判断 response 是否携带有 refresh_token
         if (!!response.headers['refresh-token']) storage.set(CacheKey.TOKEN_NAME, response.headers['refresh-token']);
@@ -98,9 +98,9 @@ export default class Axios {
         return response;
       },
       async (error: AxiosError) => {
-        if (this.flxSpin) {
-          this.flxSpin.close();
-          this.flxSpin = undefined;
+        if (this.meagleSpin) {
+          this.meagleSpin.close();
+          this.meagleSpin = undefined;
         }
         this.options = { spin: true, message: true };
         const { response: { status, data, headers } = {} as AxiosResponse } = error;

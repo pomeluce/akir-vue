@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       modules: {
         generateScopedName: '[local]-[hash:8]',
-        hashPrefix: 'flx',
+        hashPrefix: 'meagle',
         localsConvention: 'camelCaseOnly',
       },
       preprocessorOptions: { scss: { api: 'modern-compiler' } },

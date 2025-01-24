@@ -1,8 +1,8 @@
-import { ISpinProps, FlxSpin } from '@/components';
+import { ISpinProps, MeagleSpin } from '@/components';
 
 export function useSpin(options?: ISpinProps) {
   const vNode: HTMLElement = document.createElement('div');
-  const instance = createApp(FlxSpin, { options }).mount(vNode);
+  const instance = createApp(MeagleSpin, { options }).mount(vNode);
 
   document.body.appendChild(instance.$el);
 
@@ -13,4 +13,4 @@ export function useSpin(options?: ISpinProps) {
   };
 }
 
-export type FlxSpinInstance = ReturnType<typeof useSpin>;
+export type MeagleSpinInstance = ReturnType<typeof useSpin>;

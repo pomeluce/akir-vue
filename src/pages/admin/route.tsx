@@ -60,7 +60,7 @@ export default defineComponent({
             <RouterLink class="flex justify-center items-center gap-1 font-bold overflow-hidden hover:text-word1/80" to={{ name: RouteName.HOME }}>
               <img class="w-5 h-5" src={Logo} />
               <NCollapseTransition show={!collapsed.value} class="text-lg font-bold uppercase">
-                flx-vue
+                meagle-vue
               </NCollapseTransition>
             </RouterLink>
           </header>

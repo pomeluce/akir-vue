@@ -4,7 +4,7 @@ export const useTheme = () => {
   const setTheme = inject<(theme: ThemeType) => void>('setTheme');
 
   if (!theme || !themeMode || !setTheme) {
-    throw new Error('useTheme must be used within a FlxProvider');
+    throw new Error('useTheme must be used within a MeagleProvider');
   }
 
   return { theme, themeMode, setTheme };
