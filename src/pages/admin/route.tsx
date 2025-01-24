@@ -1,7 +1,7 @@
 import Logo from '/pomeluce.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { NCollapseTransition, NLayout, NLayoutSider, NMenu } from 'naive-ui';
+import { DropdownOption, NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu } from 'naive-ui';
 import { RiCloseLine } from '@remixicon/vue';
 import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
@@ -9,11 +9,30 @@ import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 export default defineComponent({
   setup() {
     const collapsed = ref<boolean>(false);
+    const contextMenuX = ref<number>(0);
+    const contextMenuY = ref<number>(0);
+    const contextMenuVisible = ref<boolean>(false);
+    const contextMenuTab = ref<TabState>();
     const store = useUserStore();
     const tabStore = useTabStore();
     const route = useRoute();
     const router = useRouter();
     const message = useMessage();
+
+    const contextMenuItems: DropdownOption[] = [
+      {
+        key: 'refresh',
+        label: '刷新标签页',
+      },
+      {
+        key: 'closeTab',
+        label: '关闭标签页',
+      },
+      {
+        key: 'closeOther',
+        label: '关闭其他标签页',
+      },
+    ];
 
     const handleClick = (key: string, label: string, target?: string) => {
       const tab = { key, label };
@@ -38,6 +57,31 @@ export default defineComponent({
       }
     };
 
+    const handleContextMenu = (e: MouseEvent, tab: TabState) => {
+      e.preventDefault();
+      contextMenuVisible.value = false;
+      contextMenuTab.value = tab;
+      nextTick().then(() => {
+        contextMenuVisible.value = true;
+        contextMenuX.value = e.clientX;
+        contextMenuY.value = e.clientY;
+      });
+    };
+
+    const handleClickOutside = () => (contextMenuVisible.value = false);
+    const handleSelect = (key: string) => {
+      contextMenuVisible.value = false;
+      if (contextMenuTab.value) {
+        switch (key) {
+          case 'refresh':
+            handleClick(contextMenuTab.value.key, contextMenuTab.value.label);
+            break;
+          default:
+            break;
+        }
+      }
+    };
+
     onMounted(() => {
       const tab = { key: route.name as string, label: route.meta.label! };
       tabStore.setActiveTab(tab);
@@ -51,7 +95,7 @@ export default defineComponent({
           collapsed={collapsed.value}
           collapse-mode="width"
           collapsedWidth={64}
-          width="240"
+          width="200"
           showTrigger
           onCollapse={() => (collapsed.value = true)}
           onExpand={() => (collapsed.value = false)}
@@ -94,9 +138,10 @@ export default defineComponent({
             {tabStore.tabs.map(item => (
               <div
                 class={[
-                  'flex justify-center items-center gap-2 px-3 py-2 bg-backdrop2 text-sm shadow-sm cursor-pointer select-none',
+                  'meagle-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-sm rounded cursor-pointer select-none',
                   item.key === tabStore.activeTab?.key && 'text-primary6',
                 ]}
+                onContextmenu={e => handleContextMenu(e, item)}
               >
                 <span onClick={() => handleClick(item.key, item.label)}>{item.label}</span>
                 <span onClick={() => handleClose(item)}>
@@ -104,6 +149,16 @@ export default defineComponent({
                 </span>
               </div>
             ))}
+            <NDropdown
+              placement="bottom-start"
+              trigger="manual"
+              x={contextMenuX.value}
+              y={contextMenuY.value}
+              options={contextMenuItems}
+              show={contextMenuVisible.value}
+              onClickoutside={handleClickOutside}
+              onSelect={handleSelect}
+            />
           </nav>
           <main class="px-3 pb-3 flex-1">
             <RouterView>

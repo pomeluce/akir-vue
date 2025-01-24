@@ -24,8 +24,8 @@ importers:
         specifier: ^1.7.9
         version: 1.7.9
       bpmn-js:
-        specifier: ^18.1.2
-        version: 18.1.2
+        specifier: ^18.2.0
+        version: 18.2.0
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -1027,8 +1027,8 @@ packages:
   birpc@0.2.19:
     resolution: {integrity: sha512-5WeXXAvTmitV1RqJFppT5QtUiz2p1mRSYU000Jkft5ZUCLJIk4uQriYNO50HknxKwM6jd8utNc66K1qGIwwWBQ==}
 
-  bpmn-js@18.1.2:
-    resolution: {integrity: sha512-GtD/Zyu5foh+S74/PNNBs0ys1yiQb6LSuQjbUIzsCssNkbI/3IJH9k7y7AdRrZFoci+oFSeCRTwSCldZSPMpKw==}
+  bpmn-js@18.2.0:
+    resolution: {integrity: sha512-2wdOUe2WjR+hvDsHorzNyIe52Ep8l1a79FJPQsss0fm2Jrjx/Sf9hRs+C3cKIbogBTZPQkmuS/QoCFjniMevzg==}
 
   bpmn-moddle@9.0.1:
     resolution: {integrity: sha512-jO2P5RBx0cZCCd+imqhpNE5anttaYuGd71u76NEA/qMZwJSW1t5ETAtw9/E2InfiPU2w0TR8oxPyopJXRc9VQg==}
@@ -2745,7 +2745,7 @@ snapshots:
 
   birpc@0.2.19: {}
 
-  bpmn-js@18.1.2:
+  bpmn-js@18.2.0:
     dependencies:
       bpmn-moddle: 9.0.1
       diagram-js: 15.2.4
