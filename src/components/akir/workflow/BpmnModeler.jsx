@@ -31,11 +31,11 @@ export default defineComponent({
   setup(props) {
     const { defaultXml = '' } = props;
 
-    const size = ref<string>('14');
-    const refCanvas = useTemplateRef<HTMLElement>('canvas');
-    const modeler = ref<BpmnModeler | null>(null);
+    const size = ref('14');
+    const refCanvas = useTemplateRef('canvas');
+    const modeler = ref(null);
 
-    const createNewDiagram = async (data: string) => {
+    const createNewDiagram = async data => {
       data = data.replace(/<!\[CDATA\[(.+?)]]>/g, (_, str) => {
         return str.replace(/</g, '&lt;');
       });
@@ -44,7 +44,7 @@ export default defineComponent({
         await modeler.value?.importXML(data);
         adjustPalette();
         // this.fitViewport();
-      } catch (err: any) {
+      } catch (err) {
         console.error(err.message, err.warnings);
       }
     };
@@ -54,12 +54,12 @@ export default defineComponent({
       const entries = palette?.querySelector('.djs-palette-entries');
       const groups = entries?.children;
 
-      (groups?.[0] as HTMLElement).style.display = 'none';
+      (groups?.[0]).style.display = 'none';
 
       if (groups) {
         for (const group of groups) {
           for (const k in group.children) {
-            const control = group.children[k] as HTMLElement;
+            const control = group.children[k];
             if (control.className && control.dataset && control.className.indexOf('entry') !== -1) {
               const props = new BpmData().getControl(control.dataset.action);
               control.innerHTML = `<div class='text-sm' >${props['title']}</div>`;
@@ -71,11 +71,15 @@ export default defineComponent({
 
     onMounted(() => {
       modeler.value = new BpmnModeler({
-        container: refCanvas.value as HTMLElement,
+        container: refCanvas.value,
+        propertiesPanel: {
+          parent: '#bpmn-properties-panel',
+        },
         additionalModules: [
           {
             translate: ['value', translate],
           },
+          // BpmnPalette,
         ],
         moddleExtensions: {
           flowable: flowableModdle,
@@ -188,6 +192,7 @@ export default defineComponent({
         <NLayout class="grow-1" hasSider>
           <NLayoutContent class="h-full">
             <div class="h-full" ref="canvas" />
+            <div id="bpmn-properties-panel" class="panel" />
           </NLayoutContent>
           <NLayoutSider>侧边栏</NLayoutSider>
         </NLayout>

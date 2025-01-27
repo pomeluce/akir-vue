@@ -2,8 +2,6 @@
  * 存储流程设计相关参数
  */
 export default class BpmData {
-  controls: { action: string; title: string }[];
-
   constructor() {
     this.controls = []; // 设计器控件
     this.init();
@@ -63,7 +61,7 @@ export default class BpmData {
   }
 
   //  获取控件配置信息
-  getControl(action: string | undefined) {
+  getControl(action) {
     const result = this.controls.filter(item => item.action === action);
     return result[0] || {};
   }

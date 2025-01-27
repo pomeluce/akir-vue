@@ -1,0 +1,1 @@
+export { AkirConfigProvider } from './ConfigProvider';

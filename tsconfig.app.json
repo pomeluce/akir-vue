@@ -34,6 +34,6 @@
     },
     "types": ["naive-ui/volar", "lodash-es"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "src/**/*.js"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.vue", "types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
