@@ -34,7 +34,7 @@ export default defineComponent({
           </div>
           <div class="flex flex-col justify-between box-border p-5">
             <div>
-              <h2 class="text-center text-word2 text-lg font-bold uppercase mt-3">meagle-vue</h2>
+              <h2 class="text-center text-word2 text-lg font-bold uppercase mt-3">akir-vue</h2>
               <div class="mt-8 flex flex-col gap-4">
                 <NInput placeholder="请输入用户名、邮箱或手机号" v-model={[model.username.value, 'value']}>
                   {{

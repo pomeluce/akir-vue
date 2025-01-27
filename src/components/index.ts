@@ -1,4 +1,3 @@
 export * from './icons';
-export * from './meagle';
+export * from './akir';
 export * from './system';
-export * from './workflow';

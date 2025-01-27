@@ -1,8 +1,8 @@
-import { ISpinProps, MeagleSpin } from '@/components';
+import { ISpinProps, AkirSpin } from '@/components';
 
 export function useSpin(options?: ISpinProps) {
   const vNode: HTMLElement = document.createElement('div');
-  const instance = createApp(MeagleSpin, { options }).mount(vNode);
+  const instance = createApp(AkirSpin, { options }).mount(vNode);
 
   document.body.appendChild(instance.$el);
 
@@ -13,4 +13,4 @@ export function useSpin(options?: ISpinProps) {
   };
 }
 
-export type MeagleSpinInstance = ReturnType<typeof useSpin>;
+export type AkirSpinInstance = ReturnType<typeof useSpin>;

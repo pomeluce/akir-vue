@@ -104,7 +104,7 @@ export default defineComponent({
             <RouterLink class="flex justify-center items-center gap-1 font-bold overflow-hidden hover:text-word1/80" to={{ name: RouteName.HOME }}>
               <img class="w-5 h-5" src={Logo} />
               <NCollapseTransition show={!collapsed.value} class="text-lg font-bold uppercase">
-                meagle-vue
+                akir-vue
               </NCollapseTransition>
             </RouterLink>
           </header>
@@ -138,7 +138,7 @@ export default defineComponent({
             {tabStore.tabs.map(item => (
               <div
                 class={[
-                  'meagle-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-sm rounded cursor-pointer select-none',
+                  'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-sm rounded cursor-pointer select-none',
                   item.key === tabStore.activeTab?.key && 'text-primary6',
                 ]}
                 onContextmenu={e => handleContextMenu(e, item)}

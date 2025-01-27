@@ -1,13 +1,13 @@
 {
-  "name": "meagle-vue",
+  "name": "akir-vue",
   "private": true,
   "version": "3.0.1",
   "type": "module",
   "license": "GPL-3.0",
-  "homepage": "https://github.com/pomeluce/meagle-vue",
+  "homepage": "https://github.com/pomeluce/akir-vue",
   "description": "基于 vue3, typescript, vite, naive-ui, unocss 的前端开发脚手架",
   "keywords": [
-    "meagle",
+    "akir",
     "vue3",
     "typescript",
     "vite",

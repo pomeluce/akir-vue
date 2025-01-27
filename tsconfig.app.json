@@ -18,6 +18,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "jsxImportSource": "vue",
+    "allowJs": true,
 
     /* Linting */
     "strict": true,
@@ -33,6 +34,6 @@
     },
     "types": ["naive-ui/volar", "lodash-es"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "src/**/*.js"],
   "exclude": ["node_modules", "dist"]
 }

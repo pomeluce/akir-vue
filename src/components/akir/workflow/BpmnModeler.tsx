@@ -13,6 +13,7 @@ import {
 import { NButton, NLayout, NLayoutContent, NLayoutSider, NTooltip } from 'naive-ui';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import BpmData from './BpmData';
+import BpmnPalette from './palette';
 import flowableModdle from './flowable/flowable.json';
 import flowableInit from './flowable/init';
 import translate from './lang/translate';
@@ -20,10 +21,16 @@ import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+import './bpmn.scss';
 
 export default defineComponent({
   name: 'workflow-bpmn-modeler',
-  setup() {
+  props: {
+    defaultXml: String,
+  },
+  setup(props) {
+    const { defaultXml = '' } = props;
+
     const size = ref<string>('14');
     const refCanvas = useTemplateRef<HTMLElement>('canvas');
     const modeler = ref<BpmnModeler | null>(null);
@@ -44,8 +51,6 @@ export default defineComponent({
 
     const adjustPalette = () => {
       const palette = refCanvas.value?.querySelector('.djs-palette');
-      palette?.classList.add('!w-36', '!p-3', '!bg-backdrop2', '!left-2', '!rounded');
-
       const entries = palette?.querySelector('.djs-palette-entries');
       const groups = entries?.children;
 
@@ -58,7 +63,6 @@ export default defineComponent({
             if (control.className && control.dataset && control.className.indexOf('entry') !== -1) {
               const props = new BpmData().getControl(control.dataset.action);
               control.innerHTML = `<div class='text-sm' >${props['title']}</div>`;
-              control.classList.add('!w-full', 'flex', 'justify-start', 'items-center', 'gap-3', 'px-2', 'py-8');
             }
           }
         }
@@ -78,11 +82,12 @@ export default defineComponent({
         },
       });
 
-      createNewDiagram(flowableInit());
+      if (defaultXml) createNewDiagram(defaultXml);
+      else createNewDiagram(flowableInit());
     });
 
     return () => (
-      <main class="h-full flex flex-col border border-rim2 rounded">
+      <main class="akir-bpmn-modeler h-full flex flex-col border border-rim2 rounded">
         <header class="border-b border-rim2">
           <div class="p-2 flex justify-between">
             <div class="flex gap-2">

@@ -6,12 +6,12 @@ export interface ISpinProps {
   content?: string;
 }
 
-export const MeagleSpin = defineComponent({
+export const AkirSpin = defineComponent({
   props: { options: Object as PropType<ISpinProps> },
   setup({ options }) {
     return () => (
       <div
-        class={'meagle-spin w-screen h-screen fixed inset-0 flex flex-col gap-2 justify-center items-center text-primary6 z-100 bg-backdrop2/45'}
+        class={'akir-spin w-screen h-screen fixed inset-0 flex flex-col gap-2 justify-center items-center text-primary6 z-100 bg-backdrop2/45'}
         style={{ backgroundColor: options?.bgColor, color: options?.color }}
       >
         <div class="relative w-10 h-10" role="img" aria-label="loading">

@@ -1,4 +1,4 @@
-import { MeagleConfigProvider } from '@/components';
+import { AkirConfigProvider } from '@/components';
 import Root from '@/pages/root';
 
 export default defineComponent({
@@ -10,9 +10,9 @@ export default defineComponent({
     };
 
     return () => (
-      <MeagleConfigProvider defaultTheme={themeMode} onToggleTheme={handleToggleTheme}>
+      <AkirConfigProvider defaultTheme={themeMode} onToggleTheme={handleToggleTheme}>
         <Root />
-      </MeagleConfigProvider>
+      </AkirConfigProvider>
     );
   },
 });
