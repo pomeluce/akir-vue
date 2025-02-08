@@ -1,7 +1,7 @@
-import Logo from '/pomeluce.svg';
+import Logo from '/akir.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { DropdownOption, NCollapseTransition, NDropdown, NIcon, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
+import { DropdownOption, NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
 import { RiCloseLine, RiSideBarLine } from '@remixicon/vue';
 import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';

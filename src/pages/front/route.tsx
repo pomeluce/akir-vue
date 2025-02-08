@@ -1,4 +1,4 @@
-import Logo from '/pomeluce.svg';
+import Logo from '/akir.svg';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { Avatar, Screen, ThemePopup } from '@/components';
 import { topMenus } from '@/configs/menus';
