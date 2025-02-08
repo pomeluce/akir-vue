@@ -26,7 +26,6 @@ export default defineConfig(({ command, mode }) => {
         hashPrefix: 'akir',
         localsConvention: 'camelCaseOnly',
       },
-      preprocessorOptions: { scss: { api: 'modern-compiler' } },
     },
     base: isBuild ? '/' : '/',
     server: {

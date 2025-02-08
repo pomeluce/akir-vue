@@ -1,8 +1,8 @@
 import Logo from '/pomeluce.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { DropdownOption, NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu } from 'naive-ui';
-import { RiCloseLine } from '@remixicon/vue';
+import { DropdownOption, NCollapseTransition, NDropdown, NIcon, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
+import { RiCloseLine, RiSideBarLine } from '@remixicon/vue';
 import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 
@@ -90,16 +90,7 @@ export default defineComponent({
 
     return () => (
       <NLayout class="w-screen h-screen" hasSider>
-        <NLayoutSider
-          class="border-rim2 border-r h-full"
-          collapsed={collapsed.value}
-          collapse-mode="width"
-          collapsedWidth={64}
-          width="200"
-          showTrigger
-          onCollapse={() => (collapsed.value = true)}
-          onExpand={() => (collapsed.value = false)}
-        >
+        <NLayoutSider class="h-full border-r border-rim1 shadow-sm" collapsed={collapsed.value} collapse-mode="width" collapsedWidth={64} width="240">
           <header class="flex justify-center items-center py-5">
             <RouterLink class="flex justify-center items-center gap-1 font-bold overflow-hidden hover:text-word1/80" to={{ name: RouteName.HOME }}>
               <img class="w-5 h-5" src={Logo} />
@@ -123,9 +114,19 @@ export default defineComponent({
             />
           </nav>
         </NLayoutSider>
-        <main class="flex flex-col gap-2 flex-1">
-          <header class="flex justify-between h-[60px] items-center py-3 px-3 bg-backdrop2 relative border-b border-rim2 z-40">
-            <section>
+        <main class="flex flex-col gap-1 flex-1">
+          <header class="flex justify-between h-[60px] items-center py-3 px-3 bg-backdrop2 relative border-b border-rim1 z-40">
+            <section class="flex justify-center items-stretch gap-3">
+              <NTooltip>
+                {{
+                  trigger: () => (
+                    <button class="flex items-center bg-transparent" onClick={() => (collapsed.value = !collapsed.value)}>
+                      <RiSideBarLine size="20" />
+                    </button>
+                  ),
+                  default: () => <span class="text-xs">{!collapsed.value ? '收起' : '展开'}菜单</span>,
+                }}
+              </NTooltip>
               <Breadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
             </section>
             <section class="flex items-center gap-3 px-2">

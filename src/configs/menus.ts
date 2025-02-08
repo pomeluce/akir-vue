@@ -1,4 +1,4 @@
-import { RiDashboard3Line, RiErrorWarningLine, RiListSettingsLine, RiLogoutCircleRLine, RiSettingsLine, RiUser3Line } from '@remixicon/vue';
+import { RiAlarmWarningLine, RiDashboard3Line, RiListSettingsLine, RiLogoutCircleRLine, RiSettingsLine, RiUser3Line } from '@remixicon/vue';
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -32,7 +32,7 @@ export const avatarMenus = [
 export const menuIcons = {
   dashboard: RiDashboard3Line,
   system: RiListSettingsLine,
-  error: RiErrorWarningLine,
+  error: RiAlarmWarningLine,
 };
 
 export type MenuIconKeyType = keyof typeof menuIcons;
