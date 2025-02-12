@@ -1,1 +1,1 @@
-export { default as WorkflowBpmnModeler } from './BpmnModeler';
+export { default as AkirDesigner } from './designer';

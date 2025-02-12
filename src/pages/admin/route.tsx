@@ -120,7 +120,7 @@ export default defineComponent({
               <NTooltip>
                 {{
                   trigger: () => (
-                    <button class="flex items-center bg-transparent" onClick={() => (collapsed.value = !collapsed.value)}>
+                    <button class="flex items-center bg-transparent [&:focus,&:focus-within,&:focus-visible]:outline-unset" onClick={() => (collapsed.value = !collapsed.value)}>
                       <RiSideBarLine size="20" />
                     </button>
                   ),
@@ -162,6 +162,7 @@ export default defineComponent({
             />
           </nav>
           <main class="px-3 pb-3 flex-1">
+            {/* TODO: 403 页面和 500 页面优化, 路由地址不变, 添加认证组件, 判断是否渲染 403/500 页面还是路由页面 */}
             <RouterView>
               {{
                 default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (

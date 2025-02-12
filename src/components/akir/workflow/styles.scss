@@ -1,0 +1,23 @@
+.akir-designer {
+  --uno: w-full h-full overflow-hidden box-border m-0 p-0 relative grid grid-cols-[1fr_auto] text-word2;
+
+  .akir-flow_canvas {
+    --uno: relative w-full h-full overflow-hidden;
+
+    .akir-flow_root-bg {
+      --uno: absolute left-0 right-0 w-screen h-screen;
+      transform-origin: 0 0;
+
+      *,
+      *::before,
+      *::after {
+        --uno: box-border;
+      }
+    }
+
+    .akir-flow_root {
+      position: absolute;
+      transform-origin: 0 0;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { WorkflowBpmnModeler } from '@/components';
+import { AkirDesigner } from '@/components';
 import { NCard } from 'naive-ui';
 
 export default defineComponent({
@@ -6,7 +6,7 @@ export default defineComponent({
   setup() {
     return () => (
       <NCard class="h-full">
-        <WorkflowBpmnModeler />
+        <AkirDesigner />
       </NCard>
     );
   },
