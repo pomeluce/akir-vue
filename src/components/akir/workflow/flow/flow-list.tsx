@@ -1,6 +1,7 @@
 import { PropType } from 'vue';
 
 export default defineComponent({
+  name: 'AkirFlowList',
   props: {
     modelValue: {
       type: Object as PropType<WFBaseNode>,
@@ -12,9 +13,16 @@ export default defineComponent({
       validator: (v: WFDirection) => ['vertical', 'horizontal'].includes(v),
     },
   },
-  setup(props) {
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
     const cls = computed<string>(() => `akir-flow_container akir-flow_${props.direction || 'vertical'}`);
-    return { cls };
+
+    const startNode = computed<WFBaseNode>({
+      get: () => props.modelValue,
+      set: value => emit('update:modelValue', value),
+    });
+
+    return { cls, startNode };
   },
   render() {
     return (

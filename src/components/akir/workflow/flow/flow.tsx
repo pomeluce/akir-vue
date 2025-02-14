@@ -1,6 +1,7 @@
 import { ComponentInstance } from 'vue';
 import FlowCanvas from './base/flow-canvas';
 import { createPresetProcess, delegate, getNodeInMap } from '@/utils/workflow';
+import FlowList from './flow-list';
 
 interface BreadcrumbItem {
   id: string;
@@ -9,25 +10,20 @@ interface BreadcrumbItem {
   node?: WFBaseNode;
 }
 
-export default defineComponent({
-  props: {
-    modelValue: {
-      type: Object as PropType<WFBaseNode>,
-      default: () => null,
-    },
-    direction: {
-      type: String as PropType<WFDirection>,
-      default: 'vertical',
-      validator: (v: WFDirection) => ['vertical', 'horizontal'].includes(v),
-    },
-  },
-  emits: ['update:modelValue', 'zoomChanged', 'node-click', 'node-dblclick', 'node-mouseenter', 'node-mouseleave', 'node-contextmenu'],
-  setup(props, { emit }) {
+interface IFlowProps {
+  modelValue: WFBaseNode;
+  direction?: WFDirection;
+}
+
+export default defineComponent<IFlowProps, ['update:modelValue', 'zoomChanged', 'node-click', 'node-dblclick', 'node-mouseenter', 'node-mouseleave', 'node-contextmenu']>(
+  (props, { emit }) => {
+    const { modelValue, direction = 'vertical' } = props;
+
     const root = ref<WFSubprocessNode>();
     const canvas = shallowRef<ComponentInstance<typeof FlowCanvas>>();
     const fitViewport = (padding?: number) => canvas.value?.fitViewport(padding);
 
-    const computedFlowData = computed<WFBaseNode>(() => props.modelValue || ref(createPresetProcess()).value);
+    const computedFlowData = computed<WFBaseNode>(() => modelValue || ref(createPresetProcess()).value);
     const computedVisibleFlowData = computed<WFBaseNode>({
       get: () => (root.value ? root.value.$start! : computedFlowData.value),
       set: () => emit('update:modelValue', computedFlowData.value),
@@ -73,18 +69,13 @@ export default defineComponent({
       delegate(canvas.value!.$el, 'mouseleave', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-mouseleave', element, ev));
       delegate(canvas.value!.$el, 'contextmenu', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-contextmenu', element, ev));
     });
-
-    return { canvas, computedBreadcrumbList, breadcrumbClick, fitViewport, toggleRoot };
-  },
-  render() {
-    const { computedBreadcrumbList, breadcrumbClick } = this;
-    return (
-      <FlowCanvas ref="canvas">
+    return () => (
+      <FlowCanvas ref={canvas}>
         {{
           header: () => {
-            computedBreadcrumbList?.length ? (
+            computedBreadcrumbList.value?.length ? (
               <div class="akir-flow_breadcrumbs">
-                {computedBreadcrumbList.map((bc, index) => (
+                {computedBreadcrumbList.value.map((bc, index) => (
                   <div class="akir-flow_breadcrumb-item" key={bc.id}>
                     {index > 0 && <span class="akir-flow_breadcrumb-item-tag"></span>}
                     <span class={['akir-flow_breadcrumb-item-label', bc.disabled && 'breadcrumb-item_is-disabled']} onClick={() => breadcrumbClick(bc)}>
@@ -97,8 +88,13 @@ export default defineComponent({
               <></>
             );
           },
+          default: () => <FlowList v-model={computedVisibleFlowData.value} direction={direction} />,
         }}
       </FlowCanvas>
     );
+    // },
   },
-});
+  {
+    name: 'AkirFlow',
+  },
+);

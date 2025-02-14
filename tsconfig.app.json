@@ -32,7 +32,13 @@
       "@/*": ["./src/*"],
       "#/*": ["types/*"]
     },
-    "types": ["naive-ui/volar", "lodash-es"]
+    "types": ["naive-ui/volar", "lodash-es", "unplugin-vue-macros/macros-global"]
+  },
+  "vueCompilerOptions": {
+    "plugins": ["unplugin-vue-macros/volar"],
+    "vueMacros": {
+      "setupSFC": true
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.vue", "types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]

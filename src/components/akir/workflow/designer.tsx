@@ -3,7 +3,10 @@ import './styles.scss';
 
 export default defineComponent({
   setup() {
-    return () => (
+    return {};
+  },
+  render() {
+    return (
       <div class="akir-designer">
         <AkirFlow />
       </div>

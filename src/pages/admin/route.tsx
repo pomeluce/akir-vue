@@ -47,7 +47,7 @@ export default defineComponent({
 
     const handleClose = (tab: TabState) => {
       if (tabStore.tabs.length === 1) {
-        message.warning('当前为最后一页了, 无法再关闭了');
+        message.warning('当前为最后一标签页了, 无法再关闭了');
       } else {
         tabStore.removeTab(tab);
         if (tab.key === tabStore.activeTab?.key) {

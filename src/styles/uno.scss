@@ -1,35 +1,35 @@
 @use './themes.scss';
 
 :root {
-  --uno-primary1: var(--hue-primary-1);
-  --uno-primary2: var(--hue-primary-2);
-  --uno-primary3: var(--hue-primary-3);
-  --uno-primary4: var(--hue-primary-4);
-  --uno-primary5: var(--hue-primary-5);
-  --uno-primary6: var(--hue-primary-6);
-  --uno-primary7: var(--hue-primary-7);
+  --uno-primary1: var(--akir-primary-1);
+  --uno-primary2: var(--akir-primary-2);
+  --uno-primary3: var(--akir-primary-3);
+  --uno-primary4: var(--akir-primary-4);
+  --uno-primary5: var(--akir-primary-5);
+  --uno-primary6: var(--akir-primary-6);
+  --uno-primary7: var(--akir-primary-7);
 
-  --uno-link1: var(--hue-link-1);
-  --uno-link2: var(--hue-link-2);
+  --uno-link1: var(--akir-link-1);
+  --uno-link2: var(--akir-link-2);
 
-  --uno-backdrop1: var(--hue-bg-1);
-  --uno-backdrop2: var(--hue-bg-2);
-  --uno-backdrop3: var(--hue-bg-3);
-  --uno-backdrop4: var(--hue-bg-4);
-  --uno-backdrop-white: var(--hue-bg-white);
+  --uno-backdrop1: var(--akir-bg-1);
+  --uno-backdrop2: var(--akir-bg-2);
+  --uno-backdrop3: var(--akir-bg-3);
+  --uno-backdrop4: var(--akir-bg-4);
+  --uno-backdrop-white: var(--akir-bg-white);
 
-  --uno-word1: var(--hue-grey-10);
-  --uno-word2: var(--hue-grey-8);
-  --uno-word3: var(--hue-grey-6);
-  --uno-word4: var(--hue-grey-4);
+  --uno-word1: var(--akir-grey-10);
+  --uno-word2: var(--akir-grey-8);
+  --uno-word3: var(--akir-grey-6);
+  --uno-word4: var(--akir-grey-4);
 
-  --uno-rim1: var(--hue-grey-2);
-  --uno-rim2: var(--hue-grey-3);
-  --uno-rim3: var(--hue-grey-4);
-  --uno-rim4: var(--hue-grey-6);
+  --uno-rim1: var(--akir-grey-2);
+  --uno-rim2: var(--akir-grey-3);
+  --uno-rim3: var(--akir-grey-4);
+  --uno-rim4: var(--akir-grey-6);
 
-  --uno-fill1: var(--hue-grey-1);
-  --uno-fill2: var(--hue-grey-2);
-  --uno-fill3: var(--hue-grey-3);
-  --uno-fill4: var(--hue-grey-4);
+  --uno-fill1: var(--akir-grey-1);
+  --uno-fill2: var(--akir-grey-2);
+  --uno-fill3: var(--akir-grey-3);
+  --uno-fill4: var(--akir-grey-4);
 }
