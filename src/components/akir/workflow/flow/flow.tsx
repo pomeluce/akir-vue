@@ -1,5 +1,5 @@
 import { ComponentInstance } from 'vue';
-import FlowCanvas from './base/flow-canvas';
+import FlowCanvas, { IFlowCanvasExpose } from './base/flow-canvas';
 import { createPresetProcess, delegate, getNodeInMap } from '@/utils/workflow';
 import FlowList from './flow-list';
 
@@ -10,17 +10,22 @@ interface BreadcrumbItem {
   node?: WFBaseNode;
 }
 
-interface IFlowProps {
-  modelValue: WFBaseNode;
-  direction?: WFDirection;
+export interface IFlowExpose {
+  fitViewport: (padding?: number) => void;
+  toggleRoot: (r?: WFSubprocessNode) => void;
 }
 
-export default defineComponent<IFlowProps, ['update:modelValue', 'zoomChanged', 'node-click', 'node-dblclick', 'node-mouseenter', 'node-mouseleave', 'node-contextmenu']>(
-  (props, { emit }) => {
+const props = { modelValue: { type: Object as PropType<WFBaseNode>, default: () => null }, direction: String as PropType<WFDirection> };
+
+export default defineComponent({
+  name: 'AkirFlow',
+  props,
+  emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeMouseenter', 'nodeMouseleave', 'nodeContextmenu'],
+  setup(props, { emit, expose }) {
     const { modelValue, direction = 'vertical' } = props;
 
     const root = ref<WFSubprocessNode>();
-    const canvas = shallowRef<ComponentInstance<typeof FlowCanvas>>();
+    const canvas = shallowRef<ComponentInstance<typeof FlowCanvas> & IFlowCanvasExpose>();
     const fitViewport = (padding?: number) => canvas.value?.fitViewport(padding);
 
     const computedFlowData = computed<WFBaseNode>(() => modelValue || ref(createPresetProcess()).value);
@@ -54,7 +59,7 @@ export default defineComponent<IFlowProps, ['update:modelValue', 'zoomChanged', 
       if (!bc.disabled) toggleRoot(bc.node ? (getNodeInMap(bc.node.id) as WFSubprocessNode) : undefined);
     };
     // dom 事件代理
-    const emitDomEvent = (type: 'node-click' | 'node-dblclick' | 'node-mouseenter' | 'node-mouseleave' | 'node-contextmenu', element: HTMLElement, ev: Event) => {
+    const emitDomEvent = (type: 'nodeClick' | 'nodeDblclick' | 'nodeMouseenter' | 'nodeMouseleave' | 'nodeContextmenu', element: HTMLElement, ev: Event) => {
       const nodeId = element.getAttribute('data-node-id');
       if (nodeId) {
         const node = getNodeInMap(nodeId);
@@ -63,12 +68,15 @@ export default defineComponent<IFlowProps, ['update:modelValue', 'zoomChanged', 
     };
 
     onMounted(() => {
-      delegate(canvas.value!.$el, 'click', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-click', element, ev));
-      delegate(canvas.value!.$el, 'dblclick', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-dblclick', element, ev));
-      delegate(canvas.value!.$el, 'mouseenter', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-mouseenter', element, ev));
-      delegate(canvas.value!.$el, 'mouseleave', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-mouseleave', element, ev));
-      delegate(canvas.value!.$el, 'contextmenu', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('node-contextmenu', element, ev));
+      delegate(canvas.value!.$el, 'click', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('nodeClick', element, ev));
+      delegate(canvas.value!.$el, 'dblclick', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('nodeDblclick', element, ev));
+      delegate(canvas.value!.$el, 'mouseenter', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('nodeMouseenter', element, ev));
+      delegate(canvas.value!.$el, 'mouseleave', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('nodeMouseleave', element, ev));
+      delegate(canvas.value!.$el, 'contextmenu', '.flow-node__container .flow-node', (element, ev) => emitDomEvent('nodeContextmenu', element, ev));
     });
+
+    expose({ fitViewport, toggleRoot } satisfies IFlowExpose);
+
     return () => (
       <FlowCanvas ref={canvas}>
         {{
@@ -92,9 +100,7 @@ export default defineComponent<IFlowProps, ['update:modelValue', 'zoomChanged', 
         }}
       </FlowCanvas>
     );
-    // },
   },
-  {
-    name: 'AkirFlow',
-  },
-);
+});
+
+// defineOptions({ name: 'AkirFlow' });

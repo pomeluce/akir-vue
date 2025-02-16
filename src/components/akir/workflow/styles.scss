@@ -4,6 +4,53 @@
   .akir-flow_canvas {
     --uno: relative w-full h-full overflow-hidden;
 
+    .akir-flow_root {
+      position: absolute;
+      transform-origin: 0 0;
+
+      .akir-flow_wrapper {
+        --uno: w-full overflow-visible box-border pointer-events-none;
+
+        .akir-flow_container {
+          --uno: flex w-max h-max p-5 overflow-auto box-border items-center min-w-full;
+
+          &.akir-flow_vertical {
+            --uno: flex-col;
+            .akir-flow_flex-safe {
+              --uno: flex-col;
+            }
+          }
+
+          &.akir-flow_horizontal {
+            --uno: flex-row;
+            .akir-flow_flex-safe {
+              --uno: flex-row;
+            }
+          }
+        }
+      }
+    }
+
+    .akir-flow_breadcrumbs {
+      --uno: absolute left-5 top-5 flex items-center z-20;
+
+      .akir-flow_breadcrumb-item {
+        line-height: 1.5rem;
+      }
+
+      .akir-flow_breadcrumb-item-tag {
+        --uno: text-size-xl py-2;
+      }
+
+      .akir-flow_breadcrumb-item-label {
+        --uno: cursor-pointer text-primary5;
+
+        &.breadcrumb-item_is-disabled {
+          --uno: cursor-not-allowed text-primary2;
+        }
+      }
+    }
+
     .akir-flow_root-bg {
       --uno: absolute left-0 right-0 w-screen h-screen;
       transform-origin: 0 0;
@@ -13,11 +60,6 @@
       *::after {
         --uno: box-border;
       }
-    }
-
-    .akir-flow_root {
-      position: absolute;
-      transform-origin: 0 0;
     }
   }
 }

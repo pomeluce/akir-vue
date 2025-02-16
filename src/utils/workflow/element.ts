@@ -53,14 +53,20 @@ export const DEFAULT_BPMN_TYPE_MAP = {
 
 /**
  * 创建节点
- */
-export function createNode(type: 'gateway', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFGatewayNode;
-export function createNode(type: 'expression', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFExpressionNode;
-export function createNode(type: 'task', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFTaskNode;
-export function createNode(type: 'service', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFServiceNode;
-export function createNode(type: 'event', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFEventNode;
-export function createNode(type: 'subprocess', parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFSubprocessNode;
-export function createNode<T extends WFBaseNodeType>(type: T, parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFBaseNode {
+ */ type WFNodeForType<T extends WFBaseNodeType> = T extends 'gateway'
+  ? WFGatewayNode
+  : T extends 'expression'
+    ? WFExpressionNode
+    : T extends 'task'
+      ? WFTaskNode
+      : T extends 'service'
+        ? WFServiceNode
+        : T extends 'event'
+          ? WFEventNode
+          : T extends 'subprocess'
+            ? WFSubprocessNode
+            : WFBaseNode;
+export function createNode<T extends WFBaseNodeType>(type: T, parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFNodeForType<T> {
   const n = name || DEFAULT_NAME_MAP[type] || type;
   const id = ids(type);
   const base: WFBaseNode = reactive({
@@ -93,16 +99,16 @@ export function createNode<T extends WFBaseNodeType>(type: T, parent?: WFBaseNod
     setNodeInMap(expressionNode1);
     setNodeInMap(expressionNode2);
 
-    return gatewayNode;
+    return gatewayNode as WFNodeForType<T>;
   }
   if (type === 'expression') {
-    return reactive({ ...base }) as WFExpressionNode;
+    return reactive({ ...base }) as WFNodeForType<T>;
   }
   if (type === 'service') {
-    return reactive({ ...base }) as WFServiceNode;
+    return reactive({ ...base }) as WFNodeForType<T>;
   }
   if (type === 'task') {
-    return reactive({ ...base }) as WFTaskNode;
+    return reactive({ ...base }) as WFNodeForType<T>;
   }
   if (type === 'subprocess') {
     const subprocess = reactive({ ...base }) as WFSubprocessNode;
@@ -118,13 +124,13 @@ export function createNode<T extends WFBaseNodeType>(type: T, parent?: WFBaseNod
     setNodeInMap(subprocessStart);
     setNodeInMap(subprocessEnd);
 
-    return subprocess;
+    return subprocess as WFNodeForType<T>;
   }
   if (type === 'event') {
-    return reactive({ ...base }) as WFEventNode;
+    return reactive({ ...base }) as WFNodeForType<T>;
   }
 
-  return reactive({ ...base });
+  return reactive({ ...base }) as WFNodeForType<T>;
 }
 
 /**
