@@ -66,7 +66,7 @@ export default defineComponent({
       }
     };
 
-    const transformNodeName = (node: WFBaseNode) => defineAsyncComponent<VNode>(() => import(`../nodes/${capitalize(node.type)}Node`));
+    const transformNodeName = (node: WFBaseNode) => defineAsyncComponent<VNode>(() => import(`../nodes/${capitalize(node.type)}Node.tsx`));
 
     return () => (
       <>

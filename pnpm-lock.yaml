@@ -1485,8 +1485,8 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
-  min-dash@4.2.2:
-    resolution: {integrity: sha512-qbhSYUxk6mBaF096B3JOQSumXbKWHenmT97cSpdNzgkWwGjhjhE/KZODCoDNhI2I4C9Cb6R/Q13S4BYkUSXoXQ==}
+  min-dash@4.2.3:
+    resolution: {integrity: sha512-VLMYQI5+FcD9Ad24VcB08uA83B07OhueAlZ88jBK6PyupTvEJwllTMUqMy0wPGYs7pZUEtEEMWdHB63m3LtEcg==}
 
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
@@ -2789,7 +2789,7 @@ snapshots:
 
   bpmn-moddle@9.0.1:
     dependencies:
-      min-dash: 4.2.2
+      min-dash: 4.2.3
       moddle: 7.2.0
       moddle-xml: 11.0.0(moddle@7.2.0)
 
@@ -3220,7 +3220,7 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
-  min-dash@4.2.2: {}
+  min-dash@4.2.3: {}
 
   minimatch@9.0.5:
     dependencies:
@@ -3241,13 +3241,13 @@ snapshots:
 
   moddle-xml@11.0.0(moddle@7.2.0):
     dependencies:
-      min-dash: 4.2.2
+      min-dash: 4.2.3
       moddle: 7.2.0
       saxen: 10.0.0
 
   moddle@7.2.0:
     dependencies:
-      min-dash: 4.2.2
+      min-dash: 4.2.3
 
   mrmime@2.0.0: {}
 
