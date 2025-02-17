@@ -1,11 +1,11 @@
 import RegisterBg from '@/assets/images/register-bg.svg';
 import { NButton, NIcon, NInput, NInputGroup, NTag } from 'naive-ui';
-import { RiAccountBoxLine, RiErrorWarningFill, RiLockLine, RiPassValidLine } from '@remixicon/vue';
 import { Illustration } from '@/components';
 import { Footer } from './route';
 import { captcha } from '@/request/auth';
 import { registerValidate } from '@/configs/auth';
 import { SubmissionHandler } from 'vee-validate';
+import { IconAlertCircleFilled, IconIdBadge2, IconLock, IconUserCircle } from '@tabler/icons-vue';
 
 export default defineComponent({
   setup() {
@@ -39,13 +39,13 @@ export default defineComponent({
               <div class="mt-8 flex flex-col gap-4">
                 <NInput placeholder="请输入用户名、邮箱或手机号" v-model={[model.username.value, 'value']}>
                   {{
-                    prefix: () => <NIcon component={<RiAccountBoxLine />} />,
+                    prefix: () => <NIcon component={<IconUserCircle />} />,
                   }}
                 </NInput>
                 {errors.value?.username && (
                   <NTag type="error">
                     {{
-                      icon: () => <NIcon component={<RiErrorWarningFill />} />,
+                      icon: () => <NIcon component={<IconAlertCircleFilled />} />,
                       default: () => <span class="text-xs">{errors.value?.username}</span>,
                     }}
                   </NTag>
@@ -53,13 +53,13 @@ export default defineComponent({
 
                 <NInput placeholder="请输入登录密码" type="password" v-model={[model.password.value, 'value']}>
                   {{
-                    prefix: () => <NIcon component={<RiLockLine />} />,
+                    prefix: () => <NIcon component={<IconLock />} />,
                   }}
                 </NInput>
                 {errors.value?.password && (
                   <NTag type="error">
                     {{
-                      icon: () => <NIcon component={<RiErrorWarningFill />} />,
+                      icon: () => <NIcon component={<IconAlertCircleFilled />} />,
                       default: () => <span class="text-xs">{errors.value?.password}</span>,
                     }}
                   </NTag>
@@ -67,13 +67,13 @@ export default defineComponent({
 
                 <NInput placeholder="请再次输入密码" type="password" v-model={[model.confirm.value, 'value']}>
                   {{
-                    prefix: () => <NIcon component={<RiLockLine />} />,
+                    prefix: () => <NIcon component={<IconLock />} />,
                   }}
                 </NInput>
                 {errors.value?.confirm && (
                   <NTag type="error">
                     {{
-                      icon: () => <NIcon component={<RiErrorWarningFill />} />,
+                      icon: () => <NIcon component={<IconAlertCircleFilled />} />,
                       default: () => <span class="text-xs">{errors.value?.confirm}</span>,
                     }}
                   </NTag>
@@ -82,7 +82,7 @@ export default defineComponent({
                 <NInputGroup class="gap-3">
                   <NInput type="text" placeholder="请输入验证码" v-model={[model.captcha.value, 'value']}>
                     {{
-                      prefix: () => <NIcon component={<RiPassValidLine />} />,
+                      prefix: () => <NIcon component={<IconIdBadge2 />} />,
                     }}
                   </NInput>
                   <img class="h-9" src={image.value} onClick={getCaptcha} />
@@ -90,7 +90,7 @@ export default defineComponent({
                 {errors.value?.captcha && (
                   <NTag type="error">
                     {{
-                      icon: () => <NIcon component={<RiErrorWarningFill />} />,
+                      icon: () => <NIcon component={<IconAlertCircleFilled />} />,
                       default: () => <span class="text-xs">{errors.value?.captcha}</span>,
                     }}
                   </NTag>

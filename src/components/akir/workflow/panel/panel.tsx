@@ -1,4 +1,4 @@
-import { RiArrowLeftDoubleLine } from '@remixicon/vue';
+import { IconChevronLeft } from '@tabler/icons-vue';
 import { isUndefined } from 'lodash-es';
 import { NIcon } from 'naive-ui';
 import { PropType } from 'vue';
@@ -6,6 +6,7 @@ import { PropType } from 'vue';
 const props = { node: { type: Object as PropType<WFBaseNode>, default: () => ({ businessData: {} }) } };
 
 export default defineComponent({
+  name: 'AkirFlowPanel',
   props,
   setup(props) {
     const panelState = ref<boolean>(false);
@@ -24,14 +25,15 @@ export default defineComponent({
     };
 
     return () => (
-      <div class={{ 'akir-panel': true, opened: panelState.value }}>
+      <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
         <div class="toggle-btn" onClick={() => togglePanel()}>
           <NIcon>
-            <RiArrowLeftDoubleLine />
+            <IconChevronLeft />
           </NIcon>
         </div>
 
-        <div class="akir-panel_header">{headerTitle.value}</div>
+        <div class="akir-flow-panel_header">{headerTitle.value}</div>
+        {props.node.id ? <div class="akir-flow-panel_body"></div> : <></>}
       </div>
     );
   },

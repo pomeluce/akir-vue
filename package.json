@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
-    "@remixicon/vue": "^4.6.0",
+    "@tabler/icons-vue": "^3.30.0",
     "@vee-validate/yup": "^4.15.0",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.7.9",

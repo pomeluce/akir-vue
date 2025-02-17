@@ -1,4 +1,4 @@
-import { RiFullscreenExitLine, RiFullscreenLine } from '@remixicon/vue';
+import { IconMaximize, IconMinimize } from '@tabler/icons-vue';
 
 export default defineComponent({
   setup() {
@@ -14,7 +14,7 @@ export default defineComponent({
     });
     return () => (
       <div class="flex items-center cursor-pointer" onClick={handleClick}>
-        {!isFull.value ? <RiFullscreenLine size="20" /> : <RiFullscreenExitLine size="20" />}
+        {!isFull.value ? <IconMaximize size="20" /> : <IconMinimize size="20" />}
       </div>
     );
   },

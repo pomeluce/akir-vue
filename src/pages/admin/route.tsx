@@ -2,9 +2,9 @@ import Logo from '/akir.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { DropdownOption, NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
-import { RiCloseLine, RiSideBarLine } from '@remixicon/vue';
 import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
+import { IconLayoutSidebarFilled, IconX } from '@tabler/icons-vue';
 
 export default defineComponent({
   setup() {
@@ -121,7 +121,7 @@ export default defineComponent({
                 {{
                   trigger: () => (
                     <button class="flex items-center bg-transparent [&:focus,&:focus-within,&:focus-visible]:outline-unset" onClick={() => (collapsed.value = !collapsed.value)}>
-                      <RiSideBarLine size="20" />
+                      <IconLayoutSidebarFilled size="20" />
                     </button>
                   ),
                   default: () => <span class="text-xs">{!collapsed.value ? '收起' : '展开'}菜单</span>,
@@ -146,7 +146,7 @@ export default defineComponent({
               >
                 <span onClick={() => handleClick(item.key, item.label)}>{item.label}</span>
                 <span onClick={() => handleClose(item)}>
-                  <RiCloseLine size="16" />
+                  <IconX size="16" />
                 </span>
               </div>
             ))}

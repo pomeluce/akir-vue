@@ -1,7 +1,7 @@
 import { ComponentInstance, PropType } from 'vue';
 import { AkirFlow, IAkirFlowExpose } from './flow';
 import './styles.scss';
-import { defaultAppendValidator, setWFGlobalConfig } from './configuration/global';
+import { setWFGlobalConfig } from './configuration/global';
 import { WFAppMenuGetter } from './injection';
 import { defaultWFAppendMenuProvider } from './configuration/provider';
 

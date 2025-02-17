@@ -80,7 +80,7 @@ export default defineConfig({
     },
   },
   // 添加 UnoCSS 的默认样式预设
-  presets: [presetUno({ dark: { dark: '[data-theme="dark"]' } }), presetAttributify(), presetTypography()],
+  presets: [presetUno({ dark: { dark: '[data-theme="dark"]' } }), presetAttributify({ prefix: 'un-', prefixedOnly: true }), presetTypography()],
   transformers: [
     // applay theme screen 指令支持
     transformerDirectives(),

@@ -1,9 +1,9 @@
 import { getDragData } from '@/utils/workflow';
 import { isFunction } from 'lodash-es';
 import { getWFGlobalConfig } from '../../configuration/global';
-import { RiAddCircleFill } from '@remixicon/vue';
 import { NButton, NPopover } from 'naive-ui';
 import { WFAppMenuGetter } from '../../injection';
+import { IconCirclePlusFilled } from '@tabler/icons-vue';
 
 const props = { data: Object as PropType<WFBaseNode> };
 
@@ -78,7 +78,7 @@ export default defineComponent({
                 }}
                 onDblclick={e => e.stopPropagation()}
               >
-                <RiAddCircleFill />
+                <IconCirclePlusFilled />
               </div>
             ),
 

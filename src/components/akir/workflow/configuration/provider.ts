@@ -1,4 +1,4 @@
-import { RiDonutChartLine, RiMailLine, RiParkingBoxLine, RiSendPlaneLine, RiStackshareLine, RiStockLine, RiUserSettingsLine } from '@remixicon/vue';
+import { IconCircleDotted, IconMail, IconParking, IconRouteAltLeft, IconSend, IconSitemap, IconUserCog } from '@tabler/icons-vue';
 
 export const defaultWFAppendMenuProvider: WFAppendMenuProvider<WFBaseNodeType> = () => {
   return [
@@ -6,44 +6,44 @@ export const defaultWFAppendMenuProvider: WFAppendMenuProvider<WFBaseNodeType> =
       type: 'task',
       name: '用户任务',
       businessData: { $type: 'userTask' },
-      icon: RiUserSettingsLine,
+      icon: IconUserCog,
     },
     {
       type: 'service',
       name: '抄送任务',
       businessData: { $type: 'serviceTask', type: 'copy', cls: 'copy-service' },
-      icon: RiSendPlaneLine,
+      icon: IconSend,
     },
     {
       type: 'service',
       name: '邮件任务',
       businessData: { $type: 'serviceTask', type: 'mail', cls: 'mail-service' },
-      icon: RiMailLine,
+      icon: IconMail,
     },
     {
       type: 'event',
       name: '异常事件',
       businessData: { $type: 'intermediateThrowEvent' },
-      icon: RiDonutChartLine,
+      icon: IconCircleDotted,
     },
     {
       type: 'gateway',
       name: '互斥网关',
       businessData: { $type: 'exclusiveGateway' },
-      icon: RiStockLine,
+      icon: IconRouteAltLeft,
     },
     {
       type: 'gateway',
       name: '并行网关',
       businessData: { $type: 'parallelGateway' },
-      icon: RiStackshareLine,
+      icon: IconSitemap,
       iconStyle: { transform: 'rotate(180deg)' },
     },
     {
       type: 'subprocess',
       name: '子流程',
       businessData: { $type: 'subProcess' },
-      icon: RiParkingBoxLine,
+      icon: IconParking,
     },
   ];
 };

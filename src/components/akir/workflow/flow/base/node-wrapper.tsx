@@ -2,8 +2,8 @@ import { getWFGlobalConfig } from '../../configuration/global';
 import { isFunction, isString, isUndefined } from 'lodash-es';
 import { appendNode, capitalize, createNode, removeNode, setDragData } from '@/utils/workflow';
 import { NIcon, NPopover } from 'naive-ui';
-import { RiDeleteBinFill, RiErrorWarningFill, RiSignpostFill } from '@remixicon/vue';
 import NodeBehavior from './node-behavior';
+import { IconAlertCircleFilled, IconSignRight, IconTrash } from '@tabler/icons-vue';
 
 const props = { modelValue: { type: Object as PropType<WFBaseNode>, required: true }, direction: String as PropType<WFDirection> };
 
@@ -84,7 +84,7 @@ export default defineComponent({
                   {{
                     trigger: () => (
                       <NIcon class="node-tag-icon node__uncompleted-tag">
-                        <RiErrorWarningFill class="text-red-400" />
+                        <IconAlertCircleFilled class="text-red-400" />
                       </NIcon>
                     ),
                     default: () => <div>{isString(completenessValid.value.message) ? completenessValid.value.message : completenessValid.value.message?.join(';')}</div>,
@@ -94,14 +94,14 @@ export default defineComponent({
               {/* 默认条件标识 */}
               {isDefaultFlow.value && (
                 <div class="node-tag-icon node__default-flow-tag">
-                  <RiSignpostFill class="text-green-500" />
+                  <IconSignRight class="text-green-500" />
                 </div>
               )}
 
               {removable.value && (
                 <div class="node-tag-icon node__delete-tag" title="删除节点">
                   <button onClick={handleDeleteNode}>
-                    <RiDeleteBinFill />
+                    <IconTrash />
                   </button>
                 </div>
               )}

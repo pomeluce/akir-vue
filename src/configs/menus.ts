@@ -1,4 +1,4 @@
-import { RiAlarmWarningLine, RiDashboard3Line, RiListSettingsLine, RiLogoutCircleRLine, RiSettingsLine, RiUser3Line } from '@remixicon/vue';
+import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconSettings2, IconUser } from '@tabler/icons-vue';
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -12,27 +12,27 @@ export const avatarMenus = [
   {
     key: 'user',
     label: '个人中心',
-    icon: RiUser3Line,
+    icon: IconUser,
     onClick: () => {},
   },
   {
     key: 'detail',
     label: '用户设置',
-    icon: RiSettingsLine,
+    icon: IconSettings2,
     onClick: () => {},
   },
   {
     key: 'logout',
     label: '退出登录',
-    icon: RiLogoutCircleRLine,
+    icon: IconLogout,
     onClick: () => {},
   },
 ];
 
 export const menuIcons = {
-  dashboard: RiDashboard3Line,
-  system: RiListSettingsLine,
-  error: RiAlarmWarningLine,
+  dashboard: IconDashboard,
+  system: IconAdjustmentsCog,
+  error: IconAlertSquareRounded,
 };
 
 export type MenuIconKeyType = keyof typeof menuIcons;
