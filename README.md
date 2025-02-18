@@ -1,50 +1,50 @@
-## 简介
+## Introduction
 
-[akir-vue](https://github.com/pomeluce/akir-vue) 是一个开源的, 基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的前后台快速开发脚手架，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制、流程管理等功能, 它可以帮助你快速搭建前台后台项目。
+[akir-vue](https://github.com/pomeluce/akir-vue) is an open-source front-end and back-end rapid development scaffold based on [Vue](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [Naive UI](https://www.naiveui.com/), and [TypeScript](https://www.typescriptlang.org/). It uses the latest front-end technology stack and refines typical business models, pages, and features, including secondary encapsulated components, dynamic menus, permission validation, granular permission control, process management, etc. It helps you quickly build front-end and back-end projects.
 
-## 特性
+## Features
 
-- 响应式、多主题，多配置，快速集成，开箱即用
-- 基于 `Vue3`、`Typescript`、`Pinia`、`Vite` 等前端前沿技术
-- 集成富文本、Markdown、VisualTabel、在线 Excel
-- 采用 Unocss 进行样式控制, 方便快捷
-- 强大的鉴权系统，对路由、菜单、功能点等支持`三种鉴权模式`，满足不同的业务鉴权需求
-- 移动端适配, 响应式布局
-- 持续更新，实用性页面模板功能和交互，随意搭配组合，让构建页面变得简单化
+- Responsive, multi-theme, multi-configuration, fast integration, and ready to use out of the box.
+- Based on cutting-edge front-end technologies such as Vue3, TypeScript, Pinia, Vite, etc.
+- Integrated rich text editor, Markdown, VisualTable, online Excel.
+- Uses TailwindCSS for styling control, which is simple and convenient.
+- Powerful authentication system supporting three types of authentication modes for routing, menus, function points, etc., to meet different business authentication requirements.
+- Mobile adaptation, responsive layout.
+- Continuous updates with practical page template features and interactions, easily combinable to simplify page building.
 
-## 文档
+## Documentation
 
 ```
-待完善
+To be improved.
 ```
 
-## 准备
+## Preparation
 
-- [Node](http://nodejs.org/) 和 [Git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 Vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [Node](http://nodejs.org/) and [Git](https://git-scm.com/) -Project development environment,
+- [Vite](https://vitejs.dev/) - Familiar with Vite features.
+- [Vue](https://vuejs.org/) - Familiar with Vue basic syntax.
+- [TypeScript](https://www.typescriptlang.org/) - Familiar with TypeScript basic syntax.
+- [ES6+](http://es6.ruanyifeng.com/) - Familiar with ES6 basic syntax.
+- [Vue-Router](https://router.vuejs.org/) - Familiar with vue-router basic usage.
+- [Mock.js](https://github.com/nuysoft/Mock) - Familiar with mockjs basic syntax.
 
-## 使用
+## Usage
 
-#### 方式 1:
+#### Method 1:
 
-- 安装 cli 工具
+- Install the CLI tool:
 
 ```bash
 npm i akir-cli -g
 ```
 
-- 通过全局命令创建项目
+- Create a project via the global command:
 
 ```bash
 akir-cli create
 ```
 
-- 进入项目文件夹, 启动项目
+- Enter the project folder and start the project:
 
 ```bash
 cd [project_name]
@@ -56,15 +56,15 @@ pnpm dev
 pnpm build
 ```
 
-#### 方式 2:
+#### Method 2:
 
-- 获取项目代码
+- Clone the project:
 
 ```bash
 git clone https://github.com/pomeluce/akir-vue.git
 ```
 
-- 安装依赖
+- Install dependencies:
 
 ```bash
 cd akir-vue
@@ -72,53 +72,53 @@ cd akir-vue
 pnpm install
 ```
 
-- 运行
+- Run the project:
 
 ```bash
 pnpm dev
 ```
 
-- 打包
+- Build the project:
 
 ```bash
 pnpm build
 ```
 
-## 如何贡献
+## How to Contribute
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/pomeluce/akir-vue/issues) 或者提交一个 Pull Request。
+We warmly welcome your contributions! Please submit an [Issue](https://github.com/pomeluce/akir-vue/issues) or a Pull Request.
 
 **Pull Request:**
 
-1. Fork 代码!
-2. 创建自己的分支: `git checkout -b feat/xxxx`
-3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
-4. 推送您的分支: `git push origin feat/xxxx`
-5. 提交`pull request`
+1. Fork the repository!
+2. Create your own branch: `git checkout -b feat/xxxx`
+3. Commit your changes: `git commit -am 'feat(function): add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. Submit a `pull request`
 
-## Git 贡献提交规范
+## Git Contribution Guidelines
 
-- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+- Refer to [Vue's](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) guidelines ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
-  - `feat` 增加新功能
-  - `fix` 修复问题/BUG
-  - `style` 代码风格相关无影响运行结果的
-  - `perf` 优化/性能提升
-  - `refactor` 重构
-  - `revert` 撤销修改
-  - `test` 测试相关
-  - `docs` 文档/注释
-  - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
-  - `ci` 持续集成
-  - `types` 类型定义文件更改
-  - `wip` 开发中
+  - `feat`: Add a new feature.
+  - `fix`: Fix issues/bugs.
+  - `style`: Code style-related changes that don’t affect functionality.
+  - `perf`: Optimizations/performance improvements.
+  - `refactor`: Code refactoring.
+  - `revert`: Revert changes.
+  - `test`: Test-related changes.
+  - `docs`: Documentation/comments.
+  - `chore`: Dependency updates/scaffold configuration changes.
+  - `workflow`: Workflow improvements.
+  - `ci`: Continuous integration.
+  - `types`: Changes to type definition files.
+  - `wip`: Work in progress.
 
-## 浏览器支持
+## Browser Support
 
-本地开发推荐使用`Chrome 80+` 浏览器
+It is recommended to use `Chrome 80+` for local development.
 
-支持现代浏览器, 不支持 IE
+Supports modern browsers, but does not support IE.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |
