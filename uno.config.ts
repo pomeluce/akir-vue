@@ -33,6 +33,22 @@ export default defineConfig({
       primary6: 'rgba(var(--uno-primary6))',
       primary7: 'rgba(var(--uno-primary7))',
 
+      success1: 'rgba(var(--uno-success1))',
+      success2: 'rgba(var(--uno-success2))',
+      success3: 'rgba(var(--uno-success3))',
+      success4: 'rgba(var(--uno-success4))',
+      success5: 'rgba(var(--uno-success5))',
+      success6: 'rgba(var(--uno-success6))',
+      success7: 'rgba(var(--uno-success7))',
+
+      warning1: 'rgba(var(--uno-warning1))',
+      warning2: 'rgba(var(--uno-warning2))',
+      warning3: 'rgba(var(--uno-warning3))',
+      warning4: 'rgba(var(--uno-warning4))',
+      warning5: 'rgba(var(--uno-warning5))',
+      warning6: 'rgba(var(--uno-warning6))',
+      warning7: 'rgba(var(--uno-warning7))',
+
       /* 背景色 */
       backdrop1: 'rgba(var(--uno-backdrop1))',
       backdrop2: 'rgba(var(--uno-backdrop2))',

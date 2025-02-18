@@ -31,13 +31,13 @@ export const defaultWFAppendMenuProvider: WFAppendMenuProvider<WFBaseNodeType> =
       name: '互斥网关',
       businessData: { $type: 'exclusiveGateway' },
       icon: IconRouteAltLeft,
+      iconStyle: { transform: 'rotate(180deg)' },
     },
     {
       type: 'gateway',
       name: '并行网关',
       businessData: { $type: 'parallelGateway' },
       icon: IconSitemap,
-      iconStyle: { transform: 'rotate(180deg)' },
     },
     {
       type: 'subprocess',

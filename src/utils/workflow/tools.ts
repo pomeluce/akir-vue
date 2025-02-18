@@ -8,26 +8,23 @@ export function capitalize(str: string): string {
 
 export function modalValidator(title: ModalOptions['title'], content: ModalOptions['content'], config: Partial<Omit<ModalOptions, 'title' | 'content'>> = {}) {
   return new Promise<boolean>(resolve => {
-    useModal().create({
-      title,
+    window.$modal.create({
+      title: `  ${title}`,
       content,
+      type: 'info',
       preset: 'confirm',
-      onClose: () => resolve(false),
+      positiveText: '确认',
+      negativeText: '取消',
+      closable: false,
+      maskClosable: false,
+      class: 'select-none',
+      titleClass: 'flex justify-center items-center !font-medium',
+      contentClass: 'py-5 text-xs',
+      negativeButtonProps: { type: 'info', ghost: true },
+      onPositiveClick: () => resolve(true),
+      onNegativeClick: () => resolve(false),
       ...config,
     });
-    // .confirm({
-    //   title,
-    //   content: message,
-    //   okText: '确认',
-    //   cancelText: '取消',
-    //   ...config,
-    //   onOk: () => {
-    //     resolve(true)
-    //   },
-    //   onCancel: () => {
-    //     resolve(false)
-    //   },
-    // })
   });
 }
 

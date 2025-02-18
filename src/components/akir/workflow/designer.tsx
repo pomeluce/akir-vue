@@ -19,6 +19,7 @@ const props = {
 };
 
 export default defineComponent({
+  name: 'AkirFlowDesigner',
   props,
   emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeContextmenu'],
   setup(props, { emit, expose }) {

@@ -1,9 +1,9 @@
 import { getWFGlobalConfig } from '../../configuration/global';
 import { isFunction, isString, isUndefined } from 'lodash-es';
 import { appendNode, capitalize, createNode, removeNode, setDragData } from '@/utils/workflow';
-import { NIcon, NPopover } from 'naive-ui';
+import { NPopover } from 'naive-ui';
 import NodeBehavior from './node-behavior';
-import { IconAlertCircleFilled, IconSignRight, IconTrash } from '@tabler/icons-vue';
+import { IconTrash } from '@tabler/icons-vue';
 
 const props = { modelValue: { type: Object as PropType<WFBaseNode>, required: true }, direction: String as PropType<WFDirection> };
 
@@ -76,16 +76,29 @@ export default defineComponent({
               class={['flow-node__container', movable.value && 'flow-node__movable', !completenessValid.value.status && 'flow-node__uncompleted']}
               draggable={movable.value}
               onDragstart={dragHandler}
-              onMouseup={e => e.stopPropagation()}
+              onMousedown={e => e.stopPropagation()}
             >
               {/* 校验未通过标识 */}
               {!completenessValid.value.status && completenessValid.value.message && (
                 <NPopover trigger="hover">
                   {{
                     trigger: () => (
-                      <NIcon class="node-tag-icon node__uncompleted-tag">
-                        <IconAlertCircleFilled class="text-red-400" />
-                      </NIcon>
+                      <div class="node-tag-icon node__uncompleted-tag">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <line x1="12" x2="12" y1="4" y2="14" />
+                          <line x1="12" x2="12" y1="18" y2="20" />
+                        </svg>
+                      </div>
                     ),
                     default: () => <div>{isString(completenessValid.value.message) ? completenessValid.value.message : completenessValid.value.message?.join(';')}</div>,
                   }}
@@ -94,15 +107,27 @@ export default defineComponent({
               {/* 默认条件标识 */}
               {isDefaultFlow.value && (
                 <div class="node-tag-icon node__default-flow-tag">
-                  <IconSignRight class="text-green-500" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 13v8" />
+                    <path d="M12 3v3" />
+                    <path d="M4 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h13a2 2 0 0 0 1.152-.365l3.424-2.317a1 1 0 0 0 0-1.635l-3.424-2.318A2 2 0 0 0 17 6z" />
+                  </svg>
                 </div>
               )}
 
               {removable.value && (
                 <div class="node-tag-icon node__delete-tag" title="删除节点">
-                  <button onClick={handleDeleteNode}>
-                    <IconTrash />
-                  </button>
+                  <IconTrash size={18} onClick={handleDeleteNode} />
                 </div>
               )}
               {h(transformNodeName(computedModelNode.value), {
@@ -112,9 +137,9 @@ export default defineComponent({
                 dataNodeId: computedModelNode.value.id,
               })}
             </div>
+            {appendable.value && <NodeBehavior data={modelValue} onAppend={appendNewNode} />}
           </div>
         )}
-        {appendable.value && <NodeBehavior data={modelValue} onAppend={appendNewNode} />}
       </>
     );
   },

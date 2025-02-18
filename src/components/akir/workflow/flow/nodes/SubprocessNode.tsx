@@ -20,7 +20,7 @@ export default defineComponent({
         <div class="flow-node_header">
           <IconParking /> <span>{modelValue?.name}</span>
         </div>
-        <AkirFlowList v-model={modelValue?.$start} direction={direction} />
+        <AkirFlowList modelValue={modelValue?.$start} direction={direction} />
       </div>
     );
   },

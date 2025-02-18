@@ -30,9 +30,9 @@ export default defineComponent({
     return () => (
       <div class="flow-node flow-task">
         <div class="flow-node_header">
-          <IconUserCog /> <span>{modelValue?.name}</span>
+          <IconUserCog size={18} /> <span>{modelValue?.name}</span>
         </div>
-        <div class="flow-node_content">{info}</div>
+        <div class="flow-node_content">{info.value}</div>
       </div>
     );
   },

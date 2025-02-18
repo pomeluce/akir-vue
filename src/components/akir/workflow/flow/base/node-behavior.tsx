@@ -36,7 +36,8 @@ export default defineComponent({
 
     const clickHandler = (e: MouseEvent, menu: WFAppendMenuItem<WFBaseNodeType>) => {
       e.stopPropagation();
-      emit('dropped', menu);
+      emit('append', menu);
+      visible.value = false;
     };
 
     const dropHandler = (e: DragEvent) => {
@@ -65,12 +66,23 @@ export default defineComponent({
     });
     return () => (
       <div class="flow-node__behavior">
-        <NPopover show={visible.value} trigger="click" placement="bottom-start" onClickoutside={() => (visible.value = false)}>
+        <NPopover
+          class="!bg-backdrop2"
+          showArrow={false}
+          show={visible.value}
+          trigger="click"
+          placement="bottom-start"
+          onClickoutside={() => (visible.value = false)}
+        >
           {{
             trigger: () => (
               <div
                 ref={nodeRef}
-                class={{ 'flow-node__behavior-btn': dropin.value && droppable.value, 'flow-node__dropable': dropin.value && !droppable.value }}
+                class={{
+                  'flow-node__behavior-btn': true,
+                  'flow-node__droppable': dropin.value && droppable.value,
+                  'flow-node__not-droppable': dropin.value && !droppable.value,
+                }}
                 onDrop={dropHandler}
                 onClick={e => {
                   e.stopPropagation();
@@ -78,7 +90,7 @@ export default defineComponent({
                 }}
                 onDblclick={e => e.stopPropagation()}
               >
-                <IconCirclePlusFilled />
+                <IconCirclePlusFilled size="32" />
               </div>
             ),
 
@@ -89,7 +101,7 @@ export default defineComponent({
                   {appendMenus.value.map((menu, index) => (
                     <button key={index} class="node-behavior__btn" onClick={e => clickHandler(e, menu)}>
                       {menu.icon && (
-                        <NButton type="primary" circle>
+                        <NButton type="primary" circle size="small">
                           {h(menu.icon, { size: 16, style: menu.iconStyle })}
                         </NButton>
                       )}

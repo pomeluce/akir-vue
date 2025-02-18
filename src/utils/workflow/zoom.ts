@@ -18,7 +18,7 @@ export function updateCanvasViewBox(el: HTMLDivElement, x: number, y: number, sc
   el.style.top = `${y}px`;
   el.style.transform = `scale(${scale})`;
 
-  const bg = document.querySelector('.ding-flow_canvas .ding-flow_root-bg') as HTMLDivElement;
+  const bg = document.querySelector('.akir-flow_canvas .akir-flow_root-bg') as HTMLDivElement;
   if (bg) {
     bg.style.left = `${x}px`;
     bg.style.top = `${y}px`;
