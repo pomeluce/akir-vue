@@ -1,0 +1,22 @@
+@reference '@/styles/tailwind.css';
+
+/* 修改浏览器默认滚动条样式 */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-3xl bg-gray-500 bg-clip-padding border-transparent border-dashed border-2;
+
+  &:hover {
+    @apply bg-[#374151];
+  }
+}
+
+body {
+  @apply bg-backdrop1 text-word1 font-sans text-base;
+
+  & a:hover {
+    @apply duration-300 text-link2;
+  }
+}

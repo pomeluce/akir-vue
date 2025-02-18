@@ -1,0 +1,214 @@
+@reference '@/styles/tailwind.css';
+@import './nodes.css';
+
+.akir-designer {
+  @apply w-full h-full overflow-hidden box-border m-0 p-0 relative grid grid-cols-[1fr_auto] text-word2;
+}
+
+.akir-flow_canvas {
+  @apply relative w-full h-full overflow-hidden;
+}
+
+.akir-flow_root {
+  position: absolute;
+  transform-origin: 0 0;
+}
+
+.akir-flow_wrapper {
+  @apply w-full overflow-visible box-border pointer-events-none;
+}
+
+.akir-flow_container {
+  @apply flex w-max h-max p-5 overflow-auto box-border items-center min-w-full;
+  &.akir-flow_vertical {
+    @apply flex-col;
+    .akir-flow_flex-safe {
+      @apply flex-col;
+    }
+  }
+
+  &.akir-flow_horizontal {
+    @apply flex-row;
+    .akir-flow_flex-safe {
+      @apply flex-row;
+    }
+  }
+}
+
+.akir-flow_breadcrumbs {
+  @apply absolute left-5 top-5 flex items-center z-20;
+
+  .akir-flow_breadcrumb-item {
+    line-height: 1.5rem;
+  }
+
+  .akir-flow_breadcrumb-item-tag {
+    @apply text-xl py-2;
+  }
+
+  .akir-flow_breadcrumb-item-label {
+    @apply cursor-pointer text-primary5;
+
+    &.breadcrumb-item_is-disabled {
+      @apply cursor-not-allowed text-primary2;
+    }
+  }
+}
+
+.akir-flow_root-bg {
+  @apply absolute left-0 right-0;
+  width: 10000px;
+  height: 10000px;
+  transform-origin: 0 0;
+
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+}
+
+.akir-flow-panel {
+  @apply w-0 relative border-l border-rim2 box-border z-1;
+  transition: all, ease, 0.24s;
+
+  &.opened {
+    @apply w-[28vw] min-w-md max-w-xl;
+
+    .toggle-btn {
+      transform: rotate(180deg) scaleY(1.5);
+    }
+  }
+}
+
+.flow-node {
+  @apply relative bg-backdrop2 rounded-sm z-10 box-border overflow-hidden drop-shadow-lg;
+  transition: all 0.1s cubic-bezier(0, 0, 1, 1);
+
+  &:hover {
+    > .flow-node__remove {
+      @apply visible opacity-1;
+    }
+  }
+}
+
+.flow-node__wrapper {
+  @apply flex flex-col justify-center items-center cursor-pointer pointer-events-none relative;
+
+  .flow-node__container {
+    @apply relative;
+
+    &.flow-node__movable {
+      cursor: move;
+    }
+  }
+
+  .node-tag-icon {
+    @apply absolute w-6 h-6 rounded-[50%] z-30 flex justify-center items-center pointer-events-auto text-backdrop2;
+    transition: all ease 0.24s;
+
+    &.node__uncompleted-tag {
+      @apply left-0 top-0 bg-red-500;
+      transform: translate(-50%, -50%);
+    }
+
+    &.node__default-flow-tag {
+      @apply top-0 right-0 bg-green-500;
+      transform: translate(50%, -50%);
+    }
+
+    &.node__delete-tag {
+      @apply right-0 top-1 text-backdrop2 z-15 opacity-0;
+    }
+  }
+
+  &:hover > .flow-node__container {
+    & > .node-tag-icon.node__delete-tag {
+      @apply cursor-pointer opacity-100;
+    }
+  }
+}
+
+.flow-node__behavior {
+  @apply flex justify-center items-center relative pointer-events-auto;
+
+  &::before,
+  &::after {
+    content: '';
+  }
+
+  .flow-node__behavior-btn {
+    @apply absolute top-1/2 left-1/2 z-10 cursor-pointer bg-backdrop2 text-primary5 rounded-[50%];
+    transform: translate(-50%, -50%);
+
+    &.flow-node__dropable {
+      @apply bg-green-500;
+    }
+
+    &.flow-node__not-dropable {
+      @apply bg-red-500;
+    }
+  }
+}
+
+.node-behavior__btn-grid {
+  @apply grid gap-y-2 gap-x-5 mt-2.5 grid-cols-2;
+}
+
+.node-behavior__btn {
+  @apply cursor-pointer flex justify-center items-center p-2 min-w-30 rounded-xl relative bg-fill2 border-transparent;
+
+  .node-behavior__btn-text {
+    flex: 1;
+  }
+}
+
+.akir-flow_container.akir-flow_vertical {
+  .flow-node__wrapper {
+    @apply flex-col;
+  }
+
+  .flow-node__behavior {
+    @apply h-25 w-0.5;
+
+    &::before {
+      @apply absolute inset-0 bg-rim3;
+    }
+
+    &::after {
+      @apply absolute left-0 right-0 -bottom-0.25 border-t-10 border-t-rim3 border-x-6 border-x-transparent;
+      transform: translateX(-5px);
+    }
+  }
+}
+
+.akir-flow_container.akir-flow_horizontal {
+  .flow-node__wrapper {
+    @apply flex-row;
+  }
+
+  .flow-node__behavior {
+    @apply h-25 w-0.5;
+
+    &::before {
+      @apply absolute inset-0 bg-rim3;
+    }
+
+    &::after {
+      @apply absolute left-0 bottom-0 -right-0.25 border-l-10 border-l-rim3 border-y-6 border-y-transparent;
+      transform: translateY(-5px);
+    }
+  }
+}
+
+.flow-node_header {
+  @apply w-full h-auto px-2 py-1 text-word2 box-border flex items-center gap-2;
+
+  > span {
+    @apply flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all;
+  }
+}
+
+.flow-node_content {
+  @apply flex items-center h-auto text-xs p-2 text-word3;
+}

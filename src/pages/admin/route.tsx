@@ -90,7 +90,7 @@ export default defineComponent({
 
     return () => (
       <NLayout class="w-screen h-screen" hasSider>
-        <NLayoutSider class="h-full border-r border-rim1 shadow-sm" collapsed={collapsed.value} collapse-mode="width" collapsedWidth={64} width="240">
+        <NLayoutSider class="h-full border-r border-rim1 shadow-xs" collapsed={collapsed.value} collapse-mode="width" collapsedWidth={64} width="240">
           <header class="flex justify-center items-center py-5">
             <RouterLink class="flex justify-center items-center gap-1 font-bold overflow-hidden hover:text-word1/80" to={{ name: RouteName.HOME }}>
               <img class="w-5 h-5" src={Logo} />
@@ -139,7 +139,7 @@ export default defineComponent({
             {tabStore.tabs.map(item => (
               <div
                 class={[
-                  'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-sm rounded cursor-pointer select-none',
+                  'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded cursor-pointer select-none',
                   item.key === tabStore.activeTab?.key && 'text-primary6',
                 ]}
                 onContextmenu={e => handleContextMenu(e, item)}

@@ -1,9 +1,9 @@
 import { ComponentInstance, PropType } from 'vue';
 import { AkirFlow, IAkirFlowExpose } from './flow';
-import './styles.scss';
 import { setWFGlobalConfig } from './configuration/global';
 import { WFAppMenuGetter } from './injection';
 import { defaultWFAppendMenuProvider } from './configuration/provider';
+import './styles.css';
 
 const props = {
   modelValue: Object as PropType<WFBaseNode>,
