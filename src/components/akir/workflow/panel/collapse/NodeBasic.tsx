@@ -1,36 +1,40 @@
-import { IconFavicon } from '@tabler/icons-vue';
+import { IconCaretLeftFilled, IconFavicon } from '@tabler/icons-vue';
 import { NCollapseItem } from 'naive-ui';
-import PanelEdit from '../panel-edit';
-import PanelInput from '../panel-input';
+import { AkirPanelEdit, AkirPanelInput } from '../../common';
 
-const props = { modelValue: { type: Object as PropType<WFBaseNode>, required: true } };
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
+export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue': (value: WFBaseNode) => true }>(
+  (props, { emit }) => {
     const vModelNode = computed<WFBaseNode>({
       get: () => props.modelValue!,
       set: value => emit('update:modelValue', value),
     });
 
+    const disabled = computed(() => props.modelValue.businessData.$type === 'startEvent' || props.modelValue.businessData.$type === 'endEvent');
+
     return () => (
-      <NCollapseItem>
+      <NCollapseItem key="NodeBasic">
         {{
           header: () => (
-            <div class="flex items-center">
+            <div class="flex gap-2 grow-1 items-center">
               <IconFavicon />
               <span>基础信息</span>
             </div>
           ),
 
           default: () => (
-            <PanelEdit label="ID">
-              <PanelInput v-model={vModelNode.value.name} disabled />
-            </PanelEdit>
+            <>
+              <AkirPanelEdit label="ID">
+                <AkirPanelInput v-model={vModelNode.value.id} disabled />
+              </AkirPanelEdit>
+              <AkirPanelEdit label="名称">
+                <AkirPanelInput v-model={vModelNode.value.name} disabled={disabled.value} />
+              </AkirPanelEdit>
+            </>
           ),
+          arrow: () => <IconCaretLeftFilled size="18" />,
         }}
       </NCollapseItem>
     );
   },
-});
+  { props: ['modelValue'] },
+);

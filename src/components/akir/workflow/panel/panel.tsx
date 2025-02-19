@@ -1,8 +1,12 @@
-import { IconChevronLeft } from '@tabler/icons-vue';
+import { IconChevronsLeft } from '@tabler/icons-vue';
 import { isUndefined } from 'lodash-es';
-import { NCollapse, NIcon } from 'naive-ui';
+import { NCollapse, NDrawer, NDrawerContent, NIcon } from 'naive-ui';
 import { Component, PropType } from 'vue';
 import NodeBasic from './collapse/NodeBasic';
+import NodeExpression from './collapse/NodeExpression';
+import { isExpressionNode, isServiceNode } from '@/utils/workflow';
+import { checkExclusiveGateway } from '../configuration/node-checker';
+import ServiceCopyTo from './collapse/ServiceCopyTo';
 
 export interface IFlowPanelExpose {
   togglePanel: (state?: boolean) => void;
@@ -27,25 +31,25 @@ export default defineComponent({
     const renderComponents = computed<Component[]>(() => {
       const components: Component[] = [NodeBasic];
 
-      // const businessData = props.modelValue.businessData;
-      // const bpmnType = businessData.$type;
+      const businessData = props.modelValue.businessData;
+      const bpmnType = businessData.$type;
 
       // if (isTaskNode($props.node) && bpmnType === 'userTask') {
       //   components.push(UserTask);
       //   components.push(UserTaskMultiInstance);
       //   components.push(UserTaskOperation);
       // }
-      // if (isServiceNode($props.node) && bpmnType === 'serviceTask') {
-      //   if (businessData.type === 'copy') {
-      //     components.push(ServiceCopyTo);
-      //   }
-      //   if (businessData.type === 'mail') {
-      //     components.push(ServiceMailTo);
-      //   }
-      // }
-      // if (isExpressionNode($props.node) && checkExclusiveGateway($props.node as ExpressionNode)) {
-      //   components.push(NodeExpression);
-      // }
+      if (isServiceNode(props.modelValue) && bpmnType === 'serviceTask') {
+        if (businessData.type === 'copy') {
+          components.push(ServiceCopyTo);
+        }
+        // if (businessData.type === 'mail') {
+        //   components.push(ServiceMailTo);
+        // }
+      }
+      if (isExpressionNode(props.modelValue) && checkExclusiveGateway(props.modelValue as WFExpressionNode)) {
+        components.push(NodeExpression);
+      }
 
       return components;
     });
@@ -59,26 +63,35 @@ export default defineComponent({
     expose({ togglePanel } satisfies IFlowPanelExpose);
 
     return () => (
-      <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
-        <div class="toggle-btn" onClick={() => togglePanel()}>
-          <NIcon>
-            <IconChevronLeft />
-          </NIcon>
-        </div>
-
-        <div class="akir-flow-panel_header">{headerTitle.value}</div>
-        {props.modelValue.id ? (
-          <div class="akir-flow-panel_body">
-            <NCollapse arrowPlacement="right">
-              {renderComponents.value.map(collapseItem =>
-                h(collapseItem, { key: collapseItem.name, modelValue: props.modelValue, onUpdateModelValue: (event: WFBaseNode) => emit('update:modelValue', event) }),
-              )}
-            </NCollapse>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
+      <NDrawer
+        v-model={[panelState.value, 'show']}
+        class="!w-[22vw] min-w-sm border-1 border-rim2 rounded-xl"
+        to="#akir-designer"
+        showMask="transparent"
+        trap-focus={false}
+        block-scroll={false}
+      >
+        <NDrawerContent headerClass="bg-fill2">
+          {{
+            header: () => <div class="akir-flow-panel_header">{headerTitle.value}</div>,
+            default: () => (
+              <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
+                {props.modelValue.id ? (
+                  <div class="akir-flow-panel_body">
+                    <NCollapse arrowPlacement="right">
+                      {renderComponents.value.map(collapseItem =>
+                        h(collapseItem, { key: collapseItem.name, modelValue: props.modelValue, onUpdateModelValue: (event: WFBaseNode) => emit('update:modelValue', event) }),
+                      )}
+                    </NCollapse>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ),
+          }}
+        </NDrawerContent>
+      </NDrawer>
     );
   },
 });
