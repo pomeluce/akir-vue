@@ -56,7 +56,9 @@ export default defineComponent({
       setDragData(computedModelNode);
     };
 
-    const handleDeleteNode = async () => {
+    const handleDeleteNode = async (e: MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
       try {
         const preBehavior = getWFGlobalConfig('preBehaviorOfDelete');
         const isDel = await preBehavior(computedModelNode.value);

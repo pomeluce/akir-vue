@@ -1,11 +1,10 @@
-import { IconChevronsLeft } from '@tabler/icons-vue';
-import { isUndefined } from 'lodash-es';
-import { NCollapse, NDrawer, NDrawerContent, NIcon } from 'naive-ui';
+import { NCollapse, NDrawer, NDrawerContent } from 'naive-ui';
 import { Component, PropType } from 'vue';
-import NodeBasic from './collapse/NodeBasic';
-import NodeExpression from './collapse/NodeExpression';
+import { isUndefined } from 'lodash-es';
 import { isExpressionNode, isServiceNode } from '@/utils/workflow';
 import { checkExclusiveGateway } from '../configuration/node-checker';
+import NodeBasic from './collapse/NodeBasic';
+import NodeExpression from './collapse/NodeExpression';
 import ServiceCopyTo from './collapse/ServiceCopyTo';
 
 export interface IFlowPanelExpose {
