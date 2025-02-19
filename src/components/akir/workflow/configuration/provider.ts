@@ -23,7 +23,7 @@ export const defaultWFAppendMenuProvider: WFAppendMenuProvider<WFBaseNodeType> =
     {
       type: 'event',
       name: '异常事件',
-      businessData: { $type: 'intermediateThrowEvent' },
+      businessData: { $type: 'intermediateThrowEvent', cls: 'throw-event' },
       icon: IconCircleDotted,
     },
     {

@@ -169,7 +169,7 @@
   }
 
   .flow-node__behavior {
-    @apply h-25 w-0.5;
+    @apply w-0.5 h-25;
 
     &::before {
       @apply absolute inset-0 bg-rim3;
@@ -188,14 +188,14 @@
   }
 
   .flow-node__behavior {
-    @apply h-25 w-0.5;
+    @apply w-25 h-0.5;
 
     &::before {
       @apply absolute inset-0 bg-rim3;
     }
 
     &::after {
-      @apply absolute left-0 bottom-0 -right-0.25 border-l-10 border-l-rim3 border-y-6 border-y-transparent;
+      @apply absolute top-0 bottom-0 -right-0.25 border-l-10 border-l-rim3 border-y-6 border-y-transparent;
       transform: translateY(-5px);
     }
   }

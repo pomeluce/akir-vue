@@ -1,6 +1,10 @@
 .flow-node.flow-event {
   @apply w-20 h-20 rounded-[50%] text-word2 text-xs flex justify-center items-center pointer-events-auto select-none border-2 border-rose-400 border-dashed;
 
+  &.throw-event {
+    @apply w-50 h-20 pointer-events-auto rounded-lg bg-danger4 text-backdrop2 border-4 border-danger6;
+  }
+
   &.start-event,
   &.end-event {
     @apply w-10 h-10;
@@ -91,8 +95,8 @@
 
       &:first-child {
         > .branch-col_prefix {
-          @apply w-1/2 self-end border-l-2 border-rim3;
-          border-right: none;
+          @apply self-end border-l-2 border-rim3;
+          width: calc(50% + 1px);
 
           &::before {
             content: unset;
@@ -100,8 +104,9 @@
         }
 
         > .branch-col_suffix {
-          @apply w-1/2 self-end border-l-2 border-rim3;
+          @apply self-end border-l-2 border-rim3;
           border-right: none;
+          width: calc(50% + 1px);
 
           &::before {
             content: unset;
@@ -111,8 +116,8 @@
 
       &:last-child {
         > .branch-col_prefix {
-          @apply w-1/2 self-start border-r-2 border-rim3;
-          border-left: none;
+          @apply self-start border-r-2 border-rim3;
+          width: calc(50% + 1px);
 
           &::before {
             content: unset;
@@ -120,8 +125,8 @@
         }
 
         > .branch-col_suffix {
-          @apply w-1/2 self-start border-r-2 border-rim3;
-          border-left: none;
+          @apply self-start border-r-2 border-rim3;
+          width: calc(50% + 1px);
 
           &::before {
             content: unset;
@@ -160,6 +165,88 @@
   .flow-subprocess {
     & > .akir-flow_wrapper {
       @apply px-4 py-2;
+    }
+  }
+
+  .flow-gateway {
+    @apply pl-10.5;
+
+    .gateway-node__behavior {
+      @apply h-full w-21 left-0 top-1/2 translate-x-0 -translate-y-1/2 justify-start;
+    }
+
+    .gateway-node__branches {
+      @apply grid grid-cols-[1fr] grid-rows-[auto];
+    }
+
+    .gateway-node__branches > .branch-col {
+      @apply flex flex-row items-center;
+
+      &:first-child {
+        > .branch-col_prefix {
+          @apply self-end border-t-2 border-rim3;
+          height: calc(50% + 1px);
+
+          &::before {
+            @apply content-none;
+          }
+        }
+
+        > .branch-col_suffix {
+          @apply self-end border-t-2 border-rim3;
+          height: calc(50% + 1px);
+
+          &::before {
+            @apply content-none;
+          }
+        }
+      }
+
+      &:last-child {
+        > .branch-col_prefix {
+          @apply self-start border-b-2 border-rim3;
+          height: calc(50% + 1px);
+
+          &::before {
+            @apply content-none;
+          }
+        }
+
+        > .branch-col_suffix {
+          @apply self-start border-b-2 border-rim3;
+          height: calc(50% + 1px);
+
+          &::before {
+            @apply content-none;
+          }
+        }
+      }
+
+      & > .branch-col_content {
+        @apply px-0 py-4 box-border;
+      }
+
+      & > .branch-col_prefix {
+        @apply h-full w-10.5 shrink-0 grow-0 border-l-2 border-rim3 box-border relative;
+
+        &::before {
+          @apply left-0 right-0 top-1/2 border-t-2 absolute;
+          content: '';
+        }
+      }
+
+      & > .branch-col_suffix {
+        @apply h-full w-full flex-1 border-r-2 border-rim3 box-border relative;
+
+        &::before {
+          @apply h-0.5 left-0 right-0 top-1/2 border-t-2 absolute bg-rim3;
+          content: '';
+        }
+      }
+
+      .akir-flow_container {
+        @apply p-0 overflow-visible;
+      }
     }
   }
 }
