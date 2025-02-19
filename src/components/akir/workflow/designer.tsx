@@ -4,6 +4,7 @@ import { setWFGlobalConfig } from './configuration/global';
 import { WFAppMenuGetter } from './injection';
 import { defaultWFAppendMenuProvider } from './configuration/provider';
 import './styles.css';
+import { AkirFlowPanel, IAkirFlowPanelExpose } from './panel';
 
 const props = {
   modelValue: Object as PropType<WFBaseNode>,
@@ -21,12 +22,13 @@ const props = {
 export default defineComponent({
   name: 'AkirFlowDesigner',
   props,
-  emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeContextmenu'],
+  emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeHover', 'nodeContextmenu'],
   setup(props, { emit, expose }) {
     const { modelValue, direction = 'vertical', ...prop } = props;
 
     const dir = ref<WFDirection>(direction);
     const flowRef = ref<ComponentInstance<typeof AkirFlow> & IAkirFlowExpose>();
+    const flowPanelRef = ref<ComponentInstance<typeof AkirFlowPanel> & IAkirFlowPanelExpose>();
     const activeNode = ref<WFBaseNode>();
 
     const processData = computed<WFBaseNode>({
@@ -41,7 +43,7 @@ export default defineComponent({
     const handleNodeClick = (node: WFBaseNode) => {
       activeNode.value = node;
       emit('nodeClick', node);
-      // nextTick(() => dingPanelRef.value?.togglePanel(true));
+      nextTick(() => flowPanelRef.value?.togglePanel(true));
     };
 
     const fitViewport = (padding?: number) => flowRef.value?.fitViewport(padding);
@@ -71,6 +73,7 @@ export default defineComponent({
           onNodeDblclick={event => emit('nodeDblclick', event)}
           onNodeContextmenu={event => emit('nodeContextmenu', event)}
         />
+        <AkirFlowPanel ref={flowPanelRef} v-model={activeNode.value} />
       </div>
     );
   },

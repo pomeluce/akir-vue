@@ -68,19 +68,6 @@
   }
 }
 
-.akir-flow-panel {
-  @apply w-0 relative border-l border-rim2 box-border z-1;
-  transition: all, ease, 0.24s;
-
-  &.opened {
-    @apply w-[28vw] min-w-md max-w-xl;
-
-    .toggle-btn {
-      transform: rotate(180deg) scaleY(1.5);
-    }
-  }
-}
-
 .flow-node {
   @apply relative bg-backdrop2 rounded-sm z-10 box-border overflow-hidden drop-shadow-lg;
   transition: all 0.1s cubic-bezier(0, 0, 1, 1);
@@ -211,4 +198,17 @@
 
 .flow-node_content {
   @apply flex items-center h-auto text-xs p-2 text-word3;
+}
+
+.akir-flow-panel {
+  @apply w-0 relative border-l border-rim2 box-border z-1;
+  transition: all, ease, 0.24s;
+
+  &.opened {
+    @apply w-[28vw] min-w-md max-w-xl;
+
+    .toggle-btn {
+      transform: rotate(180deg) scaleY(1.5);
+    }
+  }
 }

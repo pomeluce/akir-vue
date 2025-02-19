@@ -134,7 +134,7 @@ export default defineComponent({
                 modelValue: computedModelNode.value,
                 onUpdateModelValue: (v: WFBaseNode) => (computedModelNode.value = v),
                 direction: direction,
-                dataNodeId: computedModelNode.value.id,
+                'data-node-id': computedModelNode.value.id,
               })}
             </div>
             {appendable.value && <NodeBehavior data={modelValue} onAppend={appendNewNode} />}
