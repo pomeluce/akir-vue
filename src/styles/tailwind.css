@@ -5,58 +5,66 @@
 
 @theme {
   /* 主题色 */
-  --color-primary1: rgba(var(--akir-primary-1));
-  --color-primary2: rgba(var(--akir-primary-2));
-  --color-primary3: rgba(var(--akir-primary-3));
-  --color-primary4: rgba(var(--akir-primary-4));
-  --color-primary5: rgba(var(--akir-primary-5));
-  --color-primary6: rgba(var(--akir-primary-6));
-  --color-primary7: rgba(var(--akir-primary-7));
+  --color-primary1: var(--akir-primary-1);
+  --color-primary2: var(--akir-primary-2);
+  --color-primary3: var(--akir-primary-3);
+  --color-primary4: var(--akir-primary-4);
+  --color-primary5: var(--akir-primary-5);
+  --color-primary6: var(--akir-primary-6);
+  --color-primary7: var(--akir-primary-7);
 
-  --color-success1: rgba(var(--akir-success-1));
-  --color-success2: rgba(var(--akir-success-2));
-  --color-success3: rgba(var(--akir-success-3));
-  --color-success4: rgba(var(--akir-success-4));
-  --color-success5: rgba(var(--akir-success-5));
-  --color-success6: rgba(var(--akir-success-6));
-  --color-success7: rgba(var(--akir-success-7));
+  --color-success1: var(--akir-success-1);
+  --color-success2: var(--akir-success-2);
+  --color-success3: var(--akir-success-3);
+  --color-success4: var(--akir-success-4);
+  --color-success5: var(--akir-success-5);
+  --color-success6: var(--akir-success-6);
+  --color-success7: var(--akir-success-7);
 
-  --color-warning1: rgba(var(--akir-warning-1));
-  --color-warning2: rgba(var(--akir-warning-2));
-  --color-warning3: rgba(var(--akir-warning-3));
-  --color-warning4: rgba(var(--akir-warning-4));
-  --color-warning5: rgba(var(--akir-warning-5));
-  --color-warning6: rgba(var(--akir-warning-6));
-  --color-warning7: rgba(var(--akir-warning-7));
+  --color-warning1: var(--akir-warning-1);
+  --color-warning2: var(--akir-warning-2);
+  --color-warning3: var(--akir-warning-3);
+  --color-warning4: var(--akir-warning-4);
+  --color-warning5: var(--akir-warning-5);
+  --color-warning6: var(--akir-warning-6);
+  --color-warning7: var(--akir-warning-7);
+
+  --color-danger1: var(--akir-danger-1);
+  --color-danger2: var(--akir-danger-2);
+  --color-danger3: var(--akir-danger-3);
+  --color-danger4: var(--akir-danger-4);
+  --color-danger5: var(--akir-danger-5);
+  --color-danger6: var(--akir-danger-6);
+  --color-danger7: var(--akir-danger-7);
 
   /* 链接 */
-  --color-link1: rgba(var(--akir-link-1));
-  --color-link2: rgba(var(--akir-link-2));
+  --color-link1: var(--akir-link-1);
+  --color-link2: var(--akir-link-2);
 
   /* 背景色 */
-  --color-backdrop1: rgba(var(--akir-bg-1));
-  --color-backdrop2: rgba(var(--akir-bg-2));
-  --color-backdrop3: rgba(var(--akir-bg-3));
-  --color-backdrop4: rgba(var(--akir-bg-4));
-  --color-backdrop-white: rgba(var(--akir-bg-white));
+  --color-backdrop1: var(--akir-bg-1);
+  --color-backdrop2: var(--akir-bg-2);
+  --color-backdrop3: var(--akir-bg-3);
+  --color-backdrop4: var(--akir-bg-4);
+  --color-backdrop-white: var(--akir-bg-white);
 
   /* 文字颜色 */
-  --color-word1: rgba(var(--akir-grey-10));
-  --color-word2: rgba(var(--akir-grey-8));
-  --color-word3: rgba(var(--akir-grey-6));
-  --color-word4: rgba(var(--akir-grey-4));
+  --color-word1: var(--akir-grey-10);
+  --color-word2: var(--akir-grey-8);
+  --color-word3: var(--akir-grey-6);
+  --color-word4: var(--akir-grey-4);
 
   /* 边框 */
-  --color-rim1: rgba(var(--akir-grey-2));
-  --color-rim2: rgba(var(--akir-grey-3));
-  --color-rim3: rgba(var(--akir-grey-4));
-  --color-rim4: rgba(var(--akir-grey-6));
+  --color-rim1: var(--akir-grey-2);
+  --color-rim2: var(--akir-grey-3);
+  --color-rim3: var(--akir-grey-4);
+  --color-rim4: var(--akir-grey-6);
 
   /* 填充 */
-  --color-fill1: rgba(var(--akir-grey-1));
-  --color-fill2: rgba(var(--akir-grey-2));
-  --color-fill3: rgba(var(--akir-grey-3));
-  --color-fill4: rgba(var(--akir-grey-4));
+  --color-fill1: var(--akir-grey-1);
+  --color-fill2: var(--akir-grey-2);
+  --color-fill3: var(--akir-grey-3);
+  --color-fill4: var(--akir-grey-4);
 
   --container-page: 1450px;
 

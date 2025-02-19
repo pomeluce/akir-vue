@@ -120,7 +120,7 @@ export default defineComponent({
               <NTooltip>
                 {{
                   trigger: () => (
-                    <button class="flex items-center bg-transparent [&:focus,&:focus-within,&:focus-visible]:outline-unset" onClick={() => (collapsed.value = !collapsed.value)}>
+                    <button class="flex items-center bg-transparent [&:focus,&:focus-within,&:focus-visible]:outline-none" onClick={() => (collapsed.value = !collapsed.value)}>
                       <IconLayoutSidebarFilled size="20" />
                     </button>
                   ),

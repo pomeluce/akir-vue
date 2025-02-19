@@ -1,103 +1,121 @@
 :root {
   /* primary */
-  --akir-primary-1: 232, 243, 255; /* 浅色 */
-  --akir-primary-2: 190, 218, 255; /* 文字禁用 */
-  --akir-primary-3: 148, 191, 255; /* 一般禁用 */
-  --akir-primary-4: 106, 161, 255; /* 特殊场景 */
-  --akir-primary-5: 64, 128, 255; /* 悬浮 */
-  --akir-primary-6: 22, 93, 255; /* 常规 */
-  --akir-primary-7: 14, 66, 210; /* 点击 */
+  --akir-primary-1: oklch(0.9594 0.02 250.3828); /* 浅色 */
+  --akir-primary-2: oklch(0.88 0.0595 255.4686); /* 文字禁用 */
+  --akir-primary-3: oklch(0.798 0.1025 258.1456); /* 一般禁用 */
+  --akir-primary-4: oklch(0.7126 0.1499 260.5231); /* 特殊场景 */
+  --akir-primary-5: oklch(0.6269 0.2005 262.18); /* 悬浮 */
+  --akir-primary-6: oklch(0.5494 0.249 263.0477); /* 常规 */
+  --akir-primary-7: oklch(0.4582 0.2255 263.9106); /* 点击 */
 
   /* success */
-  --akir-success-1: 232, 255, 234;
-  --akir-success-2: 175, 240, 181;
-  --akir-success-3: 123, 225, 136;
-  --akir-success-4: 76, 210, 99;
-  --akir-success-5: 35, 195, 67;
-  --akir-success-6: 0, 180, 42;
-  --akir-success-7: 0, 154, 41;
+  --akir-success-1: oklch(0.9776 0.0366 147.7714);
+  --akir-success-2: oklch(0.8963 0.1035 146.9972);
+  --akir-success-3: oklch(0.8261 0.1562 146.802);
+  --akir-success-4: oklch(0.766 0.1916 146.4701);
+  --akir-success-5: oklch(0.7143 0.2108 145.4523);
+  --akir-success-6: oklch(0.6687 0.2142 144.3848);
+  --akir-success-7: oklch(0.5965 0.1872 145.0724);
 
   /* warning */
-  --akir-warning-1: 255, 243, 232;
-  --akir-warning-2: 253, 221, 195;
-  --akir-warning-3: 252, 197, 159;
-  --akir-warning-4: 250, 172, 123;
-  --akir-warning-5: 249, 144, 87;
-  --akir-warning-6: 247, 114, 52;
-  --akir-warning-7: 204, 81, 32;
+  --akir-warning-1: oklch(0.9706 0.0195 65.1489);
+  --akir-warning-2: oklch(0.9174 0.0496 61.2354);
+  --akir-warning-3: oklch(0.8634 0.0807 56.0427);
+  --akir-warning-4: oklch(0.809 0.1121 52.6539);
+  --akir-warning-5: oklch(0.7546 0.1462 47.899);
+  --akir-warning-6: oklch(0.7023 0.179 43.053);
+  --akir-warning-7: oklch(0.5907 0.1673 39.8717);
+
+  /* danger */
+  --akir-danger-1: oklch(0.9571 0.0214 31.7801);
+  --akir-danger-2: oklch(0.8878 0.0558 29.2022);
+  --akir-danger-3: oklch(0.8181 0.0946 26.5137);
+  --akir-danger-4: oklch(0.7503 0.1375 25.144);
+  --akir-danger-5: oklch(0.6902 0.1804 24.931);
+  --akir-danger-6: oklch(0.6419 0.2182 25.8804);
+  --akir-danger-7: oklch(0.5475 0.1985 25.3555);
 
   /* link */
-  --akir-link-1: 79, 70, 229;
-  --akir-link-2: 5, 119, 72;
+  --akir-link-1: oklch(0.5106 0.2301 276.9656);
+  --akir-link-2: oklch(0.5017 0.1173 157.3018);
 
   /* background */
-  --akir-bg-1: 240, 242, 245; /* 整体背景色 */
-  --akir-bg-2: 255, 255, 255; /* 一级容器背景 */
-  --akir-bg-3: 248, 250, 252; /* 二级容器背景 */
-  --akir-bg-4: 229, 231, 235; /* 三级容器背景 */
-  --akir-bg-white: 255, 255, 255;
+  --akir-bg-1: oklch(0.9605 0.0046 258.3248); /* 整体背景色 */
+  --akir-bg-2: oklch(1 0 0); /* 一级容器背景 */
+  --akir-bg-3: oklch(0.9842 0.0034 247.8575); /* 二级容器背景 */
+  --akir-bg-4: oklch(0.9276 0.0058 264.5313); /* 三级容器背景 */
+  --akir-bg-white: oklch(1 0 0);
 
   /* font, border */
-  --akir-grey-1: 247, 248, 250; /* 填充(浅) */
-  --akir-grey-2: 242, 243, 245; /* 边框(浅), 填充(常规) */
-  --akir-grey-3: 229, 230, 235; /* 边框(一般), 填充(深) */
-  --akir-grey-4: 201, 205, 212; /* 边框(深), 填充(重), 文字(置灰信息) */
-  --akir-grey-5: 169, 174, 184;
-  --akir-grey-6: 134, 144, 156; /* 边框(重), 文字(次要信息) */
-  --akir-grey-7: 107, 119, 133;
-  --akir-grey-8: 78, 89, 105; /* 文字(次强调/正文标题) */
-  --akir-grey-9: 39, 46, 59;
-  --akir-grey-10: 29, 33, 41; /* 文字(强调/正文标题) */
+  --akir-grey-1: oklch(0.9789 0.0029 264.5421); /* 填充(浅) */
+  --akir-grey-2: oklch(0.964 0.0029 264.5419); /* 边框(浅), 填充(常规) */
+  --akir-grey-3: oklch(0.9256 0.0068 277.1579); /* 边框(一般), 填充(深) */
+  --akir-grey-4: oklch(0.8473 0.0106 261.7867); /* 边框(深), 填充(重), 文字(置灰信息) */
+  --akir-grey-5: oklch(0.7499 0.0154 264.4756);
+  --akir-grey-6: oklch(0.6492 0.0214 252.9548); /* 边框(重), 文字(次要信息) */
+  --akir-grey-7: oklch(0.5642 0.026 252.3163);
+  --akir-grey-8: oklch(0.4606 0.0296 257.6795); /* 文字(次强调/正文标题) */
+  --akir-grey-9: oklch(0.3002 0.0256 262.6993);
+  --akir-grey-10: oklch(0.2472 0.0164 264.2136); /* 文字(强调/正文标题) */
 }
 
 html[data-theme='dark'] {
   /* primary */
-  --akir-primary-1: 234, 244, 255;
-  --akir-primary-2: 190, 218, 255;
-  --akir-primary-3: 147, 190, 255;
-  --akir-primary-4: 104, 159, 255;
-  --akir-primary-5: 60, 126, 255;
-  --akir-primary-6: 48, 111, 255;
-  --akir-primary-7: 29, 77, 210;
+  --akir-primary-1: oklch(0.9629 0.0182 250.5883);
+  --akir-primary-2: oklch(0.88 0.0595 255.4686);
+  --akir-primary-3: oklch(0.7953 0.1039 258.4599);
+  --akir-primary-4: oklch(0.7075 0.1528 260.8465);
+  --akir-primary-5: oklch(0.6215 0.2039 261.9758);
+  --akir-primary-6: oklch(0.5884 0.2241 263.3023);
+  --akir-primary-7: oklch(0.4808 0.2108 264.3328);
 
   /* success */
-  --akir-success-1: 235, 255, 236;
-  --akir-success-2: 178, 240, 183;
-  --akir-success-3: 126, 225, 139;
-  --akir-success-4: 80, 210, 102;
-  --akir-success-5: 39, 195, 70;
-  --akir-success-6: 29, 180, 64;
-  --akir-success-7: 18, 154, 55;
+  --akir-success-1: oklch(0.9802 0.0326 146.7241);
+  --akir-success-2: oklch(0.8985 0.0996 146.7423);
+  --akir-success-3: oklch(0.8279 0.1517 146.9961);
+  --akir-success-4: oklch(0.7676 0.1875 146.5758);
+  --akir-success-5: oklch(0.7152 0.2078 145.6217);
+  --akir-success-6: oklch(0.6729 0.197 145.9525);
+  --akir-success-7: oklch(0.5993 0.1754 146.4496);
 
   /* warning */
-  --akir-warning-1: 255, 244, 235;
-  --akir-warning-2: 253, 222, 197;
-  --akir-warning-3: 252, 198, 161;
-  --akir-warning-4: 250, 173, 125;
-  --akir-warning-5: 249, 146, 90;
-  --akir-warning-6: 247, 126, 69;
-  --akir-warning-7: 204, 87, 41;
+  --akir-warning-1: oklch(0.9733 0.0169 61.9627);
+  --akir-warning-2: oklch(0.9198 0.0478 61.0545);
+  --akir-warning-3: oklch(0.8656 0.079 55.8565);
+  --akir-warning-4: oklch(0.8112 0.1104 52.515);
+  --akir-warning-5: oklch(0.7582 0.1435 48.0592);
+  --akir-warning-6: oklch(0.7214 0.1643 44.216);
+  --akir-warning-7: oklch(0.5996 0.16 40.3279);
+
+  /* danger */
+  --akir-danger-1: oklch(0.9659 0.0172 35.3449);
+  --akir-danger-2: oklch(0.8965 0.0508 28.6653);
+  --akir-danger-3: oklch(0.8261 0.0895 26.7858);
+  --akir-danger-4: oklch(0.7577 0.1321 24.5691);
+  --akir-danger-5: oklch(0.6963 0.1754 24.3336);
+  --akir-danger-6: oklch(0.6579 0.2037 24.6923);
+  --akir-danger-7: oklch(0.5536 0.1928 24.5133);
 
   /* link */
-  --akir-link-1: 124, 126, 244;
-  --akir-link-2: 16, 185, 129;
+  --akir-link-1: oklch(0.6479 0.1723 279.7077);
+  --akir-link-2: oklch(0.6959 0.1491 162.4796);
 
   /* background */
-  --akir-bg-1: 23, 23, 26; /* 整体背景色 */
-  --akir-bg-2: 35, 35, 36; /* 一级容器背景 */
-  --akir-bg-3: 42, 42, 43; /* 二级容器背景 */
-  --akir-bg-4: 49, 49, 50; /* 三级容器背景 */
-  --akir-bg-white: 246, 246, 246;
+  --akir-bg-1: oklch(0.2059 0.0059 285.871);
+  --akir-bg-2: oklch(0.2565 0.0019 286.2686);
+  --akir-bg-3: oklch(0.2854 0.0018 286.285);
+  --akir-bg-4: oklch(0.3135 0.0018 286.2978);
+  --akir-bg-white: oklch(0.9731 0 0);
 
   /* font, border */
-  --akir-grey-1: 23, 23, 26; /* 填充(浅) */
-  --akir-grey-2: 46, 46, 48; /* 边框(浅), 填充(常规) */
-  --akir-grey-3: 72, 72, 73; /* 边框(一般), 填充(深) */
-  --akir-grey-4: 95, 95, 96; /* 边框(深), 填充(重), 文字(置灰信息) */
-  --akir-grey-5: 120, 120, 122;
-  --akir-grey-6: 146, 146, 147; /* 边框(重), 文字(次要信息) */
-  --akir-grey-7: 107, 119, 133;
-  --akir-grey-8: 197, 197, 197; /* 文字(次强调/正文标题) */
-  --akir-grey-9: 223, 223, 223;
-  --akir-grey-10: 246, 246, 246; /* 文字(强调/正文标题) */
+  --akir-grey-1: oklch(0.2059 0.0059 285.871);
+  --akir-grey-2: oklch(0.302 0.0036 286.1848);
+  --akir-grey-3: oklch(0.402 0.0017 286.3252);
+  --akir-grey-4: oklch(0.4858 0.0016 286.341);
+  --akir-grey-5: oklch(0.5733 0.003 286.3039);
+  --akir-grey-6: oklch(0.6603 0.0015 286.3599);
+  --akir-grey-7: oklch(0.5642 0.026 252.3163);
+  --akir-grey-8: oklch(0.8234 0 0);
+  --akir-grey-9: oklch(0.9037 0 0);
+  --akir-grey-10: oklch(0.9731 0 0);
 }

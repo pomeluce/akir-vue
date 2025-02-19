@@ -26,7 +26,7 @@
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@tabler/icons-vue": "^3.30.0",
-    "@tailwindcss/vite": "^4.0.6",
+    "@tailwindcss/vite": "^4.0.7",
     "@vee-validate/yup": "^4.15.0",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.7.9",
@@ -35,7 +35,7 @@
     "lodash-es": "^4.17.21",
     "pinia": "^3.0.1",
     "sass": "^1.85.0",
-    "tailwindcss": "^4.0.6",
+    "tailwindcss": "^4.0.7",
     "vee-validate": "^4.15.0",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.1",

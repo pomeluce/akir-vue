@@ -166,9 +166,9 @@
 
 .flow-node.flow-event {
   &.start-event {
-    @apply border-solid border-2 border-success5;
+    @apply border-solid border-2 border-success5 bg-success5 text-backdrop2;
   }
   &.end-event {
-    @apply border-solid border-2 border-red-400;
+    @apply border-solid border-2 border-danger5 bg-danger5 text-backdrop2;
   }
 }
