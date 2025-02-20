@@ -13,7 +13,7 @@ type IPanelTextareaEmits = { 'update:modelValue': (value?: string) => true; inpu
 
 export default defineComponent<IPanelTeatareaProps & INTextareaProps, IPanelTextareaEmits>(
   (props, { emit, attrs }) => {
-    const { useValidate = true } = props;
+    const useValidate = computed(() => props.useValidate || true);
 
     const computedValue = computed<string | undefined>({
       get: () => props.modelValue,

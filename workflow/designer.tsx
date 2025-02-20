@@ -29,15 +29,13 @@ type IFlowDesignerEmits = {
 
 export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
   (props, { emit, expose }) => {
-    const { modelValue, direction = 'vertical', ...prop } = props;
-
-    const dir = ref<WFDirection>(direction);
+    const dir = ref<WFDirection>(props.direction || 'vertical');
     const flowRef = ref<ComponentInstance<typeof AkirFlow> & IAkirFlowExpose>();
     const flowPanelRef = ref<ComponentInstance<typeof AkirFlowPanel> & IAkirFlowPanelExpose>();
     const activeNode = ref<WFBaseNode>();
 
     const processData = computed<WFBaseNode>({
-      get: () => modelValue!,
+      get: () => props.modelValue!,
       set: value => emit('update:modelValue', value),
     });
 
@@ -54,16 +52,16 @@ export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
     const fitViewport = (padding?: number) => flowRef.value?.fitViewport(padding);
 
     watchEffect(() => {
-      setWFGlobalConfig('canAppend', prop.canAppend);
-      setWFGlobalConfig('canRemove', prop.canRemove);
-      setWFGlobalConfig('canMove', prop.canMove);
-      setWFGlobalConfig('canDropped', prop.canDropped);
-      setWFGlobalConfig('removeValidator', prop.removeValidator);
-      setWFGlobalConfig('completenessValidator', prop.completenessValidator);
-      setWFGlobalConfig('preBehaviorOfDelete', prop.preBehaviorOfDelete);
+      setWFGlobalConfig('canAppend', props.canAppend);
+      setWFGlobalConfig('canRemove', props.canRemove);
+      setWFGlobalConfig('canMove', props.canMove);
+      setWFGlobalConfig('canDropped', props.canDropped);
+      setWFGlobalConfig('removeValidator', props.removeValidator);
+      setWFGlobalConfig('completenessValidator', props.completenessValidator);
+      setWFGlobalConfig('preBehaviorOfDelete', props.preBehaviorOfDelete);
     });
 
-    provide(WFAppMenuGetter, prop.appendMenuProvider ?? defaultWFAppendMenuProvider);
+    provide(WFAppMenuGetter, props.appendMenuProvider ?? defaultWFAppendMenuProvider);
 
     expose({ toggleDirection, toggleRoot, fitViewport });
 
@@ -77,6 +75,7 @@ export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
           onZoomChanged={event => emit('zoomChanged', event)}
           onNodeDblclick={event => emit('nodeDblclick', event)}
           onNodeContextmenu={event => emit('nodeContextmenu', event)}
+          onNodeDelete={() => flowPanelRef.value?.togglePanel(false)}
         />
         <AkirFlowPanel ref={flowPanelRef} v-model={activeNode.value} />
       </div>

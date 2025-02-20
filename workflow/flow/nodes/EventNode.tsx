@@ -1,10 +1,8 @@
 export default defineComponent<{ modelValue: WFEventNode; direction?: WFDirection }, { 'update:modelValue': (value: WFEventNode) => true }>(
   props => {
-    const { modelValue } = props;
-
     return () => (
-      <div class={`flow-node flow-event ${modelValue?.businessData.cls || ''}`}>
-        <span>{modelValue?.name}</span>
+      <div class={`flow-node flow-event ${props.modelValue?.businessData.cls || ''}`}>
+        <span>{props.modelValue?.name}</span>
       </div>
     );
   },

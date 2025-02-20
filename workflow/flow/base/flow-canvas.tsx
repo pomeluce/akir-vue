@@ -8,7 +8,7 @@ export interface IFlowCanvasExpose {
 
 export default defineComponent<{ direction?: WFDirection }, { zoomChanged: (value: number) => true }, string, SlotsType<{ default?: () => any; header?: () => any }>>(
   (props, { emit, slots, expose }) => {
-    const { direction = 'vertical' } = props;
+    const direction = computed(() => props.direction || 'vertical');
 
     const canvasParent = ref<HTMLDivElement>();
     const canvasRoot = ref<HTMLDivElement>();
@@ -74,7 +74,7 @@ export default defineComponent<{ direction?: WFDirection }, { zoomChanged: (valu
       const { width, height } = canvasParent.value!.getBoundingClientRect();
       const { width: rootWidth, height: rootHeight } = canvasRoot.value!.getBoundingClientRect();
 
-      const isVertical = direction === 'vertical';
+      const isVertical = direction.value === 'vertical';
 
       initCanvasViewBox(canvasRoot.value!, isVertical ? (width - rootWidth) / 2 : 0, isVertical ? 0 : (height - rootHeight) / 2);
 

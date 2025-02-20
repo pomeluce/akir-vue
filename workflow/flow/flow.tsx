@@ -25,15 +25,15 @@ type IFlowEmits = {
   nodeContextmenu: (node: WFBaseNode, event: Event) => true;
 };
 
-export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection }, IFlowEmits>(
+export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection; onNodeDelete?: () => void }, IFlowEmits>(
   (props, { emit, expose }) => {
-    const { modelValue, direction = 'vertical' } = props;
+    const direction = computed(() => props.direction || 'vertical');
 
     const root = ref<WFSubprocessNode>();
     const canvas = shallowRef<ComponentInstance<typeof FlowCanvas> & IFlowCanvasExpose>();
     const fitViewport = (padding?: number) => canvas.value?.fitViewport(padding);
 
-    const computedFlowData = computed<WFBaseNode>(() => modelValue || ref(createPresetProcess()).value);
+    const computedFlowData = computed<WFBaseNode>(() => props.modelValue || ref(createPresetProcess()).value);
     const computedVisibleFlowData = computed<WFBaseNode>({
       get: () => (root.value ? root.value.$start! : computedFlowData.value),
       set: () => emit('update:modelValue', computedFlowData.value),
@@ -101,10 +101,10 @@ export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirectio
               <></>
             );
           },
-          default: () => <FlowList v-model={computedVisibleFlowData.value} direction={direction} />,
+          default: () => <FlowList v-model={computedVisibleFlowData.value} direction={direction.value} onNodeDelete={props.onNodeDelete} />,
         }}
       </FlowCanvas>
     );
   },
-  { name: 'AkirFlow', props: ['modelValue', 'direction'] },
+  { name: 'AkirFlow', props: ['modelValue', 'direction', 'onNodeDelete'] },
 );

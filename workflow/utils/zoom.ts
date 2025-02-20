@@ -53,9 +53,10 @@ function getXY(scale: number, x: number, y: number, x2: number, y2: number) {
 export function zoomHandle(el: HTMLDivElement, e: WheelEvent, callback?: (zoom: number) => void) {
   const { x, y, deltaY } = e;
 
-  if (deltaY % 100 !== 0) return;
+  const ceilDeltaY = deltaY > 0 ? 100 : -100;
+  // if (deltaY % 100 !== 0) return;
 
-  scale += deltaY * zoomStep * -0.01;
+  scale += ceilDeltaY * zoomStep * -0.01;
   scale = Math.round(Math.min(Math.max(minL, scale), maxL) * 100) / 100;
 
   // 放大

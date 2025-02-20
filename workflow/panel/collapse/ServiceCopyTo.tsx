@@ -1,7 +1,7 @@
 import { IconCaretLeftFilled, IconSend } from '@tabler/icons-vue';
 import { NCheckbox, NCheckboxGroup, NCollapseItem } from 'naive-ui';
 import { copyMessageTypeOptions } from '../../configuration/enums';
-import { AkirPanelEdit, AkirPanelTextarea } from '../../common';
+import { AkirPanelEdit, AkirPanelTextarea, AkirPanelUserInput } from '../../common';
 
 export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue': (value: WFBaseNode) => true }>(
   (props, { emit }) => {
@@ -41,7 +41,9 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
                   ))}
                 </NCheckboxGroup>
               </AkirPanelEdit>
-              <AkirPanelEdit label="抄送人"></AkirPanelEdit>
+              <AkirPanelEdit label="抄送人">
+                <AkirPanelUserInput />
+              </AkirPanelEdit>
               <AkirPanelEdit label="消息内容">
                 <AkirPanelTextarea v-model={messageContent.value} />
               </AkirPanelEdit>

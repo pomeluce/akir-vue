@@ -201,6 +201,24 @@
 }
 
 .akir-flow-panel {
+  @apply w-0 relative border-0 box-border z-1 shadow-lg;
+
+  &.opened {
+    @apply min-w-md border-l-2 border-rim2 rounded;
+  }
+
+  .akir-flow-panel_header {
+    @apply text-xl font-bold text-word1 p-4 bg-fill2 flex items-center;
+
+    .akir-flow-panel_btn {
+      @apply hover:bg-fill3;
+    }
+  }
+
+  .akir-flow-panel_body {
+    @apply p-4;
+  }
+
   .n-collapse .n-collapse-item.n-collapse-item--active .n-collapse-item__header.n-collapse-item__header--active .n-collapse-item-arrow {
     transform: rotate(-90deg);
   }

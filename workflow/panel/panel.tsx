@@ -1,36 +1,37 @@
-import { NCollapse, NDrawer, NDrawerContent } from 'naive-ui';
-import { Component, PropType } from 'vue';
+import { NCollapse } from 'naive-ui';
+import { Component } from 'vue';
 import { isUndefined } from 'lodash-es';
 import { isExpressionNode, isServiceNode } from 'wf/utils';
 import { checkExclusiveGateway } from 'wf/configuration';
 import NodeBasic from './collapse/NodeBasic';
 import NodeExpression from './collapse/NodeExpression';
 import ServiceCopyTo from './collapse/ServiceCopyTo';
+import { IconX } from '@tabler/icons-vue';
 
 export interface IFlowPanelExpose {
   togglePanel: (state?: boolean) => void;
 }
 
-const props = { modelValue: { type: Object as PropType<WFBaseNode>, default: () => ({ businessData: {} }) } };
-
-export default defineComponent({
-  name: 'AkirFlowPanel',
-  props,
-  emits: ['update:modelValue'],
-  setup(props, { emit, expose }) {
+export default defineComponent<{ modelValue?: WFBaseNode }, { 'update:modelValue': (value: WFBaseNode) => true }>(
+  (props, { emit, expose }) => {
     const panelState = ref<boolean>(false);
+
+    const computedValue = computed<WFBaseNode>({
+      get: () => props.modelValue || ({ businessData: {} } as WFBaseNode),
+      set: value => emit('update:modelValue', value),
+    });
 
     const { t } = useI18n();
 
     const headerTitle = computed(() => {
-      if (props.modelValue.businessData?.$type) return t(props.modelValue.businessData?.$type);
-      return props.modelValue.type ? t(props.modelValue.type) : 'Process';
+      if (computedValue.value.businessData?.$type) return t(computedValue.value.businessData?.$type);
+      return computedValue.value.type ? t(computedValue.value.type) : 'Process';
     });
 
     const renderComponents = computed<Component[]>(() => {
       const components: Component[] = [NodeBasic];
 
-      const businessData = props.modelValue.businessData;
+      const businessData = computedValue.value.businessData;
       const bpmnType = businessData.$type;
 
       // if (isTaskNode($props.node) && bpmnType === 'userTask') {
@@ -38,7 +39,7 @@ export default defineComponent({
       //   components.push(UserTaskMultiInstance);
       //   components.push(UserTaskOperation);
       // }
-      if (isServiceNode(props.modelValue) && bpmnType === 'serviceTask') {
+      if (isServiceNode(computedValue.value) && bpmnType === 'serviceTask') {
         if (businessData.type === 'copy') {
           components.push(ServiceCopyTo);
         }
@@ -46,7 +47,7 @@ export default defineComponent({
         //   components.push(ServiceMailTo);
         // }
       }
-      if (isExpressionNode(props.modelValue) && checkExclusiveGateway(props.modelValue as WFExpressionNode)) {
+      if (isExpressionNode(computedValue.value) && checkExclusiveGateway(computedValue.value as WFExpressionNode)) {
         components.push(NodeExpression);
       }
 
@@ -54,7 +55,7 @@ export default defineComponent({
     });
 
     const togglePanel = (state?: boolean) => {
-      if (!props.modelValue.id) return (panelState.value = false);
+      if (!computedValue.value.id) return (panelState.value = false);
       if (isUndefined(state)) return (panelState.value = !panelState.value);
       panelState.value = state;
     };
@@ -62,35 +63,26 @@ export default defineComponent({
     expose({ togglePanel } satisfies IFlowPanelExpose);
 
     return () => (
-      <NDrawer
-        v-model={[panelState.value, 'show']}
-        class="!w-[22vw] min-w-sm border-1 border-rim2 rounded-xl"
-        to="#akir-designer"
-        showMask="transparent"
-        trap-focus={false}
-        block-scroll={false}
-      >
-        <NDrawerContent headerClass="bg-fill2">
-          {{
-            header: () => <div class="akir-flow-panel_header">{headerTitle.value}</div>,
-            default: () => (
-              <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
-                {props.modelValue.id ? (
-                  <div class="akir-flow-panel_body">
-                    <NCollapse arrowPlacement="right">
-                      {renderComponents.value.map(collapseItem =>
-                        h(collapseItem, { key: collapseItem.name, modelValue: props.modelValue, onUpdateModelValue: (event: WFBaseNode) => emit('update:modelValue', event) }),
-                      )}
-                    </NCollapse>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ),
-          }}
-        </NDrawerContent>
-      </NDrawer>
+      <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
+        <div class="akir-flow-panel_header">
+          <span class="flex-1">{headerTitle.value}</span>
+          <div class="akir-flow-panel_btn" onClick={() => togglePanel(false)}>
+            <IconX />
+          </div>
+        </div>
+        {computedValue.value.id ? (
+          <div class="akir-flow-panel_body">
+            <NCollapse arrowPlacement="right">
+              {renderComponents.value.map(collapseItem =>
+                h(collapseItem, { key: collapseItem.name, modelValue: computedValue.value, onUpdateModelValue: (event: WFBaseNode) => (computedValue.value = event) }),
+              )}
+            </NCollapse>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     );
   },
-});
+  { name: 'AkirFlowPanel', props: ['modelValue'] },
+);

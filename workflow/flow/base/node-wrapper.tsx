@@ -5,14 +5,14 @@ import { appendNode, capitalize, createNode, removeNode, setDragData } from 'wf/
 import { getWFGlobalConfig } from 'wf/configuration';
 import NodeBehavior from './node-behavior';
 
-export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection }, { 'update:modelValue': (value: WFBaseNode) => true }>(
+export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection; onNodeDelete?: () => void }, { 'update:modelValue': (value: WFBaseNode) => true }>(
   (props, { emit }) => {
-    const { modelValue, direction = 'vertical' } = props;
+    const direction = computed(() => props.direction || 'vertical');
 
-    const cachedComponent = shallowRef<WFBaseNode>(defineAsyncComponent<WFBaseNode>(() => import(`../nodes/${capitalize(modelValue!.type)}Node.tsx`)));
+    const cachedComponent = shallowRef<WFBaseNode>(defineAsyncComponent<WFBaseNode>(() => import(`../nodes/${capitalize(props.modelValue!.type)}Node.tsx`)));
 
     const computedModelNode = computed<WFBaseNode>({
-      get: () => modelValue!,
+      get: () => props.modelValue!,
       set: (node: WFBaseNode) => emit('update:modelValue', node),
     });
 
@@ -33,7 +33,7 @@ export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirectio
 
     // 默认条件
     const isDefaultFlow = computed(() => {
-      return modelValue?.type === 'expression' && (modelValue as WFExpressionNode).$parent?.$default === modelValue;
+      return props.modelValue?.type === 'expression' && (props.modelValue as WFExpressionNode).$parent?.$default === props.modelValue;
     });
 
     // 追加节点
@@ -59,7 +59,10 @@ export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirectio
       try {
         const preBehavior = getWFGlobalConfig('preBehaviorOfDelete');
         const isDel = await preBehavior(computedModelNode.value);
-        isDel && removeNode(computedModelNode.value);
+        if (isDel) {
+          removeNode(computedModelNode.value);
+          props.onNodeDelete?.();
+        }
       } catch (e) {
         console.error(e);
       }
@@ -76,7 +79,7 @@ export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirectio
 
     return () => (
       <>
-        {modelValue && (
+        {props.modelValue && (
           <div class="flow-node__wrapper">
             <div
               class={['flow-node__container', movable.value && 'flow-node__movable', !completenessValid.value.status && 'flow-node__uncompleted']}
@@ -139,15 +142,15 @@ export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirectio
               {h(cachedComponent.value, {
                 modelValue: computedModelNode.value,
                 onUpdateModelValue: (v: WFBaseNode) => (computedModelNode.value = v),
-                direction: direction,
+                direction: direction.value,
                 'data-node-id': computedModelNode.value.id,
               })}
             </div>
-            {appendable.value && <NodeBehavior data={modelValue} onAppend={appendNewNode} />}
+            {appendable.value && <NodeBehavior data={props.modelValue} onAppend={appendNewNode} />}
           </div>
         )}
       </>
     );
   },
-  { name: 'AkirNodeWrapper', props: ['modelValue', 'direction'] },
+  { name: 'AkirNodeWrapper', props: ['modelValue', 'direction', 'onNodeDelete'] },
 );

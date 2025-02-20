@@ -5,11 +5,11 @@ import { checkParallelGateway } from 'wf/configuration';
 
 export default defineComponent<{ modelValue: WFGatewayNode; direction?: WFDirection }, { 'update:modelValue': (value: WFGatewayNode) => true }>(
   (props, { emit }) => {
-    const { modelValue, direction = 'vertical' } = props;
+    const direction = computed(() => props.direction || 'vertical');
 
-    const isParallelGatewayChild = computed(() => checkParallelGateway(modelValue!));
+    const isParallelGatewayChild = computed(() => checkParallelGateway(props.modelValue!));
     const computedGatewayNode = computed<WFGatewayNode>({
-      get: () => modelValue!,
+      get: () => props.modelValue!,
       set: node => emit('update:modelValue', node),
     });
 
@@ -58,7 +58,7 @@ export default defineComponent<{ modelValue: WFGatewayNode; direction?: WFDirect
             <div class="branch-col" key={branch.expression.id}>
               <div class="branch-col_prefix" />
               <div class="branch-col_content">
-                <AkirFlowList v-model={branch.expression} direction={direction} />
+                <AkirFlowList v-model={branch.expression} direction={direction.value} />
               </div>
               <div class="branch-col_suffix" />
             </div>
