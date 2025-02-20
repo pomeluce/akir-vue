@@ -15,13 +15,18 @@ export interface IFlowExpose {
   toggleRoot: (r?: WFSubprocessNode) => void;
 }
 
-const props = { modelValue: { type: Object as PropType<WFBaseNode>, default: () => null }, direction: String as PropType<WFDirection> };
+type IFlowEmits = {
+  'update:modelValue': (node: WFBaseNode) => true;
+  zoomChanged: (zoom: number) => true;
+  nodeClick: (node: WFBaseNode, event: Event) => true;
+  nodeDblclick: (node: WFBaseNode, event: Event) => true;
+  nodeMouseenter: (node: WFBaseNode, event: Event) => true;
+  nodeMouseleave: (node: WFBaseNode, event: Event) => true;
+  nodeContextmenu: (node: WFBaseNode, event: Event) => true;
+};
 
-export default defineComponent({
-  name: 'AkirFlow',
-  props,
-  emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeMouseenter', 'nodeMouseleave', 'nodeContextmenu'],
-  setup(props, { emit, expose }) {
+export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection }, IFlowEmits>(
+  (props, { emit, expose }) => {
     const { modelValue, direction = 'vertical' } = props;
 
     const root = ref<WFSubprocessNode>();
@@ -63,7 +68,7 @@ export default defineComponent({
       const nodeId = element.getAttribute('data-node-id');
       if (nodeId) {
         const node = getNodeInMap(nodeId);
-        emit(type, node, ev);
+        emit(type as any, node!, ev);
       }
     };
 
@@ -101,6 +106,5 @@ export default defineComponent({
       </FlowCanvas>
     );
   },
-});
-
-// defineOptions({ name: 'AkirFlow' });
+  { name: 'AkirFlow', props: ['modelValue', 'direction'] },
+);

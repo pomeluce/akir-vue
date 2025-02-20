@@ -1,17 +1,7 @@
 import { IconSubtask } from '@tabler/icons-vue';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFServiceNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props) {
+export default defineComponent<{ modelValue: WFServiceNode; direction?: WFDirection }, { 'update:modelValue': (value: WFServiceNode) => true }>(
+  props => {
     const { modelValue } = props;
 
     return () => (
@@ -23,4 +13,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'ServiceNode', props: ['modelValue', 'direction'] },
+);

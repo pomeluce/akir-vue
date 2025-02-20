@@ -6,16 +6,8 @@ export interface IFlowCanvasExpose {
   initCanvasViewBox: (el: HTMLDivElement, x: number, y: number, zoom?: number) => void;
 }
 
-const props = { direction: String as PropType<WFDirection> };
-const emits = { zoomChanged: (value: number) => typeof value === 'number' };
-const slots = Object as SlotsType<{ default?: () => any; header?: () => any }>;
-
-export default defineComponent({
-  name: 'AkirFlowCanvas',
-  props,
-  emits,
-  slots,
-  setup(props, { emit, slots, expose }) {
+export default defineComponent<{ direction?: WFDirection }, { zoomChanged: (value: number) => true }, string, SlotsType<{ default?: () => any; header?: () => any }>>(
+  (props, { emit, slots, expose }) => {
     const { direction = 'vertical' } = props;
 
     const canvasParent = ref<HTMLDivElement>();
@@ -123,4 +115,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'AkirFlowCanvas', props: ['direction'] },
+);

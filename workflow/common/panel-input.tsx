@@ -35,5 +35,5 @@ export default defineComponent<IPanelInputProps & INInputProps, IPanelInputEmits
       </NInput>
     );
   },
-  { props: ['modelValue', 'validator'] },
+  { name: 'PanelInput', props: ['modelValue', 'validator'] },
 );

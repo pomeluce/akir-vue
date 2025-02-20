@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { ids } from './id';
+import uuid from './uuid';
 
 // 节点记录表
 export const nodeMaps: Map<WFBaseNode['id'], WFBaseNode> = new Map();
@@ -68,7 +68,7 @@ export const DEFAULT_BPMN_TYPE_MAP = {
             : WFBaseNode;
 export function createNode<T extends WFBaseNodeType>(type: T, parent?: WFBaseNode, name?: string, bo?: Record<string, unknown>): WFNodeForType<T> {
   const n = name || DEFAULT_NAME_MAP[type] || type;
-  const id = ids(type);
+  const id = uuid(type);
   const base: WFBaseNode = reactive({
     id,
     type,

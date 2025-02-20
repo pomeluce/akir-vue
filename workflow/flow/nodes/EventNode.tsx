@@ -1,17 +1,5 @@
-import { PropType } from 'vue';
-
-const props = {
-  modelValue: {
-    type: Object as PropType<WFEventNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props) {
+export default defineComponent<{ modelValue: WFEventNode; direction?: WFDirection }, { 'update:modelValue': (value: WFEventNode) => true }>(
+  props => {
     const { modelValue } = props;
 
     return () => (
@@ -20,4 +8,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'EventNode', props: ['modelValue', 'direction'] },
+);

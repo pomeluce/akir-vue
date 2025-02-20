@@ -39,12 +39,12 @@ export default defineComponent<IPanelSelectProps & INSelectProps, IPanelSelectEm
     });
 
     return () => (
-      <NSelect v-model={[computedValue.value, 'value', ['lazy']]} {...attrs}>
+      <NSelect v-model={[computedValue.value, 'value']} {...attrs}>
         {{
           arrow: () => (computedValidateState.value ? <IconCircleCheckFilled class="text-success6" size="18" /> : <IconAlertCircleFilled class="text-warning5" size="18" />),
         }}
       </NSelect>
     );
   },
-  { props: ['modelValue', 'validator'] },
+  { name: 'PanelSelect', props: ['modelValue', 'validator'] },
 );

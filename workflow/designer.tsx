@@ -1,28 +1,34 @@
-import { ComponentInstance, PropType } from 'vue';
+import { ComponentInstance } from 'vue';
 import { AkirFlow, IAkirFlowExpose } from './flow';
 import { AkirFlowPanel, IAkirFlowPanelExpose } from './panel';
 import { WFAppMenuGetter } from './injection';
 import { defaultWFAppendMenuProvider, setWFGlobalConfig } from './configuration';
 import './styles/index.css';
 
-const props = {
-  modelValue: Object as PropType<WFBaseNode>,
-  direction: String as PropType<WFDirection>,
-  canAppend: [Boolean, Function] as PropType<WFCanAppend>,
-  canRemove: [Boolean, Function] as PropType<WFCanRemove>,
-  canMove: [Boolean, Function] as PropType<WFCanMove>,
-  canDropped: [Boolean, Function] as PropType<WFCanDropped>,
-  removeValidator: Function as PropType<WFExecutionValidator>,
-  completenessValidator: Function as PropType<WFExecutionValidator>,
-  appendMenuProvider: Function as PropType<WFAppendMenuProvider<WFBaseNodeType>>,
-  preBehaviorOfDelete: Function as PropType<WFPreBehavior>,
+interface IFlowDesignerProps {
+  modelValue?: WFBaseNode;
+  direction?: WFDirection;
+  canAppend?: WFCanAppend;
+  canRemove?: WFCanRemove;
+  canMove?: WFCanMove;
+  canDropped?: WFCanDropped;
+  removeValidator?: WFExecutionValidator;
+  completenessValidator?: WFExecutionValidator;
+  appendMenuProvider?: WFAppendMenuProvider<WFBaseNodeType>;
+  preBehaviorOfDelete?: WFPreBehavior;
+}
+
+type IFlowDesignerEmits = {
+  'update:modelValue': (node: WFBaseNode) => true;
+  zoomChanged: (zoom: number) => true;
+  nodeClick: (node: WFBaseNode) => true;
+  nodeDblclick: (node: WFBaseNode) => true;
+  nodeHover: (node: WFBaseNode) => true;
+  nodeContextmenu: (node: WFBaseNode) => true;
 };
 
-export default defineComponent({
-  name: 'AkirFlowDesigner',
-  props,
-  emits: ['update:modelValue', 'zoomChanged', 'nodeClick', 'nodeDblclick', 'nodeHover', 'nodeContextmenu'],
-  setup(props, { emit, expose }) {
+export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
+  (props, { emit, expose }) => {
     const { modelValue, direction = 'vertical', ...prop } = props;
 
     const dir = ref<WFDirection>(direction);
@@ -76,4 +82,8 @@ export default defineComponent({
       </div>
     );
   },
-});
+  {
+    name: 'AkirFlowDesigner',
+    props: ['modelValue', 'direction', 'canAppend', 'canRemove', 'canMove', 'canDropped', 'removeValidator', 'completenessValidator', 'appendMenuProvider', 'preBehaviorOfDelete'],
+  },
+);

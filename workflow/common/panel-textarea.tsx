@@ -41,5 +41,5 @@ export default defineComponent<IPanelTeatareaProps & INTextareaProps, IPanelText
       </div>
     );
   },
-  { props: ['modelValue', 'useValidate', 'validator'] },
+  { name: 'PanelTextarea', props: ['modelValue', 'useValidate', 'validator'] },
 );

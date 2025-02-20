@@ -5,14 +5,11 @@ import { appendNode, capitalize, createNode, removeNode, setDragData } from 'wf/
 import { getWFGlobalConfig } from 'wf/configuration';
 import NodeBehavior from './node-behavior';
 
-const props = { modelValue: { type: Object as PropType<WFBaseNode>, required: true }, direction: String as PropType<WFDirection> };
-
-export default defineComponent({
-  name: 'AkirNodeWrapper',
-  props,
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
+export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection }, { 'update:modelValue': (value: WFBaseNode) => true }>(
+  (props, { emit }) => {
     const { modelValue, direction = 'vertical' } = props;
+
+    const cachedComponent = shallowRef<WFBaseNode>(defineAsyncComponent<WFBaseNode>(() => import(`../nodes/${capitalize(modelValue!.type)}Node.tsx`)));
 
     const computedModelNode = computed<WFBaseNode>({
       get: () => modelValue!,
@@ -68,7 +65,14 @@ export default defineComponent({
       }
     };
 
-    const transformNodeName = (node: WFBaseNode) => defineAsyncComponent<VNode>(() => import(`../nodes/${capitalize(node.type)}Node.tsx`));
+    watch(
+      () => computedModelNode.value.type,
+      (newVal, oldVal) => {
+        if (newVal !== oldVal) {
+          cachedComponent.value = defineAsyncComponent<WFBaseNode>(() => import(`../nodes/${capitalize(newVal)}Node.tsx`));
+        }
+      },
+    );
 
     return () => (
       <>
@@ -102,7 +106,7 @@ export default defineComponent({
                         </svg>
                       </div>
                     ),
-                    default: () => <div>{isString(completenessValid.value.message) ? completenessValid.value.message : completenessValid.value.message?.join(';')}</div>,
+                    default: () => <div>{isString(completenessValid.value.message) ? completenessValid.value.message : completenessValid.value.message?.join('; ')}</div>,
                   }}
                 </NPopover>
               )}
@@ -132,7 +136,7 @@ export default defineComponent({
                   <IconTrash size={18} onClick={handleDeleteNode} />
                 </div>
               )}
-              {h(transformNodeName(computedModelNode.value), {
+              {h(cachedComponent.value, {
                 modelValue: computedModelNode.value,
                 onUpdateModelValue: (v: WFBaseNode) => (computedModelNode.value = v),
                 direction: direction,
@@ -145,4 +149,5 @@ export default defineComponent({
       </>
     );
   },
-});
+  { name: 'AkirNodeWrapper', props: ['modelValue', 'direction'] },
+);

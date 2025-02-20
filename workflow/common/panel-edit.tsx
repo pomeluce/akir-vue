@@ -1,74 +1,51 @@
-import { IconHelpCircleFilled } from '@tabler/icons-vue';
+import { SlotsType } from 'vue';
 import { NPopover } from 'naive-ui';
-import { PropType, SlotsType } from 'vue';
+import { IconHelpCircleFilled } from '@tabler/icons-vue';
 
-const props = {
-  label: {
-    type: String as PropType<string>,
-    default: '',
-  },
-  description: {
-    type: String as PropType<string>,
-    default: '',
-  },
-  tooltip: {
-    type: String as PropType<string>,
-    default: '',
-  },
-  align: {
-    type: String as PropType<'horizontal' | 'vertical'>,
-    default: 'horizontal',
-  },
-  prefix: {
-    type: [String, Boolean] as PropType<string | boolean>,
-    default: '：',
-  },
-  textAlign: {
-    type: String as PropType<string>,
-    default: 'right',
-    validator: (val: string) => ['left', 'center', 'right'].includes(val),
-  },
-  labelWidth: {
-    type: [Number, String] as PropType<number | string>,
-    default: 80,
-  },
-};
+interface IPanelEditProps {
+  label?: string;
+  description?: string;
+  tooltip?: string;
+  align?: 'horizontal' | 'vertical';
+  prefix?: string | boolean;
+  textAlign?: 'left' | 'center' | 'right';
+  labelWidth?: number | string;
+}
 
-const slots = Object as SlotsType<{ default?: () => any; tooltip?: () => any; description?: () => any }>;
+type IPanelEditSlots = SlotsType<{ default?: () => any; tooltip?: () => any; description?: () => any }>;
 
-export default defineComponent({
-  props,
-  slots,
-  setup(props, { slots }) {
+export default defineComponent<IPanelEditProps, {}, string, IPanelEditSlots>(
+  (props, { slots }) => {
+    const { label = '', description = '', tooltip = '', align = 'horizontal', prefix = ': ', textAlign = 'right', labelWidth = 80 } = props;
     const computedStyles = computed(() => {
       return {
-        '--label-width': typeof props.labelWidth === 'string' ? props.labelWidth : `${props.labelWidth}px`,
-        '--text-align': props.textAlign as 'center',
-        '--el-align': props.align === 'vertical' ? 'column' : 'row',
+        '--label-width': typeof labelWidth === 'string' ? labelWidth : `${labelWidth}px`,
+        '--text-align': textAlign as 'center',
+        '--el-align': align === 'vertical' ? 'column' : 'row',
       };
     });
 
     const computedLabel = computed(() => {
-      if (!props.prefix) return props.label;
-      return typeof props.prefix === 'string' ? `${props.label}${props.prefix}` : `${props.label}：`;
+      if (!prefix) return label;
+      return typeof prefix === 'string' ? `${label}${prefix}` : `${label}：`;
     });
 
     return () => (
       <div class="panel-edit w-full flex justify-between text-xs leading-7 flex-(--el-align)" style={computedStyles.value}>
         <div class="w-(--label-width) shrink-0 break-words whitespace-nowrap text-ellipsis overflow-hidden" style={{ textAlign: 'var(--text-align)' as any }}>
-          {(props.tooltip || slots.tooltip) && (
+          {(tooltip || slots.tooltip) && (
             <NPopover placement="top-end">
               {{
                 tirgger: () => <IconHelpCircleFilled />,
-                default: () => (slots.tooltip ? slots.tooltip() : <div class="max-w-[40vw] break-words whitespace-normal inline-block overflow-hidden">{props.tooltip}</div>),
+                default: () => (slots.tooltip ? slots.tooltip() : <div class="max-w-[40vw] break-words whitespace-normal inline-block overflow-hidden">{tooltip}</div>),
               }}
             </NPopover>
           )}
-          <span title={props.label}>{computedLabel.value}</span>
+          <span title={label}>{computedLabel.value}</span>
         </div>
         <div class="flex-1 flex flex-col">
           <div>{slots.default?.()}</div>
-          {(!!props.description || slots.description) && (
+          {(!!description || slots.description) && (
             <div class="text-xs leading-4 pt-2">
               {slots.description && <span> {slots.description()}</span>}
               {slots.description?.()}
@@ -78,4 +55,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'PanelEdit', props: ['label', 'description', 'tooltip', 'align', 'prefix', 'textAlign', 'labelWidth'] },
+);

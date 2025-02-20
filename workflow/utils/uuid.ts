@@ -1,9 +1,10 @@
-export function ids(prefix: string, simple: boolean = true): string {
+import { HatId } from '@/utils/hat';
+
+const hat = new HatId([32, 36, 1]);
+
+export default function (prefix: string, simple: boolean = true): string {
   if (simple) {
-    // 生成简单的递增 ID
-    const counter = (ids as any)._counter || 0;
-    (ids as any)._counter = counter + 1;
-    return `${prefix}-${counter}`;
+    return hat.nextPrefixed(`${prefix}-`);
   }
 
   if (typeof crypto.randomUUID === 'function') {

@@ -1,18 +1,8 @@
 import { IconVariable } from '@tabler/icons-vue';
 import { checkDefaultExpressionFlow, checkParallelGateway } from 'wf/configuration';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFExpressionNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props) {
+export default defineComponent<{ modelValue: WFExpressionNode; direction?: WFDirection }, { 'update:modelValue': (value: WFExpressionNode) => true }>(
+  props => {
     const { modelValue } = props;
 
     const isParallelGatewayChild = computed(() => checkParallelGateway(modelValue!));
@@ -29,4 +19,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'ExpressionNode', props: ['modelValue', 'direction'] },
+);

@@ -1,18 +1,8 @@
 import { IconParking } from '@tabler/icons-vue';
 import { AkirFlowList } from '..';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFSubprocessNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props) {
+export default defineComponent<{ modelValue: WFSubprocessNode; direction?: WFDirection }, { 'update:modelValue': (value: WFSubprocessNode) => true }>(
+  props => {
     const { modelValue, direction = 'vertical' } = props;
 
     return () => (
@@ -24,4 +14,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'SubprocessNode', props: ['modelValue', 'direction'] },
+);

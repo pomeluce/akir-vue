@@ -3,18 +3,8 @@ import { AkirFlowList } from '..';
 import { createNode, setNodeInMap } from 'wf/utils';
 import { checkParallelGateway } from 'wf/configuration';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFGatewayNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
+export default defineComponent<{ modelValue: WFGatewayNode; direction?: WFDirection }, { 'update:modelValue': (value: WFGatewayNode) => true }>(
+  (props, { emit }) => {
     const { modelValue, direction = 'vertical' } = props;
 
     const isParallelGatewayChild = computed(() => checkParallelGateway(modelValue!));
@@ -77,4 +67,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'GatewayNode', props: ['modelValue', 'direction'] },
+);

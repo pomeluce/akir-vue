@@ -1,23 +1,7 @@
-import { PropType } from 'vue';
 import NodeWrapper from './base/node-wrapper';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFBaseNode>,
-    required: true,
-  },
-  direction: {
-    type: String as PropType<WFDirection>,
-    default: 'vertical',
-    validator: (v: WFDirection) => ['vertical', 'horizontal'].includes(v),
-  },
-};
-
-export default defineComponent({
-  name: 'AkirFlowList',
-  props,
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
+export default defineComponent<{ modelValue?: WFBaseNode; direction?: WFDirection }, { 'update:modelValue': (value: WFBaseNode) => true }>(
+  (props, { emit }) => {
     const { modelValue, direction = 'vertical' } = props;
 
     const cls = computed<string>(() => `akir-flow_container akir-flow_${direction}`);
@@ -36,7 +20,6 @@ export default defineComponent({
       }
       return list;
     });
-
     return () => (
       <div class="akir-flow_wrapper">
         <div class={cls.value}>
@@ -47,4 +30,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'AkirFlowList', props: ['modelValue', 'direction'] },
+);

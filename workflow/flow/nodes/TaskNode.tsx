@@ -1,17 +1,7 @@
 import { IconUserCog } from '@tabler/icons-vue';
 
-const props = {
-  modelValue: {
-    type: Object as PropType<WFTaskNode>,
-    required: true,
-  },
-  direction: String as PropType<WFDirection>,
-};
-
-export default defineComponent({
-  props,
-  emits: ['update:modelValue'],
-  setup(props) {
+export default defineComponent<{ modelValue: WFTaskNode; direction?: WFDirection }, { 'update:modelValue': (value: WFSubprocessNode) => true }>(
+  props => {
     const { modelValue } = props;
 
     const info = computed<string>(() => {
@@ -36,4 +26,5 @@ export default defineComponent({
       </div>
     );
   },
-});
+  { name: 'TaskNode', props: ['modelValue', 'direction'] },
+);
