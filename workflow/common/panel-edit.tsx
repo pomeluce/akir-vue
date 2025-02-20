@@ -16,7 +16,7 @@ type IPanelEditSlots = SlotsType<{ default?: () => any; tooltip?: () => any; des
 
 export default defineComponent<IPanelEditProps, {}, string, IPanelEditSlots>(
   (props, { slots }) => {
-    const { label = '', description = '', tooltip = '', align = 'horizontal', prefix = ': ', textAlign = 'right', labelWidth = 80 } = props;
+    const { label = '', description = '', tooltip = '', align = 'horizontal', prefix = ':', textAlign = 'right', labelWidth = 80 } = props;
     const computedStyles = computed(() => {
       return {
         '--label-width': typeof labelWidth === 'string' ? labelWidth : `${labelWidth}px`,
@@ -31,7 +31,7 @@ export default defineComponent<IPanelEditProps, {}, string, IPanelEditSlots>(
     });
 
     return () => (
-      <div class="panel-edit w-full flex justify-between text-xs leading-7 flex-(--el-align)" style={computedStyles.value}>
+      <div class="panel-edit w-full flex justify-between text-xs leading-7 flex-(--el-align) gap-2" style={computedStyles.value}>
         <div class="w-(--label-width) shrink-0 break-words whitespace-nowrap text-ellipsis overflow-hidden" style={{ textAlign: 'var(--text-align)' as any }}>
           {(tooltip || slots.tooltip) && (
             <NPopover placement="top-end">
