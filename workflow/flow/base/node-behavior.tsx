@@ -1,9 +1,9 @@
-import { getDragData } from '@/utils/workflow';
-import { isFunction } from 'lodash-es';
-import { getWFGlobalConfig } from '../../configuration/global';
 import { NButton, NPopover } from 'naive-ui';
-import { WFAppMenuGetter } from '../../injection';
 import { IconCirclePlusFilled } from '@tabler/icons-vue';
+import { isFunction } from 'lodash-es';
+import { getDragData } from 'wf/utils';
+import { getWFGlobalConfig } from 'wf/configuration';
+import { WFAppMenuGetter } from '../../injection';
 
 const props = { data: Object as PropType<WFBaseNode> };
 
@@ -66,14 +66,7 @@ export default defineComponent({
     });
     return () => (
       <div class="flow-node__behavior">
-        <NPopover
-          class="!bg-backdrop2"
-          showArrow={false}
-          show={visible.value}
-          trigger="click"
-          placement="bottom-start"
-          onClickoutside={() => (visible.value = false)}
-        >
+        <NPopover class="!bg-backdrop2" showArrow={false} show={visible.value} trigger="click" placement="bottom-start" onClickoutside={() => (visible.value = false)}>
           {{
             trigger: () => (
               <div

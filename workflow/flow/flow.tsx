@@ -1,7 +1,7 @@
 import { ComponentInstance } from 'vue';
 import FlowCanvas, { IFlowCanvasExpose } from './base/flow-canvas';
-import { createPresetProcess, delegate, getNodeInMap } from '@/utils/workflow';
 import FlowList from './flow-list';
+import { createPresetProcess, delegate, getNodeInMap } from 'wf/utils';
 
 interface BreadcrumbItem {
   id: string;

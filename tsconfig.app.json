@@ -29,11 +29,12 @@
     /* Other */
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["types/*"]
+      "@/*": ["src/*"],
+      "#/*": ["types/*"],
+      "wf/*": ["workflow/*"]
     },
     "types": ["naive-ui/volar", "lodash-es"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.vue", "types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "workflow/**/*.ts", "workflow/**/*.tsx", "workflow/**/*.vue", "types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

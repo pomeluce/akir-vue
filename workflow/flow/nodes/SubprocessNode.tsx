@@ -1,5 +1,5 @@
-import { AkirFlowList } from '..';
 import { IconParking } from '@tabler/icons-vue';
+import { AkirFlowList } from '..';
 
 const props = {
   modelValue: {

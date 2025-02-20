@@ -1,8 +1,8 @@
 import { NCollapse, NDrawer, NDrawerContent } from 'naive-ui';
 import { Component, PropType } from 'vue';
 import { isUndefined } from 'lodash-es';
-import { isExpressionNode, isServiceNode } from '@/utils/workflow';
-import { checkExclusiveGateway } from '../configuration/node-checker';
+import { isExpressionNode, isServiceNode } from 'wf/utils';
+import { checkExclusiveGateway } from 'wf/configuration';
 import NodeBasic from './collapse/NodeBasic';
 import NodeExpression from './collapse/NodeExpression';
 import ServiceCopyTo from './collapse/ServiceCopyTo';

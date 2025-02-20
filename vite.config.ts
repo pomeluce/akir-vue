@@ -18,6 +18,7 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         '@': resolve(__dirname, 'src'),
         '#': resolve(__dirname, 'types'),
+        wf: resolve(__dirname, 'workflow'),
       },
     },
     css: {

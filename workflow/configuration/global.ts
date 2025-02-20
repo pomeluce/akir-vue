@@ -1,6 +1,6 @@
 // 默认规则与校验部分
 
-import { isExpressionNode, isSubprocessNode, modalValidator } from '@/utils/workflow';
+import { isExpressionNode, isSubprocessNode, modalValidator } from 'wf/utils';
 import { checkParallelGateway } from './node-checker';
 
 // 可移除

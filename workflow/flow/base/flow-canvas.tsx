@@ -1,6 +1,5 @@
 import { renderSlot, SlotsType } from 'vue';
-import { dragEndHandler, dragMoveHandler, dragStartHandler, initCanvasViewBox, wheelHandler } from '@/utils/workflow';
-import { throttleByRaf } from '@/utils/throttle';
+import { dragEndHandler, dragMoveHandler, dragStartHandler, initCanvasViewBox, throttleByRaf, wheelHandler } from 'wf/utils';
 
 export interface IFlowCanvasExpose {
   fitViewport: (padding?: number) => void;

@@ -1,9 +1,9 @@
-import { getWFGlobalConfig } from '../../configuration/global';
-import { isFunction, isString, isUndefined } from 'lodash-es';
-import { appendNode, capitalize, createNode, removeNode, setDragData } from '@/utils/workflow';
 import { NPopover } from 'naive-ui';
-import NodeBehavior from './node-behavior';
 import { IconTrash } from '@tabler/icons-vue';
+import { isFunction, isString, isUndefined } from 'lodash-es';
+import { appendNode, capitalize, createNode, removeNode, setDragData } from 'wf/utils';
+import { getWFGlobalConfig } from 'wf/configuration';
+import NodeBehavior from './node-behavior';
 
 const props = { modelValue: { type: Object as PropType<WFBaseNode>, required: true }, direction: String as PropType<WFDirection> };
 

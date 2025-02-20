@@ -1,7 +1,7 @@
 import { NButton } from 'naive-ui';
-import { checkParallelGateway } from '../../configuration/node-checker';
-import { createNode, setNodeInMap } from '@/utils/workflow';
 import { AkirFlowList } from '..';
+import { createNode, setNodeInMap } from 'wf/utils';
+import { checkParallelGateway } from 'wf/configuration';
 
 const props = {
   modelValue: {

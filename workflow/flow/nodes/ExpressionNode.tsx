@@ -1,5 +1,5 @@
-import { checkDefaultExpressionFlow, checkParallelGateway } from '../../configuration/node-checker';
 import { IconVariable } from '@tabler/icons-vue';
+import { checkDefaultExpressionFlow, checkParallelGateway } from 'wf/configuration';
 
 const props = {
   modelValue: {
