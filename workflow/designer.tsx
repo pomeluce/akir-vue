@@ -66,7 +66,7 @@ export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
     expose({ toggleDirection, toggleRoot, fitViewport });
 
     return () => (
-      <div id="akir-designer">
+      <div class="akir-designer">
         <AkirFlow
           ref={flowRef}
           v-model={processData.value}

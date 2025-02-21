@@ -1,7 +1,7 @@
 @reference '@/styles/tailwind.css';
 @import './nodes.css';
 
-#akir-designer {
+.akir-designer {
   @apply w-full h-full overflow-hidden box-border m-0 p-0 relative grid grid-cols-[1fr_auto] text-word2;
 }
 
@@ -201,10 +201,10 @@
 }
 
 .akir-flow-panel {
-  @apply w-0 relative border-0 box-border z-1 shadow-lg;
+  @apply w-0 h-0 relative border-0 box-border z-1 shadow-lg;
 
   &.opened {
-    @apply min-w-md border-l-2 border-rim2 rounded;
+    @apply min-w-md h-auto border-l-2 border-rim2 rounded;
   }
 
   .akir-flow-panel_header {
@@ -233,6 +233,28 @@
   .panel-edit {
     & + .panel-edit {
       @apply pt-4;
+    }
+  }
+
+  .panel-user-input {
+    .n-select .n-base-selection.n-base-selection--selected.n-base-selection--multiple .n-base-selection-tags {
+      @apply gap-1;
+
+      .n-base-selection-tag-wrapper {
+        @apply px-0;
+
+        .n-tag {
+          @apply bg-primary1 text-primary5 h-5 leading-5 px-2;
+
+          .n-tag__content {
+            font-size: 11px;
+          }
+
+          .n-tag__border {
+            @apply border-primary5;
+          }
+        }
+      }
     }
   }
 }
