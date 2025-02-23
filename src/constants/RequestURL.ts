@@ -8,6 +8,9 @@ export enum RequestURL {
   /* 获取当前用户列表*/
   USER_LIST = 'user/list',
 
+  /* 获取权限列表 */
+  ROLE_LIST = 'role/list',
+
   UPLOAD_IMAGE = 'upload/image',
 
   DASHBOARD_LIST = 'dashboard/list',

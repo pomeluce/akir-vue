@@ -12,3 +12,8 @@ export const current = (): Promise<ResponseModel<UserModel, { role: string }>> =
 export const menuList = () => {
   return http.request<ResponseModel<Array<MenuModel>>>({ url: RequestURL.USER_MENUS }, { message: false });
 };
+
+/* 获取用户列表 */
+export const userList = (count: number) => {
+  return http.request<ResponseModel<Array<UserModel>>>({ url: `${RequestURL.USER_LIST}/${count}` }, { message: false });
+};

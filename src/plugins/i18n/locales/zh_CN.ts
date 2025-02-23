@@ -11,4 +11,5 @@ export default {
   exclusiveGateway: '互斥网关',
   expression: '条件',
   sequenceFlow: '条件',
+  intermediateThrowEvent: '异常任务',
 };

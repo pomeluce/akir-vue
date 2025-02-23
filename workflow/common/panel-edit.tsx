@@ -1,4 +1,4 @@
-import { SlotsType } from 'vue';
+import { CSSProperties, SlotsType } from 'vue';
 import { NPopover } from 'naive-ui';
 import { IconHelpCircleFilled } from '@tabler/icons-vue';
 
@@ -24,11 +24,11 @@ export default defineComponent<IPanelEditProps, {}, string, IPanelEditSlots>(
     const textAlign = computed(() => props.textAlign || 'right');
     const align = computed(() => props.align || 'horizontal');
 
-    const computedStyles = computed(() => {
+    const computedStyles = computed<CSSProperties>(() => {
       return {
         '--label-width': typeof labelWidth.value === 'string' ? labelWidth.value : `${labelWidth.value}px`,
         '--text-align': textAlign.value,
-        '--el-align': align.value === 'vertical' ? 'column' : 'row',
+        flexDirection: align.value === 'vertical' ? 'column' : 'row',
       };
     });
 
@@ -38,12 +38,12 @@ export default defineComponent<IPanelEditProps, {}, string, IPanelEditSlots>(
     });
 
     return () => (
-      <div class="panel-edit w-full flex justify-between text-xs leading-7 flex-(--el-align) gap-2" style={computedStyles.value}>
-        <div class="w-(--label-width) shrink-0 break-words whitespace-nowrap text-ellipsis overflow-hidden" style={{ textAlign: 'var(--text-align)' as any }}>
+      <div class="panel-edit w-full flex justify-between items-center text-xs leading-7 gap-2" style={computedStyles.value}>
+        <div class="w-(--label-width) shrink-0 break-words whitespace-nowrap text-ellipsis overflow-hidden self-stretch mt-1" style={{ textAlign: 'var(--text-align)' as any }}>
           {(tooltip.value || slots.tooltip) && (
             <NPopover placement="top-end">
               {{
-                tirgger: () => <IconHelpCircleFilled />,
+                trigger: () => <IconHelpCircleFilled class="inline-block align-sub mr-1" size={14} />,
                 default: () => (slots.tooltip ? slots.tooltip() : <div class="max-w-[40vw] break-words whitespace-normal inline-block overflow-hidden">{tooltip.value}</div>),
               }}
             </NPopover>

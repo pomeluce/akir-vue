@@ -1,12 +1,16 @@
-import { NCollapse } from 'naive-ui';
 import { Component } from 'vue';
+import { NCollapse } from 'naive-ui';
+import { IconX } from '@tabler/icons-vue';
 import { isUndefined } from 'lodash-es';
-import { isExpressionNode, isServiceNode } from 'wf/utils';
+import { isExpressionNode, isServiceNode, isTaskNode } from 'wf/utils';
 import { checkExclusiveGateway } from 'wf/configuration';
 import NodeBasic from './collapse/NodeBasic';
 import NodeExpression from './collapse/NodeExpression';
 import ServiceCopyTo from './collapse/ServiceCopyTo';
-import { IconX } from '@tabler/icons-vue';
+import ServiceMailTo from './collapse/ServiceMailTo';
+import UserTask from './collapse/UserTask';
+import UserTaskMultiInstance from './collapse/UserTaskMultiInstance';
+import UserTaskOperation from './collapse/UserTaskOperation';
 
 export interface IFlowPanelExpose {
   togglePanel: (state?: boolean) => void;
@@ -34,18 +38,18 @@ export default defineComponent<{ modelValue?: WFBaseNode }, { 'update:modelValue
       const businessData = computedValue.value.businessData;
       const bpmnType = businessData.$type;
 
-      // if (isTaskNode($props.node) && bpmnType === 'userTask') {
-      //   components.push(UserTask);
-      //   components.push(UserTaskMultiInstance);
-      //   components.push(UserTaskOperation);
-      // }
+      if (isTaskNode(computedValue.value) && bpmnType === 'userTask') {
+        components.push(UserTask);
+        components.push(UserTaskMultiInstance);
+        components.push(UserTaskOperation);
+      }
       if (isServiceNode(computedValue.value) && bpmnType === 'serviceTask') {
         if (businessData.type === 'copy') {
           components.push(ServiceCopyTo);
         }
-        // if (businessData.type === 'mail') {
-        //   components.push(ServiceMailTo);
-        // }
+        if (businessData.type === 'mail') {
+          components.push(ServiceMailTo);
+        }
       }
       if (isExpressionNode(computedValue.value) && checkExclusiveGateway(computedValue.value as WFExpressionNode)) {
         components.push(NodeExpression);

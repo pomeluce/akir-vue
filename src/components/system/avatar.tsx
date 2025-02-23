@@ -16,7 +16,7 @@ export default defineComponent({
                 <div class="flex justify-center items-center cursor-pointer">
                   <NAvatar size="small" round src={store.user.avatar} />
                   <NDivider class="!bg-fill4" vertical />
-                  <span class="font-medium">{store.user.name}</span>
+                  <span class="font-medium">{store.user.username}</span>
                 </div>
               ),
               default: () => (

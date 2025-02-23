@@ -2,23 +2,23 @@ import { DataTableProps, DataTableRowKey, NButton, NDataTable, NDrawer, NDrawerC
 import { IconSearch } from '@tabler/icons-vue';
 import { AkirPanelTagInput } from '.';
 import { faker } from '@faker-js/faker/locale/zh_CN';
-import { userList } from '@/request/user';
+import { roleList } from '@/request/role';
 
 interface IPanelUserInputProps {
-  modelValue?: UserModel[];
+  modelValue?: RoleModel[];
   modelTitle?: string;
   multiple?: boolean;
   validator?: () => boolean;
 }
 
-export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (value: UserModel[]) => true; change: (value: UserModel[]) => true }>(
+export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (value: RoleModel[]) => true; change: (value: RoleModel[]) => true }>(
   (props, { emit }) => {
     const multiple = computed(() => props.multiple || true);
-    const modalCheckedValues = ref<UserModel[]>(props.modelValue || []);
+    const modalCheckedValues = ref<RoleModel[]>(props.modelValue || []);
     const drawerVisible = ref<boolean>(false);
-    const users = ref<(UserModel & { key: DataTableRowKey })[]>();
+    const roles = ref<(RoleModel & { key: DataTableRowKey })[]>();
 
-    const computedTags = ref<string[]>(props.modelValue?.map(v => v.username) || []);
+    const computedTags = ref<string[]>(props.modelValue?.map(v => v.code) || []);
 
     const treeOption = computed<TreeOption[]>(() => {
       const root: TreeOption = {
@@ -36,7 +36,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
     });
 
     const handleCheckedRowKeys = (keys: DataTableRowKey[]) => {
-      modalCheckedValues.value = users.value!.filter(i => keys.includes(i.key));
+      modalCheckedValues.value = roles.value!.filter(i => keys.includes(i.key));
     };
 
     const handleTagClose = (id: number) => {
@@ -45,39 +45,30 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
 
     const handleConfirm = () => {
       drawerVisible.value = false;
-      computedTags.value = modalCheckedValues.value.map(v => v.username);
+      computedTags.value = modalCheckedValues.value.map(v => v.code);
       emit('update:modelValue', modalCheckedValues.value);
       emit('change', modalCheckedValues.value);
     };
 
     const columns: DataTableProps['columns'] = [
       { type: 'selection', multiple: multiple.value },
-      { key: 'username', title: '姓名' },
-      { key: 'gender', title: '性别' },
-      { key: 'email', title: '邮箱' },
-      {
-        key: 'technique',
-        title: '技术',
-        render: (row: UserModel) =>
-          row.technique.map(item => (
-            <NTag class="my-1 mr-2" type="primary" size="small">
-              {item}
-            </NTag>
-          )),
-      },
+      { key: 'code', title: '编码' },
+      { key: 'name', title: '名称' },
+      { key: 'description', title: '描述' },
+      { key: 'remark', title: '备注' },
       { key: 'createTime', title: '创建时间' },
       { key: 'updateTime', title: '更新时间' },
     ];
 
     onBeforeMount(async () => {
-      const result = await userList(150);
-      users.value = result.data.map(user => ({ key: user.id, ...user }));
+      const result = await roleList();
+      roles.value = result.data.map(role => ({ key: role.id, ...role }));
     });
 
     return () => (
       <>
         <NInputGroup>
-          <AkirPanelTagInput modelValue={computedTags.value} maxTagCount={3} placeholder="请选择人员" editable={false} validator={props.validator} />
+          <AkirPanelTagInput modelValue={computedTags.value} maxTagCount={3} placeholder="请选择角色" editable={false} validator={props.validator} />
           <NButton class="min-w-14" type="primary" onClick={() => (drawerVisible.value = true)}>
             <IconSearch size={18} />
           </NButton>
@@ -103,7 +94,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
                       <div class="flex gap-2 flex-wrap overflow-y-scroll">
                         {modalCheckedValues.value.map(value => (
                           <NTag key={value.id} type="primary" closable onClose={() => handleTagClose(value.id)}>
-                            {value.username}
+                            {value.name}
                           </NTag>
                         ))}
                       </div>
@@ -125,7 +116,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
                           2: () => (
                             <div class="flex flex-col gap-2 p-4">
                               <NInputGroup class="sticky top-0 z-10">
-                                <NInput size="small" placeholder="请输入你的工号、手机、姓名" />
+                                <NInput size="small" placeholder="请输入角色编码或名称" />
                                 <NButton class="min-w-14" size="small" type="primary">
                                   <IconSearch size={18} />
                                 </NButton>
@@ -133,7 +124,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
                               <NDataTable
                                 checkedRowKeys={modalCheckedValues.value.map(val => val.id)}
                                 columns={columns}
-                                data={users.value}
+                                data={roles.value}
                                 bordered
                                 pagination={{ pageSize: 14 }}
                                 onUpdateCheckedRowKeys={handleCheckedRowKeys}

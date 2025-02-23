@@ -1,7 +1,7 @@
 import { IconCaretLeftFilled, IconSend } from '@tabler/icons-vue';
 import { NCheckbox, NCheckboxGroup, NCollapseItem } from 'naive-ui';
-import { copyMessageTypeOptions } from '../../configuration/enums';
-import { AkirPanelEdit, AkirPanelTextarea, AkirPanelUserInput } from '../../common';
+import { AkirPanelEdit, AkirPanelTextarea, AkirPanelUserInput } from 'wf/common';
+import { copyMessageTypeOptions } from 'wf/configuration/enums';
 
 export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue': (value: WFBaseNode) => true }>(
   (props, { emit }) => {
@@ -14,8 +14,8 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
       get: () => vModelNode.value.businessData.messageType as string[],
       set: val => (vModelNode.value.businessData.messageType = val),
     });
-    const transferTo = computed<any[]>({
-      get: () => vModelNode.value.businessData.transferTo as any[],
+    const transferTo = computed<UserModel[]>({
+      get: () => vModelNode.value.businessData.transferTo as UserModel[],
       set: val => (vModelNode.value.businessData.transferTo = val),
     });
     const messageContent = computed<string>({
@@ -28,7 +28,7 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
         {{
           header: () => (
             <div class="flex gap-2 grow-1 items-center">
-              <IconSend />
+              <IconSend size={18} />
               <span>抄送任务</span>
             </div>
           ),
@@ -42,7 +42,7 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
                 </NCheckboxGroup>
               </AkirPanelEdit>
               <AkirPanelEdit label="抄送人">
-                <AkirPanelUserInput />
+                <AkirPanelUserInput v-model={transferTo.value} />
               </AkirPanelEdit>
               <AkirPanelEdit label="消息内容">
                 <AkirPanelTextarea v-model={messageContent.value} />
@@ -54,5 +54,5 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
       </NCollapseItem>
     );
   },
-  { props: ['modelValue'] },
+  { name: 'PanelServiceCopyTo', props: ['modelValue'] },
 );

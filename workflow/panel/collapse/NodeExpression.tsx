@@ -37,7 +37,7 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
         {{
           header: () => (
             <div class="flex gap-2 grow-1 items-center">
-              <IconCornerRightDown />
+              <IconCornerRightDown size={18} />
               <span>条件配置</span>
             </div>
           ),
@@ -59,5 +59,5 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
       </NCollapseItem>
     );
   },
-  { props: ['modelValue'] },
+  { name: 'PanelNodeExpression', props: ['modelValue'] },
 );

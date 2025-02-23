@@ -32,7 +32,7 @@ export default defineComponent<IPanelTeatareaProps & INTextareaProps, IPanelText
 
     return () => (
       <div class="relative box-border m-0 p-0 w-full leading-[1]">
-        <NInput type="textarea" v-model={[computedValue.value, 'value']} {...attrs} />
+        <NInput type="textarea" v-model={[computedValue.value, 'value']} resizable={false} {...attrs} />
         {useValidate && (
           <div class="absolute top-0 right-0 w-8 h-8 flex justify-center items-center z-10  pointer-events-none">
             {computedValidateState.value ? <IconCircleCheckFilled class="text-success6" size="18" /> : <IconAlertCircleFilled class="text-warning5" size="18" />}
