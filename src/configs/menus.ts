@@ -1,4 +1,4 @@
-import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconSettings2, IconUser } from '@tabler/icons-vue';
+import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconPhoto, IconSettings2, IconUser } from '@tabler/icons-vue';
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -33,6 +33,9 @@ export const menuIcons = {
   dashboard: IconDashboard,
   system: IconAdjustmentsCog,
   error: IconAlertSquareRounded,
+  'error.403': IconPhoto,
+  'error.404': IconPhoto,
+  'error.500': IconPhoto,
 };
 
 export type MenuIconKeyType = keyof typeof menuIcons;

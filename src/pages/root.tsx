@@ -4,8 +4,8 @@ import { darkTheme, dateZhCN, NConfigProvider, NMessageProvider, NModalProvider,
 import { themeOverrides } from '@/configs/naive';
 import { Notice } from '@/components';
 
-export default defineComponent({
-  setup() {
+export default defineComponent<{}>(
+  () => {
     const { themeMode } = useTheme();
 
     return () => (
@@ -28,4 +28,5 @@ export default defineComponent({
       </NConfigProvider>
     );
   },
-});
+  { name: 'Root' },
+);

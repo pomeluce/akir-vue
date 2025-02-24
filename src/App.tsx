@@ -1,8 +1,8 @@
 import { AkirConfigProvider } from '@/components';
 import Root from '@/pages/root';
 
-export default defineComponent({
-  setup() {
+export default defineComponent<{}>(
+  () => {
     const { get, set } = useStorage();
     const themeMode = get(CacheKey.THEME_MODE, 'system');
     const handleToggleTheme = (theme: ThemeType) => {
@@ -15,4 +15,5 @@ export default defineComponent({
       </AkirConfigProvider>
     );
   },
-});
+  { name: 'App' },
+);

@@ -1,11 +1,19 @@
-interface MenuModel {
+type MenuModel = {
   key: string;
-  label?: string | (() => VNodeChild);
+  label: string | (() => VNodeChild);
   show?: boolean;
   icon?: () => VNode;
   disabled?: boolean;
   children?: MenuModel[];
-  type?: 'group' | 'divider';
-  props?: HTMLAttributes;
   target?: string;
-}
+} & {
+  key: string;
+  label: string | (() => VNodeChild);
+  show?: boolean;
+  type?: 'group';
+} & {
+  key: string;
+  props: HTMLAttributes;
+  show?: boolean;
+  type?: 'divider';
+};

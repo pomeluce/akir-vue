@@ -27,6 +27,13 @@ type IFlowDesignerEmits = {
   nodeContextmenu: (node: WFBaseNode) => true;
 };
 
+export interface IFlowDesignerExpose {
+  toggleDirection: () => void;
+  toggleRoot: (r?: WFSubprocessNode) => void;
+  togglePanel: (state?: boolean) => void;
+  fitViewport: (padding?: number) => void;
+}
+
 export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
   (props, { emit, expose }) => {
     const dir = ref<WFDirection>(props.direction || 'vertical');
@@ -42,6 +49,8 @@ export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
     const toggleDirection = () => (dir.value = dir.value === 'vertical' ? 'horizontal' : 'vertical');
 
     const toggleRoot = (node?: WFBaseNode) => flowRef.value?.toggleRoot(node as WFSubprocessNode);
+
+    const togglePanel = () => flowPanelRef.value?.togglePanel();
 
     const handleNodeClick = (node: WFBaseNode) => {
       activeNode.value = node;
@@ -63,7 +72,7 @@ export default defineComponent<IFlowDesignerProps, IFlowDesignerEmits>(
 
     provide(WFAppMenuGetter, props.appendMenuProvider ?? defaultWFAppendMenuProvider);
 
-    expose({ toggleDirection, toggleRoot, fitViewport });
+    expose({ toggleDirection, toggleRoot, togglePanel, fitViewport } satisfies IFlowDesignerExpose);
 
     return () => (
       <div class="akir-designer">

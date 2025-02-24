@@ -106,6 +106,10 @@ export default [
                 key: RouteName.SYSTEM_MENU,
                 label: '菜单管理',
               },
+              {
+                key: RouteName.SYSTEM_WORKFLOW,
+                label: '流程管理',
+              },
             ],
           },
           {

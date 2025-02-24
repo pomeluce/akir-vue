@@ -29,5 +29,11 @@ export default {
       meta: { label: '菜单管理' },
       component: () => import('@/pages/admin/system/menu'),
     },
+    {
+      path: 'workflow',
+      name: RouteName.SYSTEM_WORKFLOW,
+      meta: { label: '流程管理' },
+      component: () => import('@/pages/admin/system/workflow'),
+    },
   ],
 } as RouteRecordRaw;
