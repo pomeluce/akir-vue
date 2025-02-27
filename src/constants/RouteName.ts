@@ -20,7 +20,11 @@ export enum RouteName {
   SYSTEM_ROLE = 'system.role',
   SYSTEM_PERMISSION = 'system.permission',
   SYSTEM_MENU = 'system.menu',
-  SYSTEM_WORKFLOW = 'system.workflow',
+
+  /* workflow */
+  WORKFLOW_DEFINE = 'workflow.define',
+  WORKFLOW_DESIGN = 'workflow.design',
+  WORKFLOW_TESTER = 'workflow.tester',
 
   /* error */
   ERROR_403 = 'error.403',

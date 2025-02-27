@@ -1,4 +1,4 @@
-import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconPhoto, IconSettings2, IconUser } from '@tabler/icons-vue';
+import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconPhoto, IconSettings2, IconTimeline, IconUser } from '@tabler/icons-vue';
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -32,6 +32,7 @@ export const avatarMenus = [
 export const menuIcons = {
   dashboard: IconDashboard,
   system: IconAdjustmentsCog,
+  workflow: IconTimeline,
   error: IconAlertSquareRounded,
   'error.403': IconPhoto,
   'error.404': IconPhoto,

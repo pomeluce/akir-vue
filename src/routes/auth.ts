@@ -2,8 +2,8 @@ import { RouteRecordRaw } from 'vue-router';
 
 export default {
   path: '/auth',
-  component: () => import('@/pages/auth/route'),
   meta: { guest: true },
+  component: () => import('@/pages/auth/route'),
   children: [
     {
       path: 'login',

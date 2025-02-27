@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import dashboard from './dashboard';
 import system from './system';
+import workflow from './workflow';
 
 export default [
   {
@@ -10,4 +11,5 @@ export default [
   },
   dashboard,
   system,
+  workflow,
 ] as RouteRecordRaw[];

@@ -106,9 +106,19 @@ export default [
                 key: RouteName.SYSTEM_MENU,
                 label: '菜单管理',
               },
+            ],
+          },
+          {
+            key: 'workflow',
+            label: '流程管理',
+            children: [
               {
-                key: RouteName.SYSTEM_WORKFLOW,
-                label: '流程管理',
+                key: RouteName.WORKFLOW_DESIGN,
+                label: '流程设计',
+              },
+              {
+                key: RouteName.WORKFLOW_TESTER,
+                label: '流程测试',
               },
             ],
           },

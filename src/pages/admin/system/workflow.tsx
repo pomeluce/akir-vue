@@ -1,4 +1,3 @@
-import { NCard } from 'naive-ui';
 import { ComponentInstance } from 'vue';
 import { AkirDesigner, AkirDesignerExpose } from 'wf/index';
 import { createPresetProcess } from 'wf/utils';
@@ -15,8 +14,8 @@ export default defineComponent<{}>(() => {
   });
 
   return () => (
-    <NCard>
+    <div class="flex flex-col gap-3">
       <AkirDesigner ref={designerRef} v-model={processData.value} direction={direction.value} />
-    </NCard>
+    </div>
   );
 });

@@ -1,4 +1,4 @@
-import { DataTableProps, DataTableRowKey, NButton, NDataTable, NDrawer, NDrawerContent, NInput, NInputGroup, NSplit, NTag, NTree, TreeOption } from 'naive-ui';
+import { DataTableColumns, DataTableProps, DataTableRowKey, NButton, NDataTable, NDrawer, NDrawerContent, NInput, NInputGroup, NSplit, NTag, NTree, TreeOption } from 'naive-ui';
 import { IconSearch } from '@tabler/icons-vue';
 import { AkirPanelTagInput } from '.';
 import { faker } from '@faker-js/faker/locale/zh_CN';
@@ -50,7 +50,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
       emit('change', modalCheckedValues.value);
     };
 
-    const columns: DataTableProps['columns'] = [
+    const columns: DataTableColumns<UserModel> = [
       { type: 'selection', multiple: multiple.value },
       { key: 'username', title: '姓名' },
       { key: 'gender', title: '性别' },
