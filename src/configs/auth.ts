@@ -15,11 +15,11 @@ export const loginValidate = (defaultValues?: LoginFormModel) => {
     ),
   });
 
-  const [username] = defineField('username', { validateOnBlur: true });
-  const [password] = defineField('password', { validateOnBlur: true });
-  const [captcha] = defineField('captcha', { validateOnBlur: true });
+  const [username, usernameAttrs] = defineField('username', { validateOnBlur: true });
+  const [password, passwordAttrs] = defineField('password', { validateOnBlur: true });
+  const [captcha, captchaAttrs] = defineField('captcha', { validateOnBlur: true });
 
-  return { errors, handleSubmit, model: { username, password, captcha }, values };
+  return { errors, handleSubmit, model: { username, password, captcha }, attrs: { username: usernameAttrs, password: passwordAttrs, captcha: captchaAttrs }, values };
 };
 
 export const registerValidate = (defaultValues?: RegisterFormModel) => {
@@ -41,10 +41,16 @@ export const registerValidate = (defaultValues?: RegisterFormModel) => {
     ),
   });
 
-  const [username] = defineField('username', { validateOnBlur: true });
-  const [password] = defineField('password', { validateOnBlur: true });
-  const [confirm] = defineField('confirm', { validateOnBlur: true });
-  const [captcha] = defineField('captcha', { validateOnBlur: true });
+  const [username, usernameAttrs] = defineField('username', { validateOnBlur: true });
+  const [password, passwordAttrs] = defineField('password', { validateOnBlur: true });
+  const [confirm, confirmAttrs] = defineField('confirm', { validateOnBlur: true });
+  const [captcha, captchaAttrs] = defineField('captcha', { validateOnBlur: true });
 
-  return { errors, handleSubmit, model: { username, password, confirm, captcha }, values };
+  return {
+    errors,
+    handleSubmit,
+    model: { username, password, confirm, captcha },
+    attrs: { username: usernameAttrs, password: passwordAttrs, confirm: confirmAttrs, captcha: captchaAttrs },
+    values,
+  };
 };

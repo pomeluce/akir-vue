@@ -8,12 +8,12 @@ export default new Axios({
   timeout: 10000,
   // 请求头设置
   headers: {
-    'content-type': 'application/json;charset=UTF-8',
+    AkirLocale: 'zh_CN',
+    Accept: 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8',
   },
   // 跨域请求携带 cookie
   withCredentials: true,
   // 开启 token 认证
   useTokenAuthorization: true,
-  // 自定义请求头
-  customHeader: 'akir-vue',
 });

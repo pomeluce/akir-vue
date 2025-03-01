@@ -10,12 +10,12 @@ export default defineComponent({
     return () => (
       <>
         {isAuthenticated() ? (
-          <NPopover showArrow={false} placement="bottom" trigger="hover" class="!p-1">
+          <NPopover showArrow={false} placement="bottom" trigger="hover" class="p-1!">
             {{
               trigger: () => (
                 <div class="flex justify-center items-center cursor-pointer">
                   <NAvatar size="small" round src={store.user.avatar} />
-                  <NDivider class="!bg-fill4" vertical />
+                  <NDivider class="bg-fill4!" vertical />
                   <span class="font-medium">{store.user.username}</span>
                 </div>
               ),

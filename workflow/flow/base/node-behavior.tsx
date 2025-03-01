@@ -66,7 +66,7 @@ export default defineComponent({
     });
     return () => (
       <div class="flow-node__behavior">
-        <NPopover class="!bg-backdrop2" showArrow={false} show={visible.value} trigger="click" placement="bottom-start" onClickoutside={() => (visible.value = false)}>
+        <NPopover class="bg-backdrop2!" showArrow={false} show={visible.value} trigger="click" placement="bottom-start" onClickoutside={() => (visible.value = false)}>
           {{
             trigger: () => (
               <div

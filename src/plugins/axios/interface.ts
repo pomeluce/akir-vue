@@ -5,5 +5,4 @@ interface AxiosOptions {
 
 interface AxiosConfig {
   useTokenAuthorization: boolean;
-  customHeader: string;
 }

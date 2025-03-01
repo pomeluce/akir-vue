@@ -1,9 +1,8 @@
 import { NButton } from 'naive-ui';
 import { I500 } from '@/components';
 
-export default defineComponent({
-  name: RouteName.ERROR_500,
-  setup() {
+export default defineComponent(
+  () => {
     const router = useRouter();
 
     return () => (
@@ -22,4 +21,5 @@ export default defineComponent({
       </main>
     );
   },
-});
+  { name: RouteName.ERROR_500 },
+);

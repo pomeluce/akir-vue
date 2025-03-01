@@ -68,10 +68,6 @@ export default class Axios {
         const token = storage.get(CacheKey.TOKEN_NAME);
         // 开启 token 认证;
         this.config.useTokenAuthorization && token && (config.headers.Authorization = token);
-        // 设置 accept
-        config.headers.Accept = 'application/json';
-        // 添加自定义头部
-        config.headers['akir-header'] = this.config.customHeader;
         return config;
       },
       (error: any) => Promise.reject(error),
@@ -89,8 +85,8 @@ export default class Axios {
           this.akirSpin.close();
           this.akirSpin = undefined;
         }
-        // 判断 response 是否携带有 refresh_token
-        if (!!response.headers['refresh-token']) storage.set(CacheKey.TOKEN_NAME, response.headers['refresh-token']);
+        // 判断 response 是否携带有 refresh-token
+        if (!!response.headers['RefreshToken']) storage.set(CacheKey.TOKEN_NAME, response.headers['RefreshToken']);
         // 判断是否展示提示消息
         if (response.data?.message && this.options.message) {
           window.$message[response.data.code === 200 ? 'success' : 'error'](response.data.message);
@@ -107,7 +103,7 @@ export default class Axios {
         const { message } = data;
 
         // 判断 response 是否携带有 refresh_token
-        if (!!headers['refresh-token']) storage.set(CacheKey.TOKEN_NAME, headers['refresh-token']);
+        if (!!headers['RefreshToken']) storage.set(CacheKey.TOKEN_NAME, headers['RefreshToken']);
 
         switch (status) {
           case HttpStatus.UNAUTHORIZED:

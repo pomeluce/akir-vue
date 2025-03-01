@@ -5,7 +5,6 @@ export default [
   {
     url: '/api/' + RequestURL.LOGIN,
     method: 'post',
-    timeout: 3000,
     response: () => {
       return {
         code: 200,

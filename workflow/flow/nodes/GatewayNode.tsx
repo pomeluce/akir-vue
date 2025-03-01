@@ -48,7 +48,7 @@ export default defineComponent<{ modelValue: WFGatewayNode; direction?: WFDirect
     return () => (
       <div class="flow-node flow-gateway">
         <div class="gateway-node__behavior">
-          <NButton class="!p-4" type="primary" size="tiny" round onClick={addExpression}>
+          <NButton class="p-4!" type="primary" size="tiny" round onClick={addExpression}>
             {isParallelGatewayChild.value ? '添加分支' : '添加条件'}
           </NButton>
         </div>

@@ -79,7 +79,7 @@ export default defineComponent<{ modelValue: WFBaseNode }, { 'update:modelValue'
                   <AkirPanelRadioGroup v-model={completionConditionType.value} options={completionConditionTypeOptions} onChange={resetCompletionCondition} />
                   {(completionConditionType.value === 'number' || completionConditionType.value === 'percentage') && (
                     <NInputGroup>
-                      <NSelect class="!w-3/5" v-model={[completionConditionCompare.value, 'value']} size="small" options={comparisonOperatorOptions}></NSelect>
+                      <NSelect class="w-3/5!" v-model={[completionConditionCompare.value, 'value']} size="small" options={comparisonOperatorOptions}></NSelect>
                       <NInputNumber
                         v-model={[completionConditionNum.value, 'value']}
                         size="small"

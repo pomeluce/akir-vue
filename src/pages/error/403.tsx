@@ -1,9 +1,8 @@
 import { NButton } from 'naive-ui';
 import { I403 } from '@/components';
 
-export default defineComponent({
-  name: RouteName.ERROR_403,
-  setup() {
+export default defineComponent(
+  () => {
     const router = useRouter();
 
     return () => (
@@ -22,4 +21,5 @@ export default defineComponent({
       </main>
     );
   },
-});
+  { name: RouteName.ERROR_403 },
+);

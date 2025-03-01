@@ -3,7 +3,8 @@ export interface StorageData {
   expire?: number;
 }
 
-export default () => {
+export default (options?: { domain: 'local' | 'session' }) => {
+  const storage = (options?.domain || 'local') === 'local' ? localStorage : sessionStorage;
   /**
    * 设置缓存
    * @param key 缓存的KEY
@@ -15,7 +16,7 @@ export default () => {
     if (expire) {
       cache.expire = new Date().getTime() + expire * 1000;
     }
-    localStorage.setItem(key, JSON.stringify(cache));
+    storage.setItem(key, JSON.stringify(cache));
   };
 
   /**
@@ -24,12 +25,12 @@ export default () => {
    * @param defaultValue 缓存不存在时的默认�?   * @returns
    */
   const get = (key: string, defaultValue: any = null): any => {
-    const cacheStore = localStorage.getItem(key);
+    const cacheStore = storage.getItem(key);
     if (cacheStore) {
       const cache = JSON.parse(cacheStore);
       const expire = cache?.expire;
       if (expire && expire < new Date().getTime()) {
-        localStorage.removeItem(key);
+        storage.removeItem(key);
         return defaultValue;
       }
       return cache.data;
@@ -42,7 +43,7 @@ export default () => {
    * @param key 缓存KEY
    */
   const remove = (key: string) => {
-    localStorage.removeItem(key);
+    storage.removeItem(key);
   };
   return { set, get, remove };
 };

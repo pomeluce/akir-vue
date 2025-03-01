@@ -1,14 +1,12 @@
-import { PropType, SlotsType } from 'vue';
+import { SlotsType } from 'vue';
 
-export const AkirConfigProvider = defineComponent({
-  props: {
-    defaultTheme: String as PropType<ThemeType>,
-    onToggleTheme: Function as PropType<(theme: ThemeType) => void>,
-  },
-  slots: Object as SlotsType<{
-    default?: () => any;
-  }>,
-  setup(props, { slots }) {
+interface IConfigProviderProps {
+  defaultTheme?: ThemeType;
+  onToggleTheme?: (theme: ThemeType) => void;
+}
+
+export const AkirConfigProvider = defineComponent<IConfigProviderProps, {}, string, SlotsType<{ default?: () => any }>>(
+  (props, { slots }) => {
     const themeRef = ref<ThemeType>(props.defaultTheme ?? 'system');
     const mode = ref<ThemeModeType>('light');
 
@@ -41,4 +39,5 @@ export const AkirConfigProvider = defineComponent({
 
     return () => <>{slots.default && slots.default()}</>;
   },
-});
+  { name: 'AkirConfigProvider', props: ['defaultTheme', 'onToggleTheme'] },
+);
