@@ -1,11 +1,5 @@
-export default defineComponent({
-  props: {
-    strokeWidth: {
-      type: Number,
-      default: 28,
-    },
-  },
-  setup({ strokeWidth }) {
+export default defineComponent<{ strokeWidth?: number }>(
+  props => {
     return () => (
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -14,7 +8,7 @@ export default defineComponent({
             class="w-[1em] h-[1em]"
             fill="none"
             stroke="currentColor"
-            stroke-width={strokeWidth}
+            stroke-width={props.strokeWidth}
             stroke-linecap="round"
             cx="100"
             cy="100"
@@ -29,4 +23,5 @@ export default defineComponent({
       </svg>
     );
   },
-});
+  { props: ['strokeWidth'] },
+);

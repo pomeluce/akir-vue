@@ -1,6 +1,6 @@
 import Logo from '/akir.svg';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { Avatar, Screen, ThemePopup } from '@/components';
+import { SystemAvatar, SystemScreen, SystemThemePopup } from '@/components';
 import { topMenus } from '@/configs/menus';
 
 export default defineComponent(() => {
@@ -24,9 +24,9 @@ export default defineComponent(() => {
             </main>
           </section>
           <section class="flex items-center gap-3">
-            <Screen />
-            <ThemePopup />
-            <Avatar />
+            <SystemScreen />
+            <SystemThemePopup />
+            <SystemAvatar />
           </section>
         </div>
       </main>

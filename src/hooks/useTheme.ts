@@ -1,4 +1,4 @@
-export const useTheme = () => {
+export function useTheme() {
   const theme = inject<Ref<ThemeType>>('theme');
   const themeMode = inject<Ref<ThemeModeType>>('themeMode');
   const setTheme = inject<(theme: ThemeType) => void>('setTheme');
@@ -8,4 +8,4 @@ export const useTheme = () => {
   }
 
   return { theme, themeMode, setTheme };
-};
+}

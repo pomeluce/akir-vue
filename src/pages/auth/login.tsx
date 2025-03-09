@@ -1,6 +1,6 @@
 import LoginBg from '@/assets/images/login-bg.svg';
 import { NButton, NCheckbox, NIcon, NInput, NInputGroup } from 'naive-ui';
-import { Illustration } from '@/components';
+import { SystemIllustration } from '@/components';
 import { ErrorLabel, Footer } from './route';
 import { captcha, login } from '@/request/auth';
 import { loginValidate } from '@/configs/auth';
@@ -28,7 +28,7 @@ export default defineComponent<{}>(() => {
       <div class="md:w-[720px] md:grid grid-cols-2 rounded-xl shadow-lg overflow-hidden bg-backdrop2 p-5">
         <div class="hidden md:block py-5">
           <main class="h-full flex justify-center items-center border-r border-rim2">
-            <Illustration src={LoginBg} />
+            <SystemIllustration src={LoginBg} />
           </main>
         </div>
         <div class="flex flex-col justify-between box-border p-5">

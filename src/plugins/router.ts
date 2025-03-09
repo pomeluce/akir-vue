@@ -17,7 +17,7 @@ let initial = false;
 router.beforeEach(async (to: RouteLocationNormalized) => {
   const { set } = useStorage();
   const { isAuthenticated } = useAuth();
-  const { handleAxiosError } = useUtils();
+  const { handleAxiosError } = useError();
 
   // 初始化
   if (!initial) {

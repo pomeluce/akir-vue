@@ -1,4 +1,4 @@
-import { Load } from '@/components';
+import { ILoad } from '@/components';
 
 export interface ISpinProps {
   color?: string;
@@ -16,7 +16,7 @@ export const AkirSpin = defineComponent<ISpinProps>(
         <div class="relative w-10 h-10" role="img" aria-label="loading">
           <div class="absolute w-full h-full">
             <div class="animate-spin animate-duration-3000">
-              <Load class="w-10" strokeWidth={20} />
+              <ILoad class="w-10" strokeWidth={20} />
             </div>
           </div>
         </div>

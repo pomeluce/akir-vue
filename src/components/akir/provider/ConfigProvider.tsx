@@ -25,13 +25,7 @@ export const AkirConfigProvider = defineComponent<IConfigProviderProps, {}, stri
       props.onToggleTheme?.(themeRef.value);
     });
 
-    onMounted(() => {
-      const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
-      colorScheme.addEventListener('change', listenerSystemColorMode);
-      return () => {
-        colorScheme.removeEventListener('change', listenerSystemColorMode);
-      };
-    });
+    useEventListener(window.matchMedia('(prefers-color-scheme: dark)'), 'change', listenerSystemColorMode);
 
     provide('theme', themeRef);
     provide('themeMode', mode);

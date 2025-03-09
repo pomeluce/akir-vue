@@ -77,11 +77,9 @@ export default defineComponent<{ direction?: WFDirection }, { zoomChanged: (valu
       const isVertical = direction.value === 'vertical';
 
       initCanvasViewBox(canvasRoot.value!, isVertical ? (width - rootWidth) / 2 : 0, isVertical ? 0 : (height - rootHeight) / 2);
-
-      canvasParent.value?.addEventListener('wheel', throttleWheelHandler, { passive: false });
     });
 
-    onBeforeUnmount(() => canvasParent.value?.removeEventListener('wheel', throttleWheelHandler));
+    useEventListener(canvasParent, 'wheel', throttleWheelHandler, { passive: false });
 
     expose({ fitViewport, initCanvasViewBox } satisfies IFlowCanvasExpose);
 

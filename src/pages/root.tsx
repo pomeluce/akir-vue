@@ -2,7 +2,7 @@ import { Suspense, VNode } from 'vue';
 import { RouterView } from 'vue-router';
 import { darkTheme, dateZhCN, NConfigProvider, NMessageProvider, NModalProvider, zhCN } from 'naive-ui';
 import { themeOverrides } from '@/configs/naive';
-import { Notice } from '@/components';
+import { SystemNoticeContext } from '@/components';
 
 export default defineComponent<{}>(
   () => {
@@ -17,7 +17,7 @@ export default defineComponent<{}>(
       >
         <NMessageProvider>
           <NModalProvider>
-            <Notice />
+            <SystemNoticeContext />
             <RouterView>
               {{
                 default: ({ Component }: { Component: VNode }) => (Component ? <Suspense>{h(Component)}</Suspense> : null),

@@ -3,7 +3,7 @@ import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
 import { IconLayoutSidebarFilled, IconX } from '@tabler/icons-vue';
-import { Avatar, Breadcrumb, Screen, ThemePopup } from '@/components';
+import { SystemAvatar, SystemBreadcrumb, SystemScreen, SystemThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 import { tabContextMenuItems } from '@/configs/tabs';
 
@@ -117,12 +117,12 @@ export default defineComponent<{}>(() => {
                 default: () => <span class="text-xs">{!collapsed.value ? '收起' : '展开'}菜单</span>,
               }}
             </NTooltip>
-            <Breadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
+            <SystemBreadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
           </section>
           <section class="flex items-center gap-3 px-2">
-            <Screen />
-            <ThemePopup />
-            <Avatar />
+            <SystemScreen />
+            <SystemThemePopup />
+            <SystemAvatar />
           </section>
         </header>
         <nav class="px-3 flex justify-start items-center gap-2">

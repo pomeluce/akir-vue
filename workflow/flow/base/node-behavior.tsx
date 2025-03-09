@@ -55,15 +55,9 @@ export default defineComponent({
       droppable.value = validateDrop();
     };
 
-    onMounted(() => {
-      nodeRef.value?.addEventListener('dragover', e => toggleDroppableState(e, true), { capture: true });
-      nodeRef.value?.addEventListener('dragleave', e => toggleDroppableState(e, false), { capture: true });
-    });
+    useEventListener(nodeRef, 'dragover', e => toggleDroppableState(e, true), { capture: true });
+    useEventListener(nodeRef, 'dragleave', e => toggleDroppableState(e, false), { capture: true });
 
-    onBeforeUnmount(() => {
-      nodeRef.value?.removeEventListener('dragover', e => toggleDroppableState(e, true), { capture: true });
-      nodeRef.value?.removeEventListener('dragleave', e => toggleDroppableState(e, false), { capture: true });
-    });
     return () => (
       <div class="flow-node__behavior">
         <NPopover class="bg-backdrop2!" showArrow={false} show={visible.value} trigger="click" placement="bottom-start" onClickoutside={() => (visible.value = false)}>

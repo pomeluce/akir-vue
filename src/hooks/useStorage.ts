@@ -3,8 +3,8 @@ export interface StorageData {
   expire?: number;
 }
 
-export default (options?: { domain: 'local' | 'session' }) => {
-  const storage = (options?.domain || 'local') === 'local' ? localStorage : sessionStorage;
+export default (options: { domain: 'local' | 'session' } = { domain: 'local' }) => {
+  const storage = options?.domain === 'local' ? localStorage : sessionStorage;
   /**
    * 设置缓存
    * @param key 缓存的KEY

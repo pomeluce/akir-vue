@@ -1,4 +1,4 @@
-import { IconDeviceImac, IconMoonStars, IconSun } from '@tabler/icons-vue';
+import { IconDeviceLaptop, IconMoonStars, IconSun } from '@tabler/icons-vue';
 import { NDropdown } from 'naive-ui';
 
 export default defineComponent({
@@ -13,7 +13,7 @@ export default defineComponent({
           {
             key: 'system',
             label: '跟随系统',
-            icon: () => <IconDeviceImac size={dropSize} />,
+            icon: () => <IconDeviceLaptop size={dropSize} />,
             props: { class: 'px-1.5 py-1 !h-auto' },
           },
           {
@@ -31,7 +31,7 @@ export default defineComponent({
         ]}
         onSelect={setTheme}
       >
-        <div>{theme.value === 'system' ? <IconDeviceImac size={size} /> : theme.value === 'light' ? <IconSun size={size} /> : <IconMoonStars size={size} />}</div>
+        <div>{theme.value === 'system' ? <IconDeviceLaptop size={size} /> : theme.value === 'light' ? <IconSun size={size} /> : <IconMoonStars size={size} />}</div>
       </NDropdown>
     );
   },

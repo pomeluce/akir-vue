@@ -1,6 +1,6 @@
 const { get } = useStorage();
 
-export const useAuth = () => {
+export default () => {
   /**
    * 判断用户是否登录
    *
