@@ -12,10 +12,16 @@ export default {
       component: () => import('@/pages/admin/workflow/design'),
     },
     {
-      path: 'role',
+      path: 'tester',
       name: RouteName.WORKFLOW_TESTER,
       meta: { label: '流程测试' },
       component: () => import('@/pages/admin/workflow/tester'),
+    },
+    {
+      path: 'define',
+      name: RouteName.WORKFLOW_DEFINE,
+      meta: { label: '流程定义' },
+      component: () => import('@/pages/admin/workflow/define'),
     },
   ],
 } as RouteRecordRaw;

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { AkirSpinInstance } from '@/hooks/useSpin';
+import { AkirSpinInstance } from '@/hooks/akir/useSpin';
 import router from '../router';
 
 // 获取 storage 对象
@@ -65,7 +65,7 @@ export default class Axios {
           this.akirSpin = useSpin();
         }
         // 获取 token
-        const token = storage.get(CacheKey.TOKEN_NAME);
+        const token = storage.get(CacheKey.ACCESS_TOKEN);
         // 开启 token 认证;
         this.config.useTokenAuthorization && token && (config.headers.Authorization = token);
         return config;
@@ -86,7 +86,7 @@ export default class Axios {
           this.akirSpin = undefined;
         }
         // 判断 response 是否携带有 refresh-token
-        if (!!response.headers['RefreshToken']) storage.set(CacheKey.TOKEN_NAME, response.headers['RefreshToken']);
+        if (!!response.headers['RefreshToken']) storage.set(CacheKey.ACCESS_TOKEN, response.headers['RefreshToken']);
         // 判断是否展示提示消息
         if (response.data?.message && this.options.message) {
           window.$message[response.data.code === 200 ? 'success' : 'error'](response.data.message);
@@ -103,11 +103,11 @@ export default class Axios {
         const { message } = data;
 
         // 判断 response 是否携带有 refresh_token
-        if (!!headers['RefreshToken']) storage.set(CacheKey.TOKEN_NAME, headers['RefreshToken']);
+        if (!!headers['RefreshToken']) storage.set(CacheKey.ACCESS_TOKEN, headers['RefreshToken']);
 
         switch (status) {
           case HttpStatus.UNAUTHORIZED:
-            storage.remove(CacheKey.TOKEN_NAME);
+            storage.remove(CacheKey.ACCESS_TOKEN);
             router.push({ name: RouteName.LOGIN });
             break;
           case HttpStatus.UNPROCESSABLE_ENTITY:

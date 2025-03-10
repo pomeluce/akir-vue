@@ -7,7 +7,7 @@ export default () => {
    * @returns {boolean} 返回一个 Boolean 类型的判断结果
    */
   const isAuthenticated = (): boolean => {
-    return !!get(CacheKey.TOKEN_NAME);
+    return !!get(CacheKey.ACCESS_TOKEN);
   };
 
   return { isAuthenticated };

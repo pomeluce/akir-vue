@@ -4,6 +4,5 @@ import auth from './auth';
 import error from './error';
 import front from './front';
 import unknown from './unknown';
-import workflow from './workflow';
 
-export default [front, auth, error, ...admin, workflow, unknown] as RouteRecordRaw[];
+export default [front, auth, error, ...admin, unknown] as RouteRecordRaw[];

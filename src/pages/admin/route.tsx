@@ -12,12 +12,13 @@ export default defineComponent<{}>(() => {
   const contextMenuX = ref<number>(0);
   const contextMenuY = ref<number>(0);
   const contextMenuVisible = ref<boolean>(false);
-  const contextMenuTab = ref<TabState>();
+  const contextMenuTab = ref<TabType>();
   const store = useUserStore();
-  const tabStore = useTabStore();
   const route = useRoute();
   const router = useRouter();
   const message = useMessage();
+
+  const { state, setActiveTab, addTab, removeTab } = useTabs();
 
   const renderMenuIcon = (menu: MenuModel) => {
     const icon = menuIcons[menu.key as MenuIconKeyType];
@@ -32,25 +33,25 @@ export default defineComponent<{}>(() => {
     if (target === '_blank') {
       window.open(router.resolve({ name: key }).fullPath, target);
     } else {
-      tabStore.setActiveTab(tab);
-      tabStore.addTab(tab);
+      setActiveTab(tab);
+      addTab(tab);
       router.push({ name: key });
     }
   };
 
-  const handleClose = (tab: TabState) => {
-    if (tabStore.tabs.length === 1) {
+  const handleClose = (tab: TabType) => {
+    if (state.tabs.length === 1) {
       message.warning('当前为最后一标签页了, 无法再关闭了');
     } else {
-      tabStore.removeTab(tab);
-      if (tab.key === tabStore.activeTab?.key) {
-        tabStore.setActiveTab(tabStore.tabs.at(-1));
-        router.push({ name: tabStore.activeTab?.key });
+      removeTab(tab);
+      if (tab.key === state.active.key) {
+        setActiveTab(state.tabs.at(-1));
+        router.push({ name: state.active.key });
       }
     }
   };
 
-  const handleContextMenu = (e: MouseEvent, tab: TabState) => {
+  const handleContextMenu = (e: MouseEvent, tab: TabType) => {
     e.preventDefault();
     contextMenuVisible.value = false;
     contextMenuTab.value = tab;
@@ -75,12 +76,6 @@ export default defineComponent<{}>(() => {
     }
   };
 
-  onMounted(() => {
-    const tab = { key: route.name as string, label: route.meta.label! };
-    tabStore.setActiveTab(tab);
-    tabStore.addTab(tab);
-  });
-
   return () => (
     <NLayout class="w-screen h-screen" hasSider>
       <NLayoutSider class="h-full border-r border-rim1 shadow-xs" collapsed={collapsed.value} collapse-mode="width" collapsedWidth={64} width="240">
@@ -95,7 +90,7 @@ export default defineComponent<{}>(() => {
         <nav>
           <NMenu
             defaultValue={route.name as string}
-            value={tabStore.activeTab?.key}
+            value={state.active.key}
             collapsed={collapsed.value}
             collapsedWidth={64}
             collapsedIconSize={18}
@@ -117,7 +112,7 @@ export default defineComponent<{}>(() => {
                 default: () => <span class="text-xs">{!collapsed.value ? '收起' : '展开'}菜单</span>,
               }}
             </NTooltip>
-            <SystemBreadcrumb options={store.menus} activeKey={tabStore.activeTab?.key} onClick={handleClick} />
+            <SystemBreadcrumb options={store.menus} activeKey={state.active.key} onClick={handleClick} />
           </section>
           <section class="flex items-center gap-3 px-2">
             <SystemScreen />
@@ -126,11 +121,11 @@ export default defineComponent<{}>(() => {
           </section>
         </header>
         <nav class="px-3 flex justify-start items-center gap-2">
-          {tabStore.tabs.map(item => (
+          {state.tabs.map(item => (
             <div
               class={[
                 'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded cursor-pointer select-none',
-                item.key === tabStore.activeTab?.key && 'text-primary6',
+                item.key === state.active.key && 'text-primary6',
               ]}
               onContextmenu={e => handleContextMenu(e, item)}
             >
@@ -151,12 +146,12 @@ export default defineComponent<{}>(() => {
             onSelect={handleSelect}
           />
         </nav>
-        <main class="px-3 pb-3 flex-1">
+        <main class="px-3 pb-3 flex-1 overflow-hidden">
           {/* TODO: 403 页面和 500 页面优化, 路由地址不变, 添加认证组件, 判断是否渲染 403/500 页面还是路由页面 */}
           <RouterView>
             {{
               default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
-                <KeepAlive exclude={tabStore.excludes}>{h(Component, { key: route.fullPath, class: 'h-full' })}</KeepAlive>
+                <KeepAlive exclude={state.excludes.slice()}>{h(Component, { key: route.fullPath, class: 'h-full overflow-scroll' })}</KeepAlive>
               ),
             }}
           </RouterView>

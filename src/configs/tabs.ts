@@ -14,3 +14,5 @@ export const tabContextMenuItems: DropdownOption[] = [
     label: '关闭其他标签页',
   },
 ];
+
+export const defaultTab: TabType = { label: '控制台', key: RouteName.DASHBOARD_CONSOLE };

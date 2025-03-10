@@ -6,7 +6,7 @@ const storage = useStorage();
 export const login = async (data: LoginFormModel) => {
   const { code, message, data: token } = await http.request<ResponseModel<string>>({ url: RequestURL.LOGIN, method: 'POST', data }, { spin: true });
   if (code === 200) {
-    storage.set(CacheKey.TOKEN_NAME, token);
+    storage.set(CacheKey.ACCESS_TOKEN, token);
     await router.push({ path: storage.get(CacheKey.REDIRECT_ROUTE_NAME) || '/' });
     storage.remove(CacheKey.REDIRECT_ROUTE_NAME);
   } else {

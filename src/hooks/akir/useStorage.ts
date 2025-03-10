@@ -7,7 +7,8 @@ export default (options: { domain: 'local' | 'session' } = { domain: 'local' }) 
   const storage = options?.domain === 'local' ? localStorage : sessionStorage;
   /**
    * 设置缓存
-   * @param key 缓存的KEY
+   *
+   * @param key 缓存的 KEY
    * @param data 缓存数据
    * @param expire 过期时间
    */
@@ -21,13 +22,14 @@ export default (options: { domain: 'local' | 'session' } = { domain: 'local' }) 
 
   /**
    * 获取缓存
-   * @param key 缓存的KEY
-   * @param defaultValue 缓存不存在时的默认�?   * @returns
+   *
+   * @param key 缓存的 KEY
+   * @param defaultValue 缓存不存在时的默认值
    */
-  const get = (key: string, defaultValue: any = null): any => {
+  const get = <T,>(key: string, defaultValue: T | undefined = undefined): T | undefined => {
     const cacheStore = storage.getItem(key);
     if (cacheStore) {
-      const cache = JSON.parse(cacheStore);
+      const cache: StorageData = JSON.parse(cacheStore);
       const expire = cache?.expire;
       if (expire && expire < new Date().getTime()) {
         storage.removeItem(key);
@@ -40,7 +42,8 @@ export default (options: { domain: 'local' | 'session' } = { domain: 'local' }) 
 
   /**
    * 删除缓存
-   * @param key 缓存KEY
+   *
+   * @param key 缓存 KEY
    */
   const remove = (key: string) => {
     storage.removeItem(key);
