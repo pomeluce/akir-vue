@@ -1,6 +1,6 @@
-export default defineComponent({
-  name: RouteName.DASHBOARD_WORKBENCH,
-  setup() {
+export default defineComponent<{}>(
+  () => {
     return () => <main></main>;
   },
-});
+  { name: RouteName.DASHBOARD_WORKBENCH },
+);

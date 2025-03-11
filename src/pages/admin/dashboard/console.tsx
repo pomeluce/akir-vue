@@ -1,8 +1,8 @@
 import { NCard } from 'naive-ui';
 
-export default defineComponent({
-  name: RouteName.DASHBOARD_CONSOLE,
-  setup() {
+export default defineComponent<{}>(
+  () => {
     return () => <NCard class="h-full">主控台</NCard>;
   },
-});
+  { name: RouteName.DASHBOARD_CONSOLE },
+);

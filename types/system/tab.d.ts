@@ -6,5 +6,5 @@ interface TabType {
 interface TabState {
   active: TabType;
   tabs: TabType[];
-  excludes: string[];
+  includes: string[];
 }

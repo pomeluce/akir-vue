@@ -3,7 +3,7 @@ import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
 import { NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
 import { IconLayoutSidebarFilled, IconX } from '@tabler/icons-vue';
-import { SystemAvatar, SystemBreadcrumb, SystemScreen, SystemThemePopup } from '@/components';
+import { SystemAvatarPopup, SystemBreadcrumb, SystemScreen, SystemThemePopup } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
 import { tabContextMenuItems } from '@/configs/tabs';
 
@@ -117,7 +117,7 @@ export default defineComponent<{}>(() => {
           <section class="flex items-center gap-3 px-2">
             <SystemScreen />
             <SystemThemePopup />
-            <SystemAvatar />
+            <SystemAvatarPopup />
           </section>
         </header>
         <nav class="px-3 flex justify-start items-center gap-2">
@@ -151,7 +151,7 @@ export default defineComponent<{}>(() => {
           <RouterView>
             {{
               default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
-                <KeepAlive exclude={state.excludes.slice()}>{h(Component, { key: route.fullPath, class: 'h-full overflow-scroll' })}</KeepAlive>
+                <KeepAlive include={state.includes.slice()}>{h(Component, { key: route.fullPath, class: 'h-full overflow-scroll' })}</KeepAlive>
               ),
             }}
           </RouterView>
