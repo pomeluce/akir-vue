@@ -1,6 +1,6 @@
-import { NButton, NCard, NFormItem, NInput, NStep, NSteps } from 'naive-ui';
+import { NButton, NCard, NInput, NSelect, NStep, NSteps } from 'naive-ui';
 import { IconChevronLeft } from '@tabler/icons-vue';
-import { SystemFormInput } from '@/components';
+import { SystemForm, SystemFormItem } from '@/components';
 
 export default defineComponent<{}>(
   () => {
@@ -27,16 +27,37 @@ export default defineComponent<{}>(
               </NButton>
             </div>
           </header>
-          <div class="border border-rim2 rounded">
-            <form>
-              <div class="flex flex-col gap-5 p-5">
-                <SystemFormInput label="流程名称" />
-                <SystemFormInput label="流程编码111" />
-                <NFormItem labelPlacement="left" showFeedback={false} label="路由">
+          <div class="max-w-page bg-backdrop3 p-10 border border-rim2 rounded">
+            <SystemForm>
+              <div class="grid grid-cols-3 gap-x-5 gap-y-10 box-border">
+                <SystemFormItem label="流程名称" required>
                   <NInput />
-                </NFormItem>
+                </SystemFormItem>
+                <SystemFormItem label="流程编码" required>
+                  <NInput />
+                </SystemFormItem>
+                <SystemFormItem label="流程版本" required>
+                  <NInput />
+                </SystemFormItem>
+                <SystemFormItem label="页面路由" required>
+                  <NInput />
+                </SystemFormItem>
+                <SystemFormItem class="col-span-2" label="流程处理器" required>
+                  <NInput />
+                </SystemFormItem>
+                <SystemFormItem label="分组">
+                  <NSelect options={[]} />
+                </SystemFormItem>
+                <SystemFormItem class="col-span-3" label="流程描述">
+                  <NInput type="textarea" rows={5} resizable={false} />
+                </SystemFormItem>
+                <div class="col-span-3 justify-self-end">
+                  <NButton type="primary" onClick={() => (current.value = 2)}>
+                    下一步
+                  </NButton>
+                </div>
               </div>
-            </form>
+            </SystemForm>
           </div>
         </div>
       </NCard>
