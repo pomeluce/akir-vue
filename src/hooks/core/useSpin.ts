@@ -12,5 +12,3 @@ export function useSpin(options?: AkirSpinProps) {
     },
   };
 }
-
-export type AkirSpinInstance = ReturnType<typeof useSpin>;

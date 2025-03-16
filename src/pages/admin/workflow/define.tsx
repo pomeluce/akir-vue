@@ -16,7 +16,7 @@ export default defineComponent<{}>(
                 <IconChevronLeft size={18} />
               </NButton>
             </div>
-            <NSteps class="w-1/2!" v-model={[current.value, 'current']} size="small">
+            <NSteps class="w-1/2!" current={current.value} /* v-model={[current.value, 'current']} */ size="small">
               <NStep title="基础信息" />
               <NStep title="流程设计" />
               <NStep class="flex-none!" title="更多设置" />

@@ -10,6 +10,9 @@ export enum RouteName {
   /* admin */
   ADMIN = 'admin',
 
+  /* redirect */
+  REDIRECT = 'redirect',
+
   /* dashboard*/
   DASHBOARD_CONSOLE = 'dashboard.console',
   DASHBOARD_WORKBENCH = 'dashboard.workbench',

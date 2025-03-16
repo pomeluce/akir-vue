@@ -1,17 +1,49 @@
+import { IconChevronsLeft, IconChevronsRight, IconMinus, IconRefresh, IconTransfer, IconX } from '@tabler/icons-vue';
 import { DropdownOption } from 'naive-ui';
 
-export const tabContextMenuItems: DropdownOption[] = [
+type IContextMenuDisabledState = ComputedRef<{ closeTab: boolean; closeOther: boolean; closeLeft: boolean; closeRight: boolean; closeAll: boolean }>;
+
+export const tabContextMenuItems = (computedDisabled: IContextMenuDisabledState): DropdownOption[] => [
   {
     key: 'refresh',
-    label: '刷新标签页',
+    icon: () => h(IconRefresh, { size: 18 }),
+    label: '刷新当前标签页',
+    props: { class: 'px-2' },
   },
   {
     key: 'closeTab',
-    label: '关闭标签页',
+    disabled: computedDisabled.value.closeTab,
+    icon: () => h(IconMinus, { size: 18 }),
+    label: '关闭当前标签页',
+    props: { class: 'px-2' },
   },
   {
     key: 'closeOther',
+    disabled: computedDisabled.value.closeOther,
+    icon: () => h(IconTransfer, { size: 18 }),
     label: '关闭其他标签页',
+    props: { class: 'px-2' },
+  },
+  {
+    key: 'closeLeft',
+    disabled: computedDisabled.value.closeLeft,
+    icon: () => h(IconChevronsLeft, { size: 18 }),
+    label: '关闭左侧标签页',
+    props: { class: 'px-2' },
+  },
+  {
+    key: 'closeRight',
+    disabled: computedDisabled.value.closeRight,
+    icon: () => h(IconChevronsRight, { size: 18 }),
+    label: '关闭右侧标签页',
+    props: { class: 'px-2' },
+  },
+  {
+    key: 'closeAll',
+    disabled: computedDisabled.value.closeAll,
+    icon: () => h(IconX, { size: 18 }),
+    label: '关闭所有标签页',
+    props: { class: 'px-2' },
   },
 ];
 

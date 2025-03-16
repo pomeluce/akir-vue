@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { AkirSpinInstance } from '@/hooks/akir/useSpin';
+import { AkirSpinInstance } from '@/hooks/types';
 import router from '../router';
 
 // 获取 storage 对象

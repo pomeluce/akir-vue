@@ -2,13 +2,13 @@ import { defaultTab } from '@/configs/tabs';
 
 const storage = useStorage({ domain: 'session' });
 
-export default () => {
-  const state: TabState = reactive({
-    active: defaultTab,
-    tabs: [defaultTab],
-    includes: [],
-  });
+const state: TabState = reactive({
+  active: defaultTab,
+  tabs: [defaultTab],
+  includes: [],
+});
 
+export default () => {
   Object.assign(state, storage.get<TabState>(CacheKey.TABS_ROUTER));
 
   watch(state, value => storage.set(CacheKey.TABS_ROUTER, value), { immediate: true });

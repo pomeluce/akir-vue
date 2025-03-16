@@ -1,24 +1,20 @@
 import Logo from '/akir.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { NCollapseTransition, NDropdown, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
-import { IconLayoutSidebarFilled, IconX } from '@tabler/icons-vue';
-import { SystemAvatarPopup, SystemBreadcrumb, SystemScreen, SystemThemePopup } from '@/components';
+import { NCollapseTransition, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
+import { IconLayoutSidebarFilled } from '@tabler/icons-vue';
+import { SystemAvatarPopup, SystemBreadcrumb, SystemScreen, SystemThemePopup, SystemWithBoundary } from '@/components';
 import { MenuIconKeyType, menuIcons } from '@/configs/menus';
-import { tabContextMenuItems } from '@/configs/tabs';
+import Tabs from './-components/tabs';
 
 export default defineComponent<{}>(() => {
   const collapsed = ref<boolean>(false);
-  const contextMenuX = ref<number>(0);
-  const contextMenuY = ref<number>(0);
-  const contextMenuVisible = ref<boolean>(false);
-  const contextMenuTab = ref<TabType>();
   const store = useUserStore();
   const route = useRoute();
   const router = useRouter();
-  const message = useMessage();
 
-  const { state, setActiveTab, addTab, removeTab } = useTabs();
+  const { navigate, openRoute } = usePageNavigator();
+  const { state, setActiveTab, addTab } = useTabs();
 
   const renderMenuIcon = (menu: MenuModel) => {
     const icon = menuIcons[menu.key as MenuIconKeyType];
@@ -31,50 +27,19 @@ export default defineComponent<{}>(() => {
   const handleClick = (key: string, label: string, target?: string) => {
     const tab = { key, label };
     if (target === '_blank') {
-      window.open(router.resolve({ name: key }).fullPath, target);
+      openRoute(key, target);
     } else {
-      setActiveTab(tab);
       addTab(tab);
+      setActiveTab(tab);
       router.push({ name: key });
     }
   };
 
-  const handleClose = (tab: TabType) => {
-    if (state.tabs.length === 1) {
-      message.warning('当前为最后一标签页了, 无法再关闭了');
-    } else {
-      removeTab(tab);
-      if (tab.key === state.active.key) {
-        setActiveTab(state.tabs.at(-1));
-        router.push({ name: state.active.key });
-      }
+  onBeforeMount(() => {
+    if (route.name !== state.active.key) {
+      navigate({ name: state.active.key }, true);
     }
-  };
-
-  const handleContextMenu = (e: MouseEvent, tab: TabType) => {
-    e.preventDefault();
-    contextMenuVisible.value = false;
-    contextMenuTab.value = tab;
-    nextTick().then(() => {
-      contextMenuVisible.value = true;
-      contextMenuX.value = e.clientX;
-      contextMenuY.value = e.clientY;
-    });
-  };
-
-  const handleClickOutside = () => (contextMenuVisible.value = false);
-  const handleSelect = (key: string) => {
-    contextMenuVisible.value = false;
-    if (contextMenuTab.value) {
-      switch (key) {
-        case 'refresh':
-          handleClick(contextMenuTab.value.key, contextMenuTab.value.label);
-          break;
-        default:
-          break;
-      }
-    }
-  };
+  });
 
   return () => (
     <NLayout class="w-screen h-screen" hasSider>
@@ -120,38 +85,14 @@ export default defineComponent<{}>(() => {
             <SystemAvatarPopup />
           </section>
         </header>
-        <nav class="px-3 flex justify-start items-center gap-2">
-          {state.tabs.map(item => (
-            <div
-              class={[
-                'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded cursor-pointer select-none',
-                item.key === state.active.key && 'text-primary6',
-              ]}
-              onContextmenu={e => handleContextMenu(e, item)}
-            >
-              <span onClick={() => handleClick(item.key, item.label)}>{item.label}</span>
-              <span onClick={() => handleClose(item)}>
-                <IconX size="16" />
-              </span>
-            </div>
-          ))}
-          <NDropdown
-            placement="bottom-start"
-            trigger="manual"
-            x={contextMenuX.value}
-            y={contextMenuY.value}
-            options={tabContextMenuItems}
-            show={contextMenuVisible.value}
-            onClickoutside={handleClickOutside}
-            onSelect={handleSelect}
-          />
-        </nav>
+        <Tabs />
         <main class="px-3 pb-3 flex-1 overflow-hidden">
-          {/* TODO: 403 页面和 500 页面优化, 路由地址不变, 添加认证组件, 判断是否渲染 403/500 页面还是路由页面 */}
           <RouterView>
             {{
               default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
-                <KeepAlive include={state.includes.slice()}>{h(Component, { key: route.fullPath, class: 'h-full overflow-scroll' })}</KeepAlive>
+                <SystemWithBoundary>
+                  <KeepAlive include={state.includes.slice()}>{h(Component, { key: route.fullPath, class: 'h-full overflow-scroll' })}</KeepAlive>
+                </SystemWithBoundary>
               ),
             }}
           </RouterView>
