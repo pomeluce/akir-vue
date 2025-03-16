@@ -7,9 +7,9 @@ export default defineComponent<{ modelValue: WFTaskNode; direction?: WFDirection
       if (approvalObject === 1) {
         return '发起人';
       } else if (approvalObject === 2) {
-        return `指定人: ${(candidateUsers as any[])?.map(i => i.name).join(', ') || '无'}`;
+        return `指定人: ${(candidateUsers as UserModel[])?.map(i => i.username).join(', ') || '无'}`;
       } else if (approvalObject === 3) {
-        return `指定角色: ${(candidateGroups as any[])?.map(i => i.name).join(', ') || '无'}`;
+        return `指定角色: ${(candidateGroups as RoleModel[])?.map(i => i.name).join(', ') || '无'}`;
       } else {
         return '';
       }

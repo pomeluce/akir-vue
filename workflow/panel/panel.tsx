@@ -1,6 +1,5 @@
 import { Component } from 'vue';
-import { NCollapse } from 'naive-ui';
-import { IconX } from '@tabler/icons-vue';
+import { NCollapse, NDrawer, NDrawerContent } from 'naive-ui';
 import { isUndefined } from 'lodash-es';
 import { isExpressionNode, isServiceNode, isTaskNode } from 'wf/utils';
 import { checkExclusiveGateway } from 'wf/configuration';
@@ -67,25 +66,21 @@ export default defineComponent<{ modelValue?: WFBaseNode }, { 'update:modelValue
     expose({ togglePanel } satisfies IFlowPanelExpose);
 
     return () => (
-      <div class={{ 'akir-flow-panel': true, opened: panelState.value }}>
-        <div class="akir-flow-panel_header">
-          <span class="flex-1">{headerTitle.value}</span>
-          <div class="akir-flow-panel_btn" onClick={() => togglePanel(false)}>
-            <IconX />
-          </div>
-        </div>
-        {computedValue.value.id ? (
-          <div class="akir-flow-panel_body">
-            <NCollapse arrowPlacement="right">
-              {renderComponents.value.map(collapseItem =>
-                h(collapseItem, { key: collapseItem.name, modelValue: computedValue.value, onUpdateModelValue: (event: WFBaseNode) => (computedValue.value = event) }),
-              )}
-            </NCollapse>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
+      <NDrawer class="akir-flow-panel" width={500} v-model={[panelState.value, 'show']}>
+        <NDrawerContent title={headerTitle.value}>
+          {computedValue.value.id ? (
+            <div class="akir-flow-panel_body">
+              <NCollapse arrowPlacement="right">
+                {renderComponents.value.map(collapseItem =>
+                  h(collapseItem, { key: collapseItem.name, modelValue: computedValue.value, onUpdateModelValue: (event: WFBaseNode) => (computedValue.value = event) }),
+                )}
+              </NCollapse>
+            </div>
+          ) : (
+            <></>
+          )}
+        </NDrawerContent>
+      </NDrawer>
     );
   },
   { name: 'AkirFlowPanel', props: ['modelValue'] },

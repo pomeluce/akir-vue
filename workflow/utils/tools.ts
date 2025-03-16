@@ -11,7 +11,7 @@ export function modalValidator(title: ModalOptions['title'], content: ModalOptio
     window.$modal.create({
       title: `  ${title}`,
       content,
-      type: 'info',
+      type: 'warning',
       preset: 'confirm',
       positiveText: '确认',
       negativeText: '取消',
@@ -20,7 +20,7 @@ export function modalValidator(title: ModalOptions['title'], content: ModalOptio
       class: 'select-none',
       titleClass: 'flex justify-center items-center !font-medium',
       contentClass: 'py-5 text-xs',
-      negativeButtonProps: { type: 'info', ghost: true },
+      negativeButtonProps: { type: 'warning' },
       onPositiveClick: () => resolve(true),
       onNegativeClick: () => resolve(false),
       ...config,

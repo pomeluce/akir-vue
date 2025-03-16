@@ -1,13 +1,19 @@
 .flow-node.flow-event {
-  @apply w-20 h-20 rounded-[50%] text-word2 text-xs flex justify-center items-center pointer-events-auto select-none border-2 border-rose-400 border-dashed;
+  @apply w-20 h-20 text-word2 text-xs flex justify-center items-center pointer-events-auto select-none border-2 border-rose-400 border-dashed;
 
   &.throw-event {
-    @apply w-50 h-20 pointer-events-auto rounded-lg bg-danger4 text-backdrop2 border-4 border-danger6;
+    @apply w-50 h-20 pointer-events-auto rounded-lg bg-danger3 text-danger6 text-sm font-medium border-3 border-danger6;
   }
 
   &.start-event,
   &.end-event {
-    @apply w-10 h-10;
+    @apply w-10 h-10 border-solid border-2 text-backdrop2 rounded-full;
+  }
+  &.start-event {
+    @apply border-success5 bg-success5;
+  }
+  &.end-event {
+    @apply border-rim4 bg-(--akir-grey-6);
   }
 }
 
@@ -36,10 +42,10 @@
 }
 
 .flow-node.flow-subprocess {
-  @apply border-2 border-rim3/40 rounded-lg;
+  @apply border-2 border-rim2 rounded-lg drop-shadow-none;
 
   > .flow-node_header {
-    @apply bg-slate-400 dark:bg-slate-300/80 text-backdrop4 font-medium pointer-events-auto;
+    @apply bg-orange-300 text-backdrop3 font-medium pointer-events-auto;
   }
 }
 
@@ -72,7 +78,7 @@
 
 .akir-flow_vertical {
   .flow-subprocess {
-    @apply min-w-50;
+    @apply min-w-md;
     & > .akir-flow_wrapper {
       @apply p-4;
     }
@@ -248,14 +254,5 @@
         @apply p-0 overflow-visible;
       }
     }
-  }
-}
-
-.flow-node.flow-event {
-  &.start-event {
-    @apply border-solid border-2 border-success5 bg-success5 text-backdrop2;
-  }
-  &.end-event {
-    @apply border-solid border-2 border-danger5 bg-danger5 text-backdrop2;
   }
 }
