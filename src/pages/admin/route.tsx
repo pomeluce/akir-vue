@@ -1,10 +1,10 @@
 import Logo from '/akir.svg';
 import { KeepAlive } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterLink, RouterView } from 'vue-router';
-import { NCollapseTransition, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
+import { MenuOption, NCollapseTransition, NLayout, NLayoutSider, NMenu, NTooltip } from 'naive-ui';
 import { IconLayoutSidebarFilled } from '@tabler/icons-vue';
 import { SystemAvatarPopup, SystemBreadcrumb, SystemScreen, SystemThemePopup, SystemWithBoundary } from '@/components';
-import { MenuIconKeyType, menuIcons } from '@/configs/menus';
+import { handleMenuTree } from '@/configs/menus';
 import Tabs from './-components/tabs';
 
 export default defineComponent<{}>(() => {
@@ -16,13 +16,7 @@ export default defineComponent<{}>(() => {
   const { navigate, openRoute } = usePageNavigator();
   const { state, setActiveTab, addTab } = useTabs();
 
-  const renderMenuIcon = (menu: MenuModel) => {
-    const icon = menuIcons[menu.key as MenuIconKeyType];
-    if (menu.children) menu.children = menu.children.map(renderMenuIcon);
-    return icon ? { ...menu, icon: () => h(icon, { size: '18' }) } : menu;
-  };
-
-  const menuOptions = computed<MenuModel[]>(() => store.menus.map(renderMenuIcon));
+  const menuOptions = computed<MenuOption[]>(() => handleMenuTree(store.menus));
 
   const handleClick = (key: string, label: string, target?: string) => {
     const tab = { key, label };
@@ -77,7 +71,7 @@ export default defineComponent<{}>(() => {
                 default: () => <span class="text-xs">{!collapsed.value ? '收起' : '展开'}菜单</span>,
               }}
             </NTooltip>
-            <SystemBreadcrumb options={store.menus} activeKey={state.active.key} onClick={handleClick} />
+            <SystemBreadcrumb options={menuOptions.value} activeKey={state.active.key} onClick={handleClick} />
           </section>
           <section class="flex items-center gap-3 px-2">
             <SystemScreen />

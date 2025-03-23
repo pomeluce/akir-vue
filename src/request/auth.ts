@@ -4,13 +4,19 @@ const storage = useStorage();
 
 /** 登录接口 */
 export const login = async (data: LoginFormModel) => {
-  const { code, message, data: token } = await http.request<ResponseModel<string>>({ url: RequestURL.LOGIN, method: 'POST', data }, { spin: true });
-  if (code === 200) {
+  const { code, data: token } = await http.request<ResponseModel<string>>({ url: RequestURL.LOGIN, method: 'POST', data }, { spin: true });
+  if (HttpEntityCode.SUCCESS === code) {
     storage.set(CacheKey.ACCESS_TOKEN, token);
     await router.push({ path: storage.get(CacheKey.REDIRECT_ROUTE_NAME) || '/' });
     storage.remove(CacheKey.REDIRECT_ROUTE_NAME);
-  } else {
-    useMessage().error(message ?? '登录失败, 请稍候重试!');
+  }
+};
+
+export const logout = async () => {
+  const { code } = await http.request<ResponseModel<boolean>>({ url: RequestURL.LOGOUT });
+  if (HttpEntityCode.SUCCESS === code) {
+    storage.remove(CacheKey.ACCESS_TOKEN);
+    await router.push({ name: RouteName.LOGIN });
   }
 };
 

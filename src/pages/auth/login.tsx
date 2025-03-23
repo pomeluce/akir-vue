@@ -13,7 +13,7 @@ export default defineComponent<{}>(() => {
 
   const getCaptcha = async () => {
     const { data } = await captcha<CaptchaModel>();
-    image.value = `data:image/png;base64,${data.image}`;
+    image.value = data.image;
     uid.value = data.uid;
   };
 
@@ -35,12 +35,12 @@ export default defineComponent<{}>(() => {
           <div>
             <h2 class="text-center text-word2 text-lg font-bold uppercase mt-3">akir-vue</h2>
             <div class="mt-8 flex flex-col">
-              <NInput placeholder="请输入用户名、邮箱或手机号" v-model={[model.username.value, 'value']} {...attrs.username.value}>
+              <NInput placeholder="请输入用户名" v-model={[model.account.value, 'value']} {...attrs.account.value}>
                 {{
                   prefix: () => <NIcon component={<IconUserCircle />} />,
                 }}
               </NInput>
-              <ErrorLabel message={errors.value?.username} />
+              <ErrorLabel message={errors.value?.account} />
               <NInput placeholder="请输入登录密码" type="password" v-model={[model.password.value, 'value']} {...attrs.password.value}>
                 {{
                   prefix: () => <NIcon component={<IconLock />} />,
@@ -53,7 +53,7 @@ export default defineComponent<{}>(() => {
                     prefix: () => <NIcon component={<IconIdBadge2 />} />,
                   }}
                 </NInput>
-                <img class="h-9" src={image.value} onClick={getCaptcha} />
+                <img class="h-9 box-border border border-rim3 rounded" src={image.value} onClick={getCaptcha} />
               </NInputGroup>
               <ErrorLabel message={errors.value?.captcha} />
             </div>

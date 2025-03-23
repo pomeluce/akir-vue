@@ -1,8 +1,7 @@
 import { PropType } from 'vue';
-import { NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon } from 'naive-ui';
-import { MenuIconKeyType, menuIcons } from '@/configs/menus';
+import { MenuOption, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon } from 'naive-ui';
 
-const findMenuPath = (menus: MenuModel[], key?: string): MenuModel[] => {
+const findMenuPath = (menus: MenuOption[], key?: string): MenuOption[] => {
   for (const menu of menus) {
     if (menu.key === key) return [menu];
     if (menu.children) {
@@ -16,7 +15,7 @@ const findMenuPath = (menus: MenuModel[], key?: string): MenuModel[] => {
 export default defineComponent({
   props: {
     options: {
-      type: Object as PropType<MenuModel[]>,
+      type: Object as PropType<MenuOption[]>,
       default: [],
     },
     activeKey: String,
@@ -32,7 +31,7 @@ export default defineComponent({
               onSelect={(key, { label, target }) => props.onClick?.(key, label as string, target as string)}
             >
               <span>
-                {menuIcons[item.key as MenuIconKeyType] && <NIcon class="mr-1" component={h(menuIcons[item.key as MenuIconKeyType], { size: '18' })} />}
+                {item.icon && <NIcon>{item.icon()}</NIcon>}
                 {item.label}
               </span>
             </NDropdown>

@@ -30,7 +30,15 @@ export default defineConfig(({ command, mode }) => {
     base: isBuild ? '/' : '/',
     server: {
       host: true,
-      proxy: env.VITE_MOCK_ENABLE ? {} : { [env.VITE_BASE_PREFIX]: { target: env.VITE_API_URL, rewrite: path => path } },
+      proxy: env.VITE_PROXY_ENABLE
+        ? {
+            [env.VITE_API_URL]: {
+              target: env.VITE_PROXY_URL,
+              rewrite: path => path,
+              // bypass: (req, _, options) => console.log('proxyURL', `${options.target}${options.rewrite?.(req.url ?? '')}`),
+            },
+          }
+        : {},
     },
     build: {
       emptyOutDir: true,

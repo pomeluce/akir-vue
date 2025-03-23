@@ -1,6 +1,6 @@
 /* 登录表单模型 */
 interface LoginFormModel {
-  username: string;
+  account: string;
   password: string;
   captcha: string;
   uid?: string;

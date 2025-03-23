@@ -1,15 +1,15 @@
 /* user 对象模型 */
 interface UserModel {
-  id: number;
+  id: string;
   account: string;
   password: string;
   username: string;
-  gender: number;
-  status: number;
+  identityId: string;
   email: string;
-  avatar: string;
   phone: string;
-  technique: string[];
+  gender: string;
+  status: string;
+  avatar: string;
   createBy: string;
   createTime: number;
   updateBy: string;

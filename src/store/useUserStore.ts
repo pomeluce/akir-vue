@@ -1,4 +1,5 @@
-import { current, menuList } from '@/request/user';
+import { menuList } from '@/request/menu';
+import { current } from '@/request/user';
 
 const { isAuthenticated } = useAuth();
 
@@ -15,9 +16,8 @@ export default defineStore('user', () => {
 
   async function getCurrentUser() {
     if (isAuthenticated()) {
-      const { data, body } = await current();
+      const { data } = await current();
       user.value = data;
-      role.value = body.role;
     }
   }
 

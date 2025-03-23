@@ -1,19 +1,19 @@
-type MenuModel = {
-  key: string;
-  label: string | (() => VNodeChild);
-  show?: boolean;
-  icon?: () => VNode;
-  disabled?: boolean;
-  children?: MenuModel[];
-  target?: string;
-} & {
-  key: string;
-  label: string | (() => VNodeChild);
-  show?: boolean;
-  type?: 'group';
-} & {
-  key: string;
-  props: HTMLAttributes;
-  show?: boolean;
-  type?: 'divider';
-};
+interface MenuModel {
+  menuId: string;
+  code: string;
+  label: string;
+  sort: int;
+  show: boolean;
+  disabled: boolean;
+  parentId: string;
+  target: string;
+  createBy: string;
+  createTime: number;
+  updateBy: string;
+  updateTime: number;
+  remark: string;
+}
+
+interface MenuModelTree extends MenuModel {
+  children?: MenuModelTree[];
+}

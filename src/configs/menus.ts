@@ -1,4 +1,8 @@
-import { IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconPhoto, IconSettings2, IconTimeline, IconUser } from '@tabler/icons-vue';
+import { MenuOption } from 'naive-ui';
+import { Icon, IconAdjustmentsCog, IconAlertSquareRounded, IconDashboard, IconLogout, IconPhoto, IconSettings2, IconTimeline, IconUser } from '@tabler/icons-vue';
+import { logout } from '@/request/auth';
+
+const { handleTree } = useToolkit();
 
 export const topMenus = [
   { label: '首页', key: RouteName.HOME },
@@ -25,11 +29,11 @@ export const avatarMenus = [
     key: 'logout',
     label: '退出登录',
     icon: IconLogout,
-    onClick: () => {},
+    onClick: logout,
   },
 ];
 
-export const menuIcons = {
+const menuIcons: Record<string, Icon> = {
   dashboard: IconDashboard,
   system: IconAdjustmentsCog,
   workflow: IconTimeline,
@@ -39,4 +43,13 @@ export const menuIcons = {
   'error.500': IconPhoto,
 };
 
-export type MenuIconKeyType = keyof typeof menuIcons;
+export const handleMenuTree = (menus: MenuModel[]) => {
+  const resolver = (menu: MenuModelTree) => {
+    const icon = menuIcons[menu.code];
+    const result: MenuOption = { key: menu.code, label: menu.label, show: menu.show, disabled: menu.disabled, target: menu.target };
+    if (menu.children) result.children = menu.children.map(resolver);
+    return icon ? { ...result, icon: () => h(icon, { size: '18' }) } : result;
+  };
+
+  return (handleTree(menus, 'menuId') as MenuModelTree[]).map(resolver);
+};

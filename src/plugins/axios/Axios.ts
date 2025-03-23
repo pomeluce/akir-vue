@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, InternalAxiosRequestConfig } from 'axios';
 import { AkirSpinInstance } from '@/hooks/types';
 import router from '../router';
 
@@ -41,6 +41,7 @@ export default class Axios {
    * @param options 加载及消息配置
    */
   public request = async <T,>(config: AxiosRequestConfig, options?: AxiosOptions): Promise<T> => {
+    this.options = { spin: true, message: true };
     // 合并配置
     this.options = Object.assign(this.options, options ?? {});
     // 发送请求
@@ -60,14 +61,11 @@ export default class Axios {
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        // 如果 loading 对象不存在且开启了 loading, 则创建一个 loading 对象
-        if (!this.akirSpin && this.options.spin) {
-          this.akirSpin = useSpin();
-        }
-        // 获取 token
-        const token = storage.get(CacheKey.ACCESS_TOKEN);
-        // 开启 token 认证;
-        this.config.useTokenAuthorization && token && (config.headers.Authorization = token);
+        if (!this.akirSpin && this.options.spin) this.akirSpin = useSpin();
+
+        const token = storage.get(CacheKey.ACCESS_TOKEN) as string;
+
+        this.config.useTokenAuthorization && token && (config.headers[HttpHeader.AUTHORIZATION] = token);
         return config;
       },
       (error: any) => Promise.reject(error),
@@ -78,19 +76,25 @@ export default class Axios {
    * 响应拦截器
    */
   private interceptorsResponse() {
+    const setRefreshToken = (headers: AxiosResponse['headers']) => {
+      const result = {} as AxiosResponseHeaders;
+      Object.keys(headers).map(key => (result[key.toLowerCase()] = headers[key]));
+      if (!!result[HttpHeader['REFRESH-TOKEN'].toLowerCase()]) storage.set(CacheKey.ACCESS_TOKEN, result[HttpHeader['REFRESH-TOKEN'].toLowerCase()]);
+    };
+
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        // 如果 loading 对象存在, 则关闭 loading 对象
         if (this.akirSpin) {
           this.akirSpin.close();
           this.akirSpin = undefined;
         }
-        // 判断 response 是否携带有 refresh-token
-        if (!!response.headers['RefreshToken']) storage.set(CacheKey.ACCESS_TOKEN, response.headers['RefreshToken']);
-        // 判断是否展示提示消息
+
+        setRefreshToken(response.headers);
+
         if (response.data?.message && this.options.message) {
-          window.$message[response.data.code === 200 ? 'success' : 'error'](response.data.message);
+          window.$message[response.data.code === HttpEntityCode.SUCCESS ? 'success' : 'error'](response.data.message);
         }
+
         return response;
       },
       async (error: AxiosError) => {
@@ -100,10 +104,9 @@ export default class Axios {
         }
         this.options = { spin: true, message: true };
         const { response: { status, data, headers } = {} as AxiosResponse } = error;
-        const { message } = data;
+        const { message } = data ?? {};
 
-        // 判断 response 是否携带有 refresh_token
-        if (!!headers['RefreshToken']) storage.set(CacheKey.ACCESS_TOKEN, headers['RefreshToken']);
+        setRefreshToken(headers);
 
         switch (status) {
           case HttpStatus.UNAUTHORIZED:

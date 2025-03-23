@@ -1,5 +1,5 @@
-import { avatarMenus } from '@/configs/menus';
 import { NAvatar, NButton, NDivider, NPopover } from 'naive-ui';
+import { avatarMenus } from '@/configs/menus';
 
 export default defineComponent<{}>(() => {
   const store = useUserStore();
@@ -13,7 +13,7 @@ export default defineComponent<{}>(() => {
           {{
             trigger: () => (
               <div class="flex justify-center items-center cursor-pointer">
-                <NAvatar size="small" round src={store.user.avatar} />
+                <NAvatar size="small" round src={store.user.avatar || '/src/assets/images/avatar.png'} />
                 <NDivider class="bg-fill4!" vertical />
                 <span class="font-medium">{store.user.username}</span>
               </div>

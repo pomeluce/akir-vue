@@ -7,7 +7,7 @@ export const loginValidate = (defaultValues?: LoginFormModel) => {
     validationSchema: toTypedSchema(
       yup
         .object({
-          username: yup.string().required().email().label('邮箱'),
+          account: yup.string().required().label('账号'),
           password: yup.string().required().min(8).label('密码'),
           captcha: yup.string().required().label('验证码'),
         })
@@ -15,11 +15,11 @@ export const loginValidate = (defaultValues?: LoginFormModel) => {
     ),
   });
 
-  const [username, usernameAttrs] = defineField('username', { validateOnBlur: true });
+  const [account, accountAttrs] = defineField('account', { validateOnBlur: true });
   const [password, passwordAttrs] = defineField('password', { validateOnBlur: true });
   const [captcha, captchaAttrs] = defineField('captcha', { validateOnBlur: true });
 
-  return { errors, handleSubmit, model: { username, password, captcha }, attrs: { username: usernameAttrs, password: passwordAttrs, captcha: captchaAttrs }, values };
+  return { errors, handleSubmit, model: { account, password, captcha }, attrs: { account: accountAttrs, password: passwordAttrs, captcha: captchaAttrs }, values };
 };
 
 export const registerValidate = (defaultValues?: RegisterFormModel) => {
@@ -28,7 +28,7 @@ export const registerValidate = (defaultValues?: RegisterFormModel) => {
     validationSchema: toTypedSchema(
       yup
         .object({
-          username: yup.string().required().email().label('邮箱'),
+          username: yup.string().required().label('账号'),
           password: yup.string().required().min(8).label('密码'),
           confirm: yup
             .string()
@@ -41,7 +41,7 @@ export const registerValidate = (defaultValues?: RegisterFormModel) => {
     ),
   });
 
-  const [username, usernameAttrs] = defineField('username', { validateOnBlur: true });
+  const [account, accountAttrs] = defineField('account', { validateOnBlur: true });
   const [password, passwordAttrs] = defineField('password', { validateOnBlur: true });
   const [confirm, confirmAttrs] = defineField('confirm', { validateOnBlur: true });
   const [captcha, captchaAttrs] = defineField('captcha', { validateOnBlur: true });
@@ -49,8 +49,8 @@ export const registerValidate = (defaultValues?: RegisterFormModel) => {
   return {
     errors,
     handleSubmit,
-    model: { username, password, confirm, captcha },
-    attrs: { username: usernameAttrs, password: passwordAttrs, confirm: confirmAttrs, captcha: captchaAttrs },
+    model: { account, password, confirm, captcha },
+    attrs: { account: accountAttrs, password: passwordAttrs, confirm: confirmAttrs, captcha: captchaAttrs },
     values,
   };
 };
