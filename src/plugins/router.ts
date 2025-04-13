@@ -2,6 +2,7 @@ import { App } from 'vue';
 import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 import { AxiosError } from 'axios';
 import routes from '@/routes';
+import { routerEmitter } from './emitter';
 
 /* 创建路由实例, 并设置路由规则 */
 const router = createRouter({
@@ -48,6 +49,9 @@ router.onError(error => {
   console.error('error loading router: ', error);
   router.push({ name: RouteName.ERROR_500 });
 });
+
+/* 订阅路由事件 */
+routerEmitter(router);
 
 const setup = (app: App) => {
   app.use(router);

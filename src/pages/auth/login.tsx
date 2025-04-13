@@ -12,7 +12,7 @@ export default defineComponent<{}>(() => {
   const uid = ref<string>('');
 
   const getCaptcha = async () => {
-    const { data } = await captcha<CaptchaModel>();
+    const { data } = await captcha<CaptchaModel>('MATH');
     image.value = data.image;
     uid.value = data.uid;
   };

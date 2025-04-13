@@ -16,3 +16,6 @@ interface CaptchaModel {
   uid: string;
   image: string;
 }
+
+/* 验证码类型 */
+type CaptchaType = 'DEFAULT' | 'MATH' | 'CHINESE';

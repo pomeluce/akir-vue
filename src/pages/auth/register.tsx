@@ -13,7 +13,7 @@ export default defineComponent<{}>(() => {
 
   const getCaptcha = async () => {
     const { data } = await captcha<CaptchaModel>();
-    image.value = `data:image/png;base64,${data.image}`;
+    image.value = `${data.image}`;
     uid.value = data.uid;
   };
 

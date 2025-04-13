@@ -21,6 +21,6 @@ export const logout = async () => {
 };
 
 /** 获取验证码 */
-export const captcha = <T,>(): Promise<ResponseModel<T>> => {
-  return http.request<ResponseModel<T>>({ url: RequestURL.CAPTCHA }, { spin: false, message: false });
+export const captcha = <T,>(captchaType: CaptchaType): Promise<ResponseModel<T>> => {
+  return http.request<ResponseModel<T>>({ url: RequestURL.CAPTCHA, params: { type: captchaType } }, { spin: false, message: false });
 };

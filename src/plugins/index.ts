@@ -12,5 +12,6 @@ export default (app: App) => {
 };
 
 export { default as http } from './axios';
+export { default as emitter } from './emitter';
 export { default as router } from './router';
 export { default as yup } from './yup';

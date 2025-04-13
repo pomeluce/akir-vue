@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, InternalAxiosRequestConfig } from 'axios';
 import { AkirSpinInstance } from '@/hooks/types';
-import router from '../router';
+import emitter from '../emitter';
 
 // 获取 storage 对象
 const storage = useStorage();
@@ -110,8 +110,7 @@ export default class Axios {
 
         switch (status) {
           case HttpStatus.UNAUTHORIZED:
-            storage.remove(CacheKey.ACCESS_TOKEN);
-            router.push({ name: RouteName.LOGIN });
+            emitter.emit('ROUTER:UNAUTHORIZED');
             break;
           case HttpStatus.UNPROCESSABLE_ENTITY:
             // useErrorStore().setErrors(error.response.data.errors);

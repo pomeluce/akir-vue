@@ -1,4 +1,4 @@
-import { DataTableColumns, DataTableProps, DataTableRowKey, NButton, NDataTable, NDrawer, NDrawerContent, NInput, NInputGroup, NSplit, NTag, NTree, TreeOption } from 'naive-ui';
+import { DataTableColumns, DataTableRowKey, NButton, NDataTable, NDrawer, NDrawerContent, NInput, NInputGroup, NSplit, NTag, NTree, TreeOption } from 'naive-ui';
 import { IconSearch } from '@tabler/icons-vue';
 import { AkirPanelTagInput } from '.';
 import { faker } from '@faker-js/faker/locale/zh_CN';
@@ -39,7 +39,7 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
       modalCheckedValues.value = users.value!.filter(i => keys.includes(i.key));
     };
 
-    const handleTagClose = (id: number) => {
+    const handleTagClose = (id: string) => {
       modalCheckedValues.value = modalCheckedValues.value.filter(v => v.id !== id);
     };
 
@@ -52,19 +52,12 @@ export default defineComponent<IPanelUserInputProps, { 'update:modelValue': (val
 
     const columns: DataTableColumns<UserModel> = [
       { type: 'selection', multiple: multiple.value },
+      { key: 'account', title: '账号' },
       { key: 'username', title: '姓名' },
-      { key: 'gender', title: '性别' },
       { key: 'email', title: '邮箱' },
-      {
-        key: 'technique',
-        title: '技术',
-        render: (row: UserModel) =>
-          row.technique.map(item => (
-            <NTag class="my-1 mr-2" type="primary" size="small">
-              {item}
-            </NTag>
-          )),
-      },
+      { key: 'phone', title: '手机' },
+      { key: 'gender', title: '性别' },
+      { key: 'status', title: '状态' },
       { key: 'createTime', title: '创建时间' },
       { key: 'updateTime', title: '更新时间' },
     ];
