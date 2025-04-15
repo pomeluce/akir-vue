@@ -2,7 +2,8 @@ import { App } from 'vue';
 import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 import { AxiosError } from 'axios';
 import routes from '@/routes';
-import { routerEmitter } from './emitter';
+import emits from './emits';
+import emitter from '../emitter';
 
 /* 创建路由实例, 并设置路由规则 */
 const router = createRouter({
@@ -33,7 +34,7 @@ router.beforeEach(async (to: RouteLocationNormalized) => {
   // 保护内容需要登录验证
   if (to.meta.auth && !isAuthenticated()) {
     set(CacheKey.REDIRECT_ROUTE_NAME, to.fullPath);
-    window.$message.info('当前未登录或登录已过期', { duration: 2000 });
+    emitter.emit('MESSAGE:API:AUTHENTICATED', { content: '当前未登录或登录已过期', options: { type: 'info', duration: 2000 } });
     return { name: RouteName.LOGIN };
   }
 
@@ -51,7 +52,7 @@ router.onError(error => {
 });
 
 /* 订阅路由事件 */
-routerEmitter(router);
+emits(router);
 
 const setup = (app: App) => {
   app.use(router);

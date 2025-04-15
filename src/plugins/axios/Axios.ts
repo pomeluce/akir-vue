@@ -92,7 +92,7 @@ export default class Axios {
         setRefreshToken(response.headers);
 
         if (response.data?.message && this.options.message) {
-          window.$message[response.data.code === HttpEntityCode.SUCCESS ? 'success' : 'error'](response.data.message);
+          emitter.emit('MESSAGE:API:DEFAULT', { content: response.data.message, options: { type: response.data.code === HttpEntityCode.SUCCESS ? 'success' : 'error' } });
         }
 
         return response;
@@ -110,24 +110,22 @@ export default class Axios {
 
         switch (status) {
           case HttpStatus.UNAUTHORIZED:
-            emitter.emit('ROUTER:UNAUTHORIZED');
+            emitter.emit('ROUTER:API:UNAUTHORIZED');
             break;
           case HttpStatus.UNPROCESSABLE_ENTITY:
             // useErrorStore().setErrors(error.response.data.errors);
             break;
           case HttpStatus.FORBIDDEN:
-            window.$message.error(message ?? '没有操作权限');
+            emitter.emit('MESSAGE:API:FORBIDDEN', { content: message ?? '没有操作权限', options: { type: 'error' } });
             break;
           case HttpStatus.NOT_FOUND:
-            window.$message.error(message ?? '请求资源不存在');
+            emitter.emit('MESSAGE:API:NOT_FOUND', { content: message ?? '请求资源不存在', options: { type: 'error' } });
             break;
           case HttpStatus.TOO_MANY_REQUESTS:
-            window.$message.error(message ?? '请求过于频繁，请稍候再试');
+            emitter.emit('MESSAGE:API:TOO_MANY_REQUESTS', { content: message ?? '请求过于频繁, 请稍候再试', options: { type: 'error' } });
             break;
           default:
-            if (message) {
-              window.$message.error(message ?? '服务器错误');
-            }
+            emitter.emit('MESSAGE:API:INTERNAL_SERVER_ERROR', { content: message ?? '服务器错误', options: { type: 'error' } });
         }
         return Promise.reject(error);
       },
