@@ -28,7 +28,7 @@ export const registerValidate = (defaultValues?: RegisterFormModel) => {
     validationSchema: toTypedSchema(
       yup
         .object({
-          username: yup.string().required().label('账号'),
+          account: yup.string().required().label('账号'),
           password: yup.string().required().min(8).label('密码'),
           confirm: yup
             .string()

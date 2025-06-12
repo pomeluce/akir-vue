@@ -1,5 +1,5 @@
 export enum HttpHeader {
-  AUTHORIZATION = 'Authorization',
-  LOCALE = 'AkirLocale',
-  'REFRESH-TOKEN' = 'X-Refresh-Token',
+  authorization = 'Authorization',
+  locale = 'AkirLocale',
+  refreshToken = 'X-Refresh-Token',
 }

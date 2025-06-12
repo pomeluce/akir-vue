@@ -10,6 +10,7 @@ export default defineComponent<{}>(() => {
     'MESSAGE:API:NOT_FOUND',
     'MESSAGE:API:TOO_MANY_REQUESTS',
     'MESSAGE:API:INTERNAL_SERVER_ERROR',
+    'MESSAGE:API:DEFAULT',
   ];
 
   emitter.registerAll(keys, ({ content, options }) => message.create(content, options));

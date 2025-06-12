@@ -40,7 +40,7 @@ export default class Axios {
    * @param config 请求参数
    * @param options 加载及消息配置
    */
-  public request = async <T,>(config: AxiosRequestConfig, options?: AxiosOptions): Promise<T> => {
+  public request = async <T>(config: AxiosRequestConfig, options?: AxiosOptions): Promise<T> => {
     this.options = { spin: true, message: true };
     // 合并配置
     this.options = Object.assign(this.options, options ?? {});
@@ -62,10 +62,8 @@ export default class Axios {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         if (!this.akirSpin && this.options.spin) this.akirSpin = useSpin();
-
         const token = storage.get(CacheKey.ACCESS_TOKEN) as string;
-
-        this.config.useTokenAuthorization && token && (config.headers[HttpHeader.AUTHORIZATION] = token);
+        this.config.useTokenAuthorization && token && (config.headers[HttpHeader.authorization] = token);
         return config;
       },
       (error: any) => Promise.reject(error),
@@ -77,9 +75,10 @@ export default class Axios {
    */
   private interceptorsResponse() {
     const setRefreshToken = (headers: AxiosResponse['headers']) => {
+      if (!headers) return;
       const result = {} as AxiosResponseHeaders;
       Object.keys(headers).map(key => (result[key.toLowerCase()] = headers[key]));
-      if (!!result[HttpHeader['REFRESH-TOKEN'].toLowerCase()]) storage.set(CacheKey.ACCESS_TOKEN, result[HttpHeader['REFRESH-TOKEN'].toLowerCase()]);
+      if (!!result[HttpHeader.refreshToken]?.toLowerCase()) storage.set(CacheKey.ACCESS_TOKEN, result[HttpHeader.refreshToken].toLowerCase());
     };
 
     this.instance.interceptors.response.use(

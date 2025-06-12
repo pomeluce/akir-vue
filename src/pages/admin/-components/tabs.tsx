@@ -28,7 +28,10 @@ export default defineComponent<{}>(() => {
     navigate({ name: key }, replace);
   };
 
-  const handleClose = (tab: TabType) => {
+  const handleClose = (tab: TabType, e?: MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     if (state.tabs.length === 1) return;
     removeTab(tab);
     if (tab.key === state.active.key) {
@@ -84,14 +87,18 @@ export default defineComponent<{}>(() => {
       {state.tabs.map(item => (
         <div
           class={[
-            'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded cursor-pointer select-none',
-            item.key === state.active.key && 'text-primary6',
+            'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded-xs cursor-pointer select-none hover:border hover:border-primary4 dark:hover:border-primary5',
+            item.key === state.active.key && 'border border-primary4 bg-primary1 dark:border-primary5 dark:bg-primary3/15 text-primary6',
           ]}
           onContextmenu={e => handleContextMenu(e, item)}
+          onClick={() => handleClick(item.key, item.label)}
         >
-          <span onClick={() => handleClick(item.key, item.label)}>{item.label}</span>
+          <span>{item.label}</span>
           {state.tabs.length !== 1 && (
-            <span onClick={() => handleClose(item)}>
+            <span
+              class={['p-0.5 rounded-xs hover:bg-gray-200/75 dark:hover:bg-gray-500/40', item.key === state.active.key && 'hover:bg-gray-300/75 dark:hover:bg-gray-300']}
+              onClick={e => handleClose(item, e)}
+            >
               <IconX size="16" />
             </span>
           )}

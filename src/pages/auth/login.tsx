@@ -25,7 +25,7 @@ export default defineComponent<{}>(() => {
 
   return () => (
     <form class="min-w-xs max-w-2/3 md:max-w-none flex-1 flex justify-center" onSubmit={handleSubmit(submissionHandle)}>
-      <div class="md:w-[720px] md:grid grid-cols-2 rounded-xl shadow-lg overflow-hidden bg-backdrop2 p-5">
+      <div class="md:w-[720px] md:grid grid-cols-2 rounded shadow-evenly overflow-hidden bg-backdrop2 p-5">
         <div class="hidden md:block py-5">
           <main class="h-full flex justify-center items-center border-r border-rim2">
             <SystemIllustration src={LoginBg} />

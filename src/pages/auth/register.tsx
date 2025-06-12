@@ -12,7 +12,7 @@ export default defineComponent<{}>(() => {
   const uid = ref<string>('');
 
   const getCaptcha = async () => {
-    const { data } = await captcha<CaptchaModel>();
+    const { data } = await captcha<CaptchaModel>('MATH');
     image.value = `${data.image}`;
     uid.value = data.uid;
   };
@@ -25,7 +25,7 @@ export default defineComponent<{}>(() => {
 
   return () => (
     <form class="min-w-xs max-w-2/3 md:max-w-none flex-1 flex justify-center" onSubmit={handleSubmit(submissionHandle)}>
-      <div class="md:w-[720px] md:grid grid-cols-2 rounded-xl shadow-lg overflow-hidden bg-backdrop2 p-5">
+      <div class="md:w-[720px] md:grid grid-cols-2 rounded shadow-evenly overflow-hidden bg-backdrop2 p-5">
         <div class="hidden md:block py-5">
           <main class="h-full flex justify-center items-center border-r border-rim2">
             <SystemIllustration src={RegisterBg} />
@@ -60,7 +60,7 @@ export default defineComponent<{}>(() => {
                     prefix: () => <NIcon component={<IconIdBadge2 />} />,
                   }}
                 </NInput>
-                <img class="h-9" src={image.value} onClick={getCaptcha} />
+                <img class="h-9 box-border border border-rim3 rounded" src={image.value} onClick={getCaptcha} />
               </NInputGroup>
               <ErrorLabel message={errors.value?.captcha} />
             </div>

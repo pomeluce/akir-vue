@@ -36,7 +36,7 @@
   --akir-danger-7: oklch(0.5475 0.1985 25.3555);
 
   /* link */
-  --akir-link-1: oklch(0.5106 0.2301 276.9656);
+  --akir-link-1: oklch(0.5494 0.249 263.0477);
   --akir-link-2: oklch(0.5017 0.1173 157.3018);
 
   /* background */
@@ -97,7 +97,7 @@ html[data-theme='dark'] {
   --akir-danger-7: oklch(0.5536 0.1928 24.5133);
 
   /* link */
-  --akir-link-1: oklch(0.6479 0.1723 279.7077);
+  --akir-link-1: oklch(0.6215 0.2039 261.9758);
   --akir-link-2: oklch(0.6959 0.1491 162.4796);
 
   /* background */

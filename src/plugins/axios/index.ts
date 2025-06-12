@@ -6,13 +6,11 @@ const env = import.meta.env;
 export default new Axios({
   // 请求前缀
   baseURL: env.VITE_API_URL,
-  // 超时时间
-  timeout: 10000,
   // 请求头设置
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
-    [HttpHeader.LOCALE]: 'zh_CN',
+    [HttpHeader.locale]: 'zh_CN',
   },
   // 跨域请求携带 cookie
   withCredentials: true,

@@ -4,7 +4,7 @@ import { IconAlertCircleFilled } from '@tabler/icons-vue';
 
 export default defineComponent<{}>(() => {
   return () => (
-    <main class="w-screen h-screen flex justify-center items-center px-5 bg-[url('@/assets/images/auth-bg.svg')]">
+    <main class="w-screen h-screen flex justify-center items-center px-5 bg-backdrop2 dark:bg-backdrop1">
       <RouterView>
         {{
           default: ({ Component, route }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => h(Component, { key: route.fullPath }),
@@ -31,7 +31,7 @@ export const Footer = defineComponent<{}>(() => {
 export const ErrorLabel = defineComponent<{ message?: string }>(
   props => {
     return () => (
-      <div class={['flex items-center gap-1 px-1 py-0.5 text-danger5 invisible', props.message && 'visible']}>
+      <div class={['flex items-center gap-1 px-1 py-0.5 text-danger6 invisible', props.message && 'visible']}>
         <NIcon component={<IconAlertCircleFilled />} />
         <span class="text-xs">{props.message}</span>
       </div>
