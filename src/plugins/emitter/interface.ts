@@ -18,6 +18,8 @@ export type EmitterMessageKey = (typeof messageEmitKey)[number];
 
 export type EmitterEvents = {
   'ROUTER:API:UNAUTHORIZED': void;
+  'SPIN:OPEN': void;
+  'SPIN:CLOSE': void;
 } & {
   [K in EmitterMessageKey]: EmitterMessageType;
 };

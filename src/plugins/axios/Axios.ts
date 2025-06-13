@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, InternalAxiosRequestConfig } from 'axios';
-import { AkirSpinInstance } from '@/hooks/types';
 import emitter from '../emitter';
 
 // 获取 storage 对象
@@ -8,8 +7,6 @@ const storage = useStorage();
 export default class Axios {
   // axios 实例
   private instance: AxiosInstance;
-  // loading 对象
-  private akirSpin: AkirSpinInstance | undefined = undefined;
   // 参数对象
   private options: AxiosOptions = { spin: true, message: true };
   // axios 参数配置
@@ -61,7 +58,8 @@ export default class Axios {
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        if (!this.akirSpin && this.options.spin) this.akirSpin = useSpin();
+        if (this.options.spin) emitter.emit('SPIN:OPEN');
+        // this.akirSpin = useSpin();
         const token = storage.get(CacheKey.ACCESS_TOKEN) as string;
         this.config.useTokenAuthorization && token && (config.headers[HttpHeader.authorization] = token);
         return config;
@@ -83,10 +81,7 @@ export default class Axios {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        if (this.akirSpin) {
-          this.akirSpin.close();
-          this.akirSpin = undefined;
-        }
+        emitter.emit('SPIN:CLOSE');
 
         setRefreshToken(response.headers);
 
@@ -97,10 +92,8 @@ export default class Axios {
         return response;
       },
       async (error: AxiosError) => {
-        if (this.akirSpin) {
-          this.akirSpin.close();
-          this.akirSpin = undefined;
-        }
+        emitter.emit('SPIN:CLOSE');
+
         this.options = { spin: true, message: true };
         const { response: { status, data, headers } = {} as AxiosResponse } = error;
         const { message } = data ?? {};

@@ -15,6 +15,7 @@ export default defineComponent<{}>(() => {
   const computedDisabled = computed(() => {
     const tabIndex = state.tabs.findIndex(tab => tab.key === contextMenuTab.value?.key);
     return {
+      refresh: state.active.key !== contextMenuTab.value?.key,
       closeTab: state.tabs.length === 1,
       closeOther: state.tabs.filter(tab => tab.key !== contextMenuTab.value?.key || tab.key !== state.active.key).length === 0,
       closeLeft: state.tabs.toSpliced(tabIndex).filter(tab => tab.key !== state.active.key).length === 0,
@@ -87,8 +88,8 @@ export default defineComponent<{}>(() => {
       {state.tabs.map(item => (
         <div
           class={[
-            'akir-tab flex justify-center items-center gap-1 pl-4 pr-3 py-2 bg-backdrop2 text-sm shadow-xs rounded-xs cursor-pointer select-none hover:border hover:border-primary4 dark:hover:border-primary5',
-            item.key === state.active.key && 'border border-primary4 bg-primary1 dark:border-primary5 dark:bg-primary3/15 text-primary6',
+            'akir-tab flex justify-center items-center gap-1 pl-3 pr-2 py-2 bg-backdrop2 text-sm shadow-xs rounded-xs cursor-pointer select-none border border-transparent hover:border-primary4 dark:hover:border-primary5',
+            item.key === state.active.key && 'border-primary4! bg-primary1 dark:border-primary5 dark:bg-primary3/15 text-primary6',
           ]}
           onContextmenu={e => handleContextMenu(e, item)}
           onClick={() => handleClick(item.key, item.label)}

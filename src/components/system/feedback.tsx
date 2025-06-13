@@ -1,3 +1,4 @@
+import { AkirSpinInstance } from '@/hooks/types';
 import { emitter, EmitterMessageKey } from '@/plugins';
 
 export default defineComponent<{}>(() => {
@@ -14,6 +15,15 @@ export default defineComponent<{}>(() => {
   ];
 
   emitter.registerAll(keys, ({ content, options }) => message.create(content, options));
+
+  let spin: AkirSpinInstance | null = null;
+  emitter.on('SPIN:OPEN', () => {
+    if (spin) spin.close();
+    spin = useSpin();
+  });
+  emitter.on('SPIN:CLOSE', () => {
+    if (spin) spin.close();
+  });
 
   window.$message = message;
   window.$modal = modal;

@@ -1,11 +1,12 @@
 import { IconChevronsLeft, IconChevronsRight, IconMinus, IconRefresh, IconTransfer, IconX } from '@tabler/icons-vue';
 import { DropdownOption } from 'naive-ui';
 
-type IContextMenuDisabledState = ComputedRef<{ closeTab: boolean; closeOther: boolean; closeLeft: boolean; closeRight: boolean; closeAll: boolean }>;
+type IContextMenuDisabledState = ComputedRef<{ refresh: boolean; closeTab: boolean; closeOther: boolean; closeLeft: boolean; closeRight: boolean; closeAll: boolean }>;
 
 export const tabContextMenuItems = (computedDisabled: IContextMenuDisabledState): DropdownOption[] => [
   {
     key: 'refresh',
+    disabled: computedDisabled.value.refresh,
     icon: () => h(IconRefresh, { size: 18 }),
     label: '刷新当前标签页',
     props: { class: 'px-2' },

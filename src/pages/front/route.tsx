@@ -12,10 +12,10 @@ export default defineComponent(() => {
             <div class="flex justify-center items-center">
               <RouterLink to={{ name: RouteName.HOME }} class="flex justify-between items-center gap-1 font-bold mr-5 hover:text-word1/80">
                 <img class="w-5 h-5" src={Logo} />
-                <span class="font-bold uppercase">akir-vue</span>
+                <span class="font-semibold uppercase">akir-vue</span>
               </RouterLink>
             </div>
-            <main class="xl:flex justify-center items-center gap-3 font-bold opacity-95 hidden">
+            <main class="xl:flex justify-center items-center gap-3 font-medium opacity-95 hidden">
               {topMenus.map(menu => (
                 <RouterLink class="flex items-center gap-1" key={menu.key} to={{ name: menu.key }} activeClass="text-link1">
                   {menu.label}
